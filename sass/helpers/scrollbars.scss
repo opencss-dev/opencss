@@ -1,0 +1,46 @@
+@use  'sass:map';
+
+@if $custom-scrollbar {
+  ::-webkit{
+    &-scrollbar {
+      @each $property, $value in map.get($_default, 'scrollbar') {
+        #{$property}: $value;
+      }
+    }
+
+    &-scrollbar-thumb {
+      background: $primary;
+      @include  border($width: default('borderWidth'), $style: default('borderStyle'), $color: $primary, $radius: default('borderRadius'));
+      
+      &:active {
+        cursor: grabbing;
+      }
+
+      &:hover {
+        cursor: grab;
+      }
+    }
+  }
+}
+
+.scroll {
+  overflow: scroll;
+  
+  &-x {
+    overflow-x: scroll
+  }
+  
+  &-y {
+    overflow-y: scroll
+  }
+
+  @if $custom-scrollbar {
+    &bar {
+      @each $i in (1 2 3 4 5) {
+        &-#{$i}::-webkit-scrollbar {
+          width: $i * 1px
+        }
+      }
+    }
+  }
+}

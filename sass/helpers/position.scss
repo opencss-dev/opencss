@@ -1,0 +1,109 @@
+@use 'sass:map';
+
+$i:     100;
+$unit:  1%;
+$position: (static absolute fixed relative sticky) !default;
+
+$sides: (
+  top: (
+    class: '.top',
+    property: (top),
+    unit: 1vh,
+  ),
+
+  left: (
+    class: '.left',
+    property: (left),
+    unit: 1vw,
+  ),
+
+  bottom: (
+    class: '.bottom',
+    property: (bottom),
+    unit: 1vh,
+  ),
+
+  right: (
+    class: '.right',
+    property: (right),
+    unit: 1vw,
+  ),
+
+  top-left: (
+    class: '.top-left',
+    property: (top left),
+    value: 0,
+  ),
+
+  top-right: (
+    class: '.top-right',
+    property: (top right),
+    value: 0,
+  ),
+
+  bottom-left: (
+    class: '.bottom-left',
+    property: (bottom left),
+    value: 0,
+  ),
+
+  bottom-right: (
+    class: '.bottom-right',
+    property: (bottom right),
+    value: 0,
+  ),
+) !default;
+
+@each $_position in $position {
+  .#{$_position} {
+    position: $_position
+  }
+}
+
+@each $_, $values in $sides {
+  #{map.get($values, class)} {
+    @each $dir in map.get($values, property) {
+      #{$dir}: map.get($values, value)
+    }
+  }
+}
+
+@for $x from 0 through $i {
+  @each $key, $values in $sides {
+
+    $list: ('top-left' 'top-right' 'bottom-left' 'bottom-right' middle);
+
+    @if $key != 'top-left' {
+      @if $key != 'top-right' {
+        @if $key != 'bottom-left' {
+          @if $key != 'bottom-right' {
+            @if $key != 'middle' {
+              #{map.get($values, class)}-#{$x} {
+                @each $dir in map.get($values, property) {
+                  @if map.get($values, unit) {
+                    #{$dir}: map.get($values, unit) * $x;
+                  } @else {
+                    #{$dir}: $unit * $x;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+}
+
+.clearfix {
+  clear: both
+}
+
+.float {
+  &-left {
+    float: left
+  }
+  &-right {
+    float: right
+  }
+}

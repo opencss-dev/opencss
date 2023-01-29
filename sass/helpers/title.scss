@@ -1,0 +1,48 @@
+@use 'sass:map';
+
+$title_bigger : 1;
+$title_smaller: 6;
+
+%title {
+  font: {
+    family: $title-family;
+    weight: default('fontWeight')
+  }
+}
+
+.title {
+  @each $i, $size in map.get($_default, fontSize) {
+    @include each($i) {
+      @if type-of($i)==number {
+        &-#{$i} {
+          font-size: $size;
+          line-height: 1.15;
+        }
+      }
+    }
+  }
+
+}
+
+// Title color
+@include theme-colors('.title');
+
+.h {
+  @each $i, $size in map.get($_default, fontSize) {
+    @include each($i) {
+      @if type-of($i) == number {
+        &#{$i} {
+          font: {
+            size: $size;
+          }
+        }
+      }
+    }
+  }
+}
+
+@for $i from $title_smaller through $title_bigger {
+  .h#{$i} {
+    @extend %title;
+  }
+}

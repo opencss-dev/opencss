@@ -1,0 +1,168 @@
+@use 'sass:map';
+
+$flex_order: (
+  first: -999,
+  last: 999,
+);
+
+$flex_align: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  stretch: stretch,
+);
+
+$flex_justify: (
+  start: flex-start,
+  end: flex-end,
+  center: center,
+  between: space-between,
+  around: space-around,
+  evenly: space-evenly,
+  stretch: stretch,
+);
+
+$flex_direction: (
+  column: column,
+  col-reverse: column-reverse,
+
+  row: row,
+  row-reverse: row-reverse,
+);
+
+$flex_wrap: (
+  wrap: wrap,
+  wrap-reverse: wrap-reverse,
+
+  nowrap: nowrap,
+);
+
+// items
+// Flex items direction
+.flex {
+  @each $key, $direction in $flex_direction {
+    &-#{$key} {
+      flex-direction: $direction
+    }
+  }
+}
+
+// Flex items length
+.flex {
+  @each $key, $value in map.get($_default, 'flexItems') {
+    @if number($key) {
+      &-#{$key} {
+        flex: $value
+      }
+    }
+  }
+}
+
+// Flex content wraps 
+@each $key, $value in $flex_wrap {
+  .flex-#{$key} {
+    flex-wrap: $value
+  }
+
+  @include breakpoint-up(flex-#{$key}) {
+    flex-wrap: $value
+  }
+}
+
+// Flex items alignment
+@each $key, $value in $flex_align {
+  .items-#{$key} {
+    align-items: $value
+  }
+
+  @include breakpoint-up(items-#{$key}) {
+    align-items: $value
+  }
+}
+
+@each $key, $value in $flex_align {
+  .self-#{$key} {
+    align-self: $value
+  }
+
+  @include breakpoint-up(self-#{$key}) {
+    align-self: $value
+  }
+}
+
+
+.flex-row, .row {
+  display: flex;
+    flex-direction: row;
+
+  .col {
+    flex: default('flexItems', auto)
+  }
+}
+
+@include until($_breakpoint-sm) {
+  .flex-row, .row {
+    display: flex;
+      flex-direction: column
+  }
+}
+
+@include until($_breakpoint-md) {
+  .flex-row, .row {
+    flex-wrap: wrap
+  }
+}
+
+.flex-warp {
+  flex-wrap: wrap
+}
+
+// Flex content justify
+@each $key, $value in $flex_justify {
+  .justify-#{$key} {
+    justify-content: $value
+  }
+
+  @include breakpoint-up(justify-#{$key}) {
+    justify-content: $value
+  }
+}
+
+// Flex items justify
+@each $key, $value in $flex_justify {
+  .justify-items {
+    &-#{$key} {
+      justify-items: $value
+    }
+  }
+
+  @include breakpoint-up('justify-items', #{$key}) {
+    justify-items: $value
+  }
+}
+
+// Flex self justify
+@each $key, $value in $flex_justify {
+  .justify-self {
+    &-#{$key} {
+      justify-self: $value
+    }
+  }
+
+  @include breakpoint-up('justify-self', #{$key}) {
+    justify-self: $value
+  }
+}
+
+// Flex items order
+@each $i, $_ in merge(map.get($_default, 'flexItems'), (first: -999, last: 999)) {
+  @include each($i) {
+    .item-#{$i} {
+      order: $i
+    }
+
+    @include breakpoint-up(item-#{$i}) {
+      order: $i
+    }
+  }
+}

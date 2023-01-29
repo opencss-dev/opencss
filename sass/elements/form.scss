@@ -1,0 +1,151 @@
+@use 'sass:map';
+@use 'sass:math';
+
+form {
+  * {
+    font: {
+      size: 100%;
+      weight: default('inputWeight')
+    }
+  }
+
+  background: {
+    color: $white
+  };
+
+  button {
+    &[type=submit] {
+      &:hover {
+        background-color: shade-color($primary, 20%);
+        @include transition-fade()
+      }
+    }
+
+    &:not([class]) {
+      margin: {
+        top: $block-spacing
+      }
+    }
+  }
+
+  input {
+    @extend %make-block;
+    border: {
+      radius: default('borderRadius')
+    };
+    @each $property, $value in default('input') {
+      #{$property}: $value
+    }
+    
+    @include until($_breakpoint-sm) {
+      width: 100%
+    }
+  }
+
+  margin: 0;
+  padding: .25rem;
+  text-align: center;
+  @include border($radius: default('borderRadius'), $overflow: null);
+
+  @include until($_breakpoint-sm) {
+    width: 100%
+  }
+}
+
+.form {
+  &-block {
+    padding: 0 {
+      top: math.div($block-spacing, 2);
+      bottom: math.div($block-spacing, 2)
+    }
+  }
+
+  &-control {
+    @include border($width: default('borderWidth'), $style: default('borderStyle'), $color: default('borderColor'));
+    @include border($radius: default('borderRadius'));
+
+    padding: 1rem {
+      top: .5rem;
+      bottom: .5rem
+    };
+    width: 100%;
+      max-width: auto;
+
+    &:not(:focus):invalid {
+      @include border($color: $warning)
+    }
+  }
+
+  &-label {
+    margin: {
+      bottom: .25rem
+    }
+  }
+
+  &-check {
+    @extend %make-flex__center;
+    &-label {
+      margin: 0 {
+        left: .25rem
+      }
+    }
+  }
+
+  &-select {
+    font: {
+      size: 100%
+    }
+  }
+
+}
+
+.checkbox {
+  @extend .form-check;
+  &-label {
+    margin: 0 {
+      left: .25rem
+    }
+  }
+}
+
+.searchbox {
+  @extend %make-inline-flex;
+  background: {
+    color: default('inputColor', bg-color)
+  };
+  
+  @include border($style: default('borderStyle'));
+  @include border($radius: default('borderRadius'), $overflow: visible !important);
+
+  .form {
+    &-control,
+    &-select {
+      @include border($width: 0, $radius: 0);
+      background: $none
+    }
+  }
+
+  button:not([class]) {
+    color: $primary;
+    background: $none;
+    margin: 0 {};
+    padding: .25em {
+      left: .5em;
+      right: .5em
+    }
+  }
+}
+
+.auto-fill {
+  @each $color, $value in default('colors') {
+    &-#{$color} {
+      &:-webkit-autofill,
+      &:-webkit-autofill:hover, 
+      &:-webkit-autofill:focus {
+        transition: 0ms;
+        -webkit-box-shadow: inset 0 0 0px 1000px $value;
+                box-shadow: inset 0 0 0px 1000px $value
+      }
+    }
+  }
+}

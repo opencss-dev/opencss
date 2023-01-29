@@ -1,0 +1,221 @@
+@import 'brandcolors';
+
+// Background
+// = Colors =================
+@include theme-colors(('.bg' '.text-bg'), background-color, $merge: ('transparent': $transparent));
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(bg-#{$color}) {
+    @include background($color: $value)
+  }
+
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(bg-#{$color}, $shade) {
+      @include background($color: shade-color($value, $weight))
+    }
+  }
+}
+
+.bg-none {
+  background: none
+}
+
+@include create-pseudo-variant-of(bg-none) {
+  background: none !important
+}
+
+@each $brand, $color in $brandcolors {
+  // Fa-brands
+  .bg-brands-#{$brand} {
+    background: $color
+  }
+
+  @include create-pseudo-variant-of(bg-brands-#{$brand}) {
+    background: $color
+  }
+}
+
+// = Size ===================
+@each $bg_size in default('background', size) {
+  .bg-#{$bg_size} {
+    @if $bg_size == 'cover' {
+      @include background($size: $bg_size)
+    } @else {
+      @include background($size: $bg_size)
+    }
+  }
+
+  @include breakpoint-up(bg-#{$bg_size}) {
+    @if $bg_size == 'cover' {
+      @include background($size: $bg_size)
+    } @else {
+      @include background($size: $bg_size)
+    }
+  }
+  
+  @include create-pseudo-variant-of(bg-#{$bg_size}) {
+    @include background($size: $bg_size)
+  }
+}
+
+// = Repeat =================
+@each $bg_repeat in default('background', repeat) {
+  .bg-#{$bg_repeat} {
+    @include background($repeat: $bg_repeat)
+  }
+
+  @include breakpoint-up(bg-#{$bg_repeat}) {
+    @include background($repeat: $bg_repeat)
+  }
+}
+
+// = Attachment =============
+@each $bg_attach in default('background', attachment) {
+  .bg-#{$bg_attach} {
+    @include background($attach: $bg_attach)
+  }
+
+  @include breakpoint-up(bg-#{$bg_attach}) {
+    @include background($attach: $bg_attach)
+  }
+}
+
+// = Gradiant ===============
+.bg {
+  @each $color, $value in $theme-colors {
+    &-gradient {
+      background: linear-gradient($none, $black);
+
+      &.from {
+        &-#{$color} {
+          background: linear-gradient($value, $none);
+
+          // from-to
+          @each $stop, $stop-color in $theme-colors {
+            &.to-#{$stop} {
+              background: linear-gradient($value, $stop-color)
+            }
+          }
+
+          // from-via
+          @each $via, $via-color in $theme-colors {
+            &.via-#{$via} {
+              background: linear-gradient($value, $via-color, $none)
+            }
+          }
+
+          // from-via-to
+          @each $via, $via-color in $theme-colors {
+            &.via-#{$via} {
+              @each $stop, $stop-color in $theme-colors {
+                &.to-#{$stop} {
+                  background: linear-gradient($value, $via-color, $stop-color)
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.to {
+        &-#{$color} {
+          background: linear-gradient($none, $value);
+
+          // from-via
+          @each $via, $via-color in $theme-colors {
+            &.via-#{$via} {
+              background: linear-gradient($none, $via-color, $value)
+            }
+          }
+        }
+      }
+
+      @each $side, $side_value in default('borderSide') {
+        &-#{$side} {
+          background: linear-gradient($side, $none, $black);
+          &.from {
+            &-#{$color} {
+              background: linear-gradient(to $side_value, $value, $none);
+
+              // from-to
+              @each $stop, $stop-color in $theme-colors {
+                &.to-#{$stop} {
+                  background: linear-gradient(to $side_value, $value, $stop-color)
+                }
+              }
+
+              // from-via
+              @each $via, $via-color in $theme-colors {
+                &.via-#{$via} {
+                  background: linear-gradient(to $side_value, $value, $via-color, $none)
+                }
+              }
+
+              // from-via-to
+              @each $via, $via-color in $theme-colors {
+                &.via-#{$via} {
+                  @each $stop, $stop-color in $theme-colors {
+                    &.to-#{$stop} {
+                      background: linear-gradient(to $side_value, $value, $via-color, $stop-color)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.to {
+            &-#{$color} {
+              background: linear-gradient(to $side_value, $none, $value);
+
+              // from-via
+              @each $via, $via-color in $theme-colors {
+                &.via-#{$via} {
+                  background: linear-gradient(to $side_value, $none, $via-color, $value)
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// = Misc ===================
+// Color opacity
+@each $color, $value in $theme-colors {
+  @each $opacity, $alpha in default('opacity') { 
+    .bg-#{$color + '.bg-opacity-' + $opacity} {
+      @include background($color: to-rgba($value, $alpha * 100%))
+    }
+  }
+}
+
+$bg-position: (
+  top     :top,
+  right   :right,
+  bottom  :bottom,
+  left    :left,
+  center  :center,
+
+  top-right: (top right),
+  top-left: (top right),
+
+  center-right: (center right),
+  center-left: (center right),
+
+  bottom-right: (bottom right),
+  bottom-left: (bottom right)
+);
+
+@each $position, $value in $bg-position {
+  .bg-#{$position} {
+    background-position: $value
+  }
+
+  @include breakpoint-up(bg-#{$position}) {
+    background-position: $value
+  }
+}
+

@@ -1,0 +1,239 @@
+@use 'sass:map';
+
+// = Border ===================
+.bordered, .border {
+  @include border($width: default('borderWidth'), $style: default('borderStyle'), $color: map.get($_default, 'borderColor'))
+}
+
+// Width
+@each $width, $value in map.get($_default, 'borderWidth') {
+  @if number($width) {
+    .border-#{$width} {
+      @include border($width: $value)
+    }
+
+    // Sides.
+    @each $side, $values in default('borderSide') {
+      .border-#{$side + '-' + $width} {
+        @each $var in $values {
+          @include border($side: $var, $width: $value)
+        }
+      }
+
+      @include create-pseudo-variant-of(border-#{$side + '-' + $width}) {
+        @each $var in $values {
+          @include border($side: $var, $width: $value)
+        }
+      }
+    }
+  }
+}
+
+// Color
+@include theme-colors('.border', border-color);
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(border-#{$color}) {
+    @include border($color: $value, $width: null, $style: null)
+  }
+
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(border-#{$color}, $shade) {
+      @include border($color: shade-color($value, $weight), $width: null, $style: null)
+    }
+  }
+}
+
+// Style
+@each $style, $value in map.get($_default, 'borderStyle') {
+  @include each($style) {
+    .#{$style} {
+      border-style: unquote($value);
+      &:not([class*=border-]) {
+        border: default('borderWidth') unquote($value) map.get($_default, 'borderColor')
+      }
+    }
+
+    @include create-pseudo-variant-of(#{$style}) {
+      border: default('borderWidth') unquote($value) map.get($_default, 'borderColor')
+    }
+  }
+}
+
+.no-border {
+  @include border($width: default('borderWidth', 0), $style: none)
+}
+
+@include create-pseudo-variant-of(no-border) {
+  @include border($width: default('borderWidth', 0), $style: none)
+}
+
+// Rounded - radius
+$rounded-corner: (
+  tl  : border-top-left-radius,
+  tr  : border-top-right-radius,
+  bl  : border-bottom-left-radius,
+  br  : border-bottom-right-radius
+);
+
+$rounded-side: (
+  t : border-top-left-radius border-top-right-radius,
+  r : border-top-right-radius border-bottom-right-radius,
+  l : border-bottom-left-radius border-top-left-radius,
+  b : border-bottom-left-radius border-bottom-right-radius
+);
+
+.rounded {
+  border: {
+    radius: default('borderRadius')
+  }
+
+  overflow: hidden
+}
+
+@each $side, $properties in $rounded-side {
+  .rounded-#{$side} {
+    @each $property in $properties {
+      #{$property}: default('borderRadius');
+    }
+    overflow: hidden
+  }
+}
+
+@each $corner, $property in $rounded-corner {
+  .rounded-#{$corner} {
+    #{$property}: default('borderRadius');
+  }
+
+  @include create-pseudo-variant-of(#{rounded- + $corner}) {
+    #{$property}: default('borderRadius')
+  }
+}
+
+@each $radius, $value in map.get($_default, borderRadius) {
+  // Rounded
+  @include each($radius) {
+    .rounded-#{$radius} {
+      border: {
+        radius: $value
+      }
+      overflow: hidden
+    }
+
+    @include create-pseudo-variant-of(rounded-#{$radius}) {
+      border: {
+        radius: $value
+      }
+    }
+  }
+
+  // Rounded corner
+  @include each($radius) {
+    @each $corner, $property in $rounded-corner {
+      .rounded-#{$corner + '-' + $radius} {
+        #{$property}: $value
+      }
+
+      @include create-pseudo-variant-of(rounded-#{$corner + '-' + $radius}) {
+        #{$property}: $value
+      }
+    }
+
+    // Roounded corner sides
+    @each $side, $properties in $rounded-side {
+      .rounded-#{$side + '-' + $radius} {
+        @each $property in $properties {
+          #{$property}: $value
+        }
+      }
+
+      .rounded-#{$side + '-' + $radius} {
+        @each $property in $properties {
+          #{$property}: $value
+        }
+      }
+      
+      @include create-pseudo-variant-of(rounded-#{$side + '-' + $radius}) {
+        @each $property in $properties {
+          #{$property}: $value
+        }      
+      }
+    }
+  }
+}
+
+@each $side, $properties in $rounded-side {
+  .rounded-#{$side} {
+    @each $property in $properties {
+      #{$property}: default('borderRadius')
+    }
+  }
+
+  @include create-pseudo-variant-of(rounded-#{$side}) {
+    @each $property in $properties {
+      #{$property}: default('borderRadius')
+    }
+  }
+}
+
+// 
+// = Outline =================
+.outline {
+  @include outline($width: default('outlineWidth'), $color: map.get($_default, 'outlineColor'), $style: default('outlineStyle'));
+  // Width
+  @each $width, $value in map.get($_default, 'outlineWidth') {
+    @if number($width) {
+      &-#{$width} {
+        @include outline($width: $value, $color: null, $style: null)
+      }
+    }
+  }
+}
+
+[class*=outline-] {
+  @include outline($width: null, $color: null, $style: default('outlineStyle'));
+}
+
+// Color
+@if $enable-outline {
+  @include theme-colors('.outline', outline-color);
+
+  @each $color, $value in $theme-colors {
+    @include create-pseudo-variant-of(outline-#{$color}) {
+      @include outline($color: $value, $width: null, $style: null)
+    }
+
+    @each $shade, $weight in default('darken') {
+      @include create-pseudo-variant-of(outline-#{$color}, $shade) {
+        @include outline($color: shade-color($value, $weight), $width: null, $style: null)
+      }
+    }
+  }
+} @else {
+  @include theme-colors('.outline', border-color);
+
+  @each $color, $value in $theme-colors {
+    @include create-pseudo-variant-of(outline-#{$color}) {
+      @include outline($color: $value, $width: null, $style: null)
+    }
+
+    @each $shade, $weight in default('darken') {
+      @include create-pseudo-variant-of(outline-#{$color}, $shade) {
+        @include outline($color: shade-color($value, $weight), $width: null, $style: null)
+      }
+    }
+  }
+}
+
+// Width
+@each $width, $value in map.get($_default, 'outlineWidth') {
+  @if number($width) {
+    @include create-pseudo-variant-of(outline-#{$width}) {
+      @include outline($width: $value, $color: null, $style: null)
+    }
+  }
+}
+
+.no-outline {
+  @include outline($width: default('borderWidth', 0), $color: null, $style: none !important)
+}

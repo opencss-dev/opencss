@@ -1,0 +1,620 @@
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:map';
+
+$as: '\\:';
+
+@mixin overlay($offset: 0) {
+  position: absolute;
+  top:      $offset;
+  right:    $offset;
+  bottom:   $offset;
+  left:     $offset;
+}
+
+// Position
+@mixin absolute($top: null, $right: null, $bottom: null, $left: null) {
+  position: absolute;
+  top:      $top;
+  right:    $right;
+  bottom:   $bottom;
+  left:     $left;
+
+  @content;
+}
+
+@mixin fixed($top: null, $right: null, $bottom: null, $left: null) {
+  position: fixed;
+  top:      $top;
+  right:    $right;
+  bottom:   $bottom;
+  left:     $left;
+
+  @content;
+}
+
+@mixin sticky($top: null, $right: null, $bottom: null, $left: null) {
+  position: sticky;
+  top:      $top;
+  right:    $right;
+  bottom:   $bottom;
+  left:     $left;
+
+  @content;
+}
+
+@mixin position($top: null, $right: null, $bottom: null, $left: null) {
+  top:      $top;
+  right:    $right;
+  bottom:   $bottom;
+  left:     $left;
+
+  @content;
+}
+
+@mixin transition($property: all, $time: .2s, $ease: ease) {
+  transition: $property $time $ease;
+}
+
+@mixin transition-fade() {
+  transition: map.get($_default, transition-fade);
+}
+
+@mixin clearfix {
+  &::after {
+    clear: both;
+    content: '';
+    display: table
+  }
+}
+
+@mixin animation($prefix: '', $name, $duration: 1s, $iteration: null, $timing: null) {
+  .#{$prefix + $name} {
+    animation: {
+      name: #{$name};
+      duration: $duration;
+      iteration-count: $iteration;
+      timing-function: $timing;
+    }
+  }
+
+  @include create-pseudo-variant-of(#{$prefix + $name}) {
+    animation: {
+      name: #{$name};
+      duration: $duration;
+      iteration-count: $iteration;
+      timing-function: $timing;
+    }    
+  }
+}
+
+// Border
+@mixin caret($side, $color: $current, $width: 5px, $style: solid) {
+  &::before {
+    content: '';
+    @if $side == 'top' {
+      @include border($color: transparent transparent $color transparent, $width: $width, $style: $style)
+    } @else if $side == 'right' {
+      @include border($color: transparent transparent transparent $color, $width: $width, $style: $style)
+    } @else if $side == 'bottom' {
+      @include border($color: $color transparent transparent transparent, $width: $width, $style: $style)
+    } @else if $side == 'left' {
+      @include border($color: transparent $color transparent transparent, $width: $width, $style: $style)
+    }
+
+    @content;
+  }
+}
+
+@mixin outline($width: default('outlineWidth'), $style: default('outlineStyle'), $color: map.get($_default, outlineColor), $overflow: hidden) {
+  @if $enable-outline {
+    outline: {
+      width: $width;
+      style: solid;
+      color: $primary
+    }
+  } @else {
+    @include border($width: $width, $style: $style, $color: $color, $overflow: $overflow)
+  }
+}
+
+@mixin border($side: null, $width: null, $style: null, $color: null, $radius: null, $overflow: hidden, $reset: false) {
+  $border-property-list: ('width': $width, 'style': $style, 'color': $color, 'radius': $radius);
+  @if $side {
+    @if $reset {
+      border-#{$side}: 0
+    } @else {
+      @each $property, $value in $border-property-list {
+        @each $border_side in $side {
+          border: {
+            #{$border_side}-#{$property}: $value
+          }       
+        }
+
+        @if $radius {
+          overflow: $overflow
+        }
+      }
+    }
+  } @else {
+    @each $property, $value in $border-property-list {
+      @if $property {
+        border-#{$property}: $value
+      }
+    }
+
+    @if $radius {
+      overflow: $overflow
+    }
+  }
+}
+
+// Background
+@mixin background($attach: null, $color: null, $repeat: null, $size: null, $url: null, $position: null) {
+  $background-property-list: ('attachment': $attach, 'color': $color, 'repeat': $repeat, 'size': $size, 'position': $position, 'url': $url);
+
+  @each $property, $value in $background-property-list {
+    @if $property {
+      @if $property == 'url' {
+        @if $value {
+          background-image: url($value)
+        }
+      } @else {
+        background-#{$property}: $value
+      }
+    } 
+  }
+}
+
+// Button
+@mixin button($color: $white, $bg-color: $primary, $cursor: pointer, $border-color: $none, $border-width: default(borderWidth), $border-style: default('borderStyle'), $border-radius: default(borderRadius)) {
+  @extend %make-inline-flex__center;
+
+  @include border($color: $border-color,$width: $border-width, $style: $border-style, $radius: $border-radius);
+
+  cursor: $cursor;
+  gap: .25em;
+  
+  color: $color;
+  background-color: $bg-color;
+
+  @each $property, $value in map.get($_default, button) {
+    #{$property}: $value
+  }
+
+  text-decoration: none;
+  text-transform: capitalize;
+
+  width: auto;
+  min-width: fit-content;
+
+  user-select: none;
+
+  &:active,
+  &:hover {
+    @include transition()
+  }
+}
+
+// Shadow
+@mixin box-shadow($bottom: 2px, $right: 2px, $opacity: 5px, $color: to-rgba($black, 20%), $style: null) {
+  @if $style != null {
+    box-shadow: $style $right $bottom $opacity $color
+  } @else {
+    box-shadow: $right $bottom $opacity $color
+  }
+}
+
+@mixin text-shadow($bottom: 2px, $right: 2px, $opacity: 5px, $color: $current, $style: null) {
+  @if $style != null {
+    text-shadow: $style $right $bottom $opacity $color
+  } @else {
+    text-shadow: $right $bottom $opacity $color
+  }
+}
+
+@mixin title {
+  h1, h2, h3, h4, h5, h6,
+  .title {
+    @content;
+  }
+}
+
+@mixin --last-rule {
+  h1, h2, h3, h4, h5, h6, p {
+    &:last-of-type {
+      margin: 0
+    }
+  }
+
+  &:only-child {
+    margin: 0
+  }
+
+  @content;
+}
+
+@mixin line($clamp, $height: default('lineHeight'), $overflow: hidden, $truncate: ellipsis, $padding: null, $padding-x: null, $padding-y: null) {
+  display: -webkit-box;
+  -webkit-line-clamp: $clamp;
+  -webkit-box-orient: vertical;
+
+  @if $padding {
+    height: rem(($height * $clamp)) + ($padding * 2);
+    width: rem(($height * $clamp)) + ($padding * 2)
+
+  } @else if $padding-x {
+    width: rem(($height * $clamp)) + ($padding-x * 2)
+
+  } @else if $padding-y {
+    height: rem(($height * $clamp)) + ($padding-y * 2)
+
+  } @else {
+    height: rem(($height * $clamp))
+
+  }
+  max-height: fit-content;
+
+  line-height: $height;
+
+  overflow: $overflow;
+  text-overflow: $truncate
+}
+
+@mixin ellipsis() {
+  overflow: hidden;
+  text-overflow: ellipsis
+}
+
+@mixin divider($side, $width: 100%, $opacity: 10%, $offset: 0, $style: solid, $color: $current) {
+  position: relative;
+  @if $side == overline {
+    $side: '::before'
+  } @else {
+    $side: '::after'
+  }
+  
+  &#{$side} {
+    content: '';
+    opacity: $opacity;
+    height: default('borderStyle');
+    width: $width;
+
+    @include absolute($left: $offset) {
+      z-index: 1
+    };
+    
+    @if $side == overline {
+      @include border(top, 1px, $style, $color)
+    } @else {
+      @include border(bottom, 1px, $style, $color)
+    }
+  }
+}
+
+@mixin list-divider($side, $selector: 'li', $width: 100%, $opacity: 10%, $offset: 0, $style: solid, $color: $current) {
+  @if $side == 'before' {
+    $side: '::before'
+  } @else {
+    $side: '::after'
+  }
+  
+  & > #{$selector} {
+    position: relative
+  }
+
+  & > #{$selector+$side} {
+    content: '';
+    opacity: 10%;
+    height: default('borderStyle');
+    width: 80%;
+
+    @include absolute($left: 10%, $top: 0) {
+      z-index: 1
+    };
+    
+    @if $side == 'before' {
+      @include border(top, 1px, $style, $color)
+    } @else {
+      @include border(bottom, 1px, $style, $color)
+    }
+  }
+}
+
+@mixin each($expr, $except: DEFAULT) {
+  @each $esc in $except {
+    @if $expr != $esc {
+      @content;
+    }
+  }
+}
+
+@mixin theme-colors($parents, $property: color, $merge: null) {
+  @each $parent in $parents {
+    @if $merge {
+      @each $color, $value in merge($theme-colors, $merge) {
+        #{$parent + '-' + $color} {
+          #{$property}: $value;
+          @content;
+          @include shade-color($property, $value)
+        }
+
+        @include create-pseudo-variant-of(#{$parent + '-' + $color}) {
+          @content;
+        }
+      }
+    } @else {
+      @each $color, $value in $theme-colors {
+        #{$parent + '-' + $color} {
+          #{$property}: $value;
+          @include shade-color($property, $value);
+          @content;
+        }
+
+        @include create-pseudo-variant-of(#{$parent + '-' + $color}) {
+          @content;
+        }
+      }
+    }    
+  }
+}
+
+@mixin shade-color($property: null, $value: null) {
+  @if $property and $value {
+    @each $shade, $weight in default('darken') {
+      &-#{$shade} {
+        #{$property}: shade-color($value, $weight);
+        @content;
+      }
+    }
+  }
+}
+
+@mixin dimissable($color: $black, $bg-color: $none, $radius: 50%, $ratio: 1) {
+  .btn {
+    &-close {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+
+      box-sizing: content-box;
+
+      width: 1em * $ratio;
+      height: 1em * $ratio;
+
+      padding: 0.25em 0.25em;
+
+      color: $color;
+      background: $bg-color;
+
+      border: 0;
+      border-radius: $radius;
+
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.75
+      }
+    }
+  }
+}
+
+@mixin navigation($class, $color: $current, $hover: $primary, $size: 100%, $weight: normal, $spacing: 1rem, $decoration: none) {
+
+  color: $current;
+  
+  font: {
+    size: $size;
+    weight: $weight
+  }
+
+  vertical-align: baseline;
+
+  @content;
+
+  // Flex navigation
+  &.flex, &.inline-flex {
+    align-items: center;
+    gap: $spacing;
+
+    .#{$class} {          
+      &-item, &-link {
+        margin: 0 {}
+      }
+    }
+  }
+  
+  &-item, &-link {
+    margin: 0 {
+      left: $spacing
+    };
+
+    text-decoration: $decoration;
+    
+    .#{$class}-link {
+      width: 100%
+    }
+
+    &:not([class]):not([href]) {
+      display: none
+    }
+
+    &.active {
+      color: $hover
+    }
+  }
+
+  &-link {
+    color: $current;
+    &:hover {
+      color: $hover
+    }
+  }
+}
+
+@mixin dropdown($type: dropdown, $color: default('dropdownColor'), $bg-color: default('dropdownBg')) {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+
+  &.hoverable:hover > &-content:first-of-type {
+      display: block;
+      z-index: 2;
+      @include transition()
+  }
+
+  // Content
+  &-content {
+    &:not(.show) {
+      display: none
+    }
+
+    background-color: $bg-color;
+
+    width: 100%;
+      min-width: max-content;
+    height: fit-content;
+    
+    @include absolute() {
+      z-index: 1
+    };
+
+    @include border(top, $color: $primary, $style: default('borderStyle'), $width: 3px );
+    @include box-shadow($bottom: 3px);
+    @include transition-fade();
+
+    &:hover{
+      @include transition-fade();
+      & li:hover, & li *:hover {
+        color: $color
+      }
+
+      & > li:hover {
+        background-color: shade-color($bg-color, 10%)
+      }
+    }
+
+    // Content border
+    $border-side: (
+      '.border-top': top,
+      '.border-right': right,
+      '.border-bottom': bottom,
+      '.border-left': left,
+    );
+
+    @each $class, $side in $border-side {
+      &#{$class} {
+        @include border($side, $color: $primary, $style: default(borderStyle), $width: 3px)
+      }
+    }
+  }
+}
+
+@mixin create-pseudo-variant-of($class, $flag: null) {
+  @if $flag {
+    .active\:#{$class + '-' + $flag}:active,
+    .focus\:#{$class + '-' + $flag}:focus,
+    .hover\:#{$class + '-' + $flag}:hover {
+      @content;
+    }
+  } @else {
+    .active\:#{$class}:active,
+    .focus\:#{$class}:focus,
+    .hover\:#{$class}:hover {
+      @content;
+    }
+  }
+}
+
+@mixin create-new-variant-of($property, $value) {
+  @each $var in $property {
+    .#{$var + $as + $value} {
+      @content;
+    }
+  }
+}
+
+@mixin filter($effect) {
+  @each $key, $value in map.get($_default, $effect) {
+    @include each($key) {
+      .#{$effect + '-' + $key} {
+        filter: $effect + '(' + $value + ')'
+      }
+      
+      @include create-pseudo-variant-of(#{$effect + '-' + $key}) {
+        filter: $effect + '(' + $value + ')'
+      }
+    }
+  }
+}
+
+@mixin backdrop($effect) {
+  @each $key, $value in map.get($_default, $effect) {
+    @include each($key) {
+      .backdrop-#{$effect + '-' + $key} {
+        backdrop-filter: $effect + '(' + $value + ')'
+      }
+      
+      @include create-pseudo-variant-of(backdrop-#{$effect + '-' + $key}) {
+        backdrop-filter: $effect + '(' + $value + ')'
+      }
+    }
+  }
+}
+
+// @breakpoint =============================================
+// Responsiveness
+// min-width
+@mixin from ($device) {
+  @media screen and (min-width: $device) {
+    @content;
+  }
+}
+
+// max-width
+@mixin until ($device) {
+  @media screen and (max-width: $device) {
+    @content;
+  }  
+}
+
+// between
+@mixin between ($min, $max) {
+  @media screen and (min-width: $min) and (max-width: $max) {
+    @content;
+  }  
+}
+
+@mixin breakpoint-up ($property, $value: null) {
+  @each $device, $viewport in $breakpoint { 
+    @include until($viewport) {
+      @if $value {
+        #{'.' + $device + $as + $property + '-' + $value} {
+          @content;
+        }
+      }
+      @else {
+        #{'.' + $device + $as + $property} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+@mixin breakpoint-down($property, $value: null) {
+  @each $device, $viewport in $breakpoint {
+    @include from($viewport) {
+      @if $value {
+        #{'.' + $device + $as + $property + '-' + $value } {
+          @content;
+        }
+      }
+      @else {
+        #{'.' + $device + $as + $property} {
+          @content;
+        }
+      }
+    }
+  }
+}

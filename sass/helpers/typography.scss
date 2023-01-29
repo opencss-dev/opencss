@@ -1,0 +1,124 @@
+@use 'sass:map';
+@use 'sass:math';
+
+// @font-face: 
+@font-face {
+  font-display: block;
+  font-family: 'Roboto', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+
+  src: url('#{$webfonts_path}/googlefonts/roboto/regular.ttf')
+}
+
+@font-face {
+  font-display: block;
+  font-family: 'Ubuntu', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+
+  src: url('#{$webfonts_path}/googlefonts/ubuntu/regular.ttf')
+}
+
+@font-face {
+  font-display: block;
+  font-family: Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+
+  src: url('#{$webfonts_path}/helvetica/regular.ttf')
+}
+
+@font-face {
+  font-display: block;
+  font-family: verdana, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+
+  src: url('#{$webfonts_path}/verdana/regular.ttf')
+}
+
+@each $font_family, $value in $font_face {
+  @include create-new-variant-of(font, $font_family) {
+    font-family: $value
+  }
+}
+
+// @fontawessome
+@if $fa_minify {
+  @import url('#{$webfonts_path}/fontawesome/css/all.min.css');
+} 
+@else {
+  @import url('#{$webfonts_path}/fontawesome/css/all.css');
+}
+
+// Typography
+@each $i, $size in merge(map.get($_default, fontSize), ('small': small, 'smaller': smaller, 'x-small': x-small, 'xx-small': xx-small, 'large': large, 'x-large': x-large, 'xx-large': xx-large, 'larger': larger, 'medium': medium)) {
+  @include each($i) {
+    @if type-of($i) == number {
+      .fs-#{$i} {
+        font-size: $size 
+      }
+
+      @include create-pseudo-variant-of(fs-#{$i}) {
+        font-size: $size
+      }
+    } @else {
+      .#{$i} {
+        font-size: $size
+      }
+
+      @include create-pseudo-variant-of(#{$i}) {
+        font-size: $size
+      }
+    }
+  }
+}
+
+@each $i in $font-utility {
+  @include create-new-variant-of(font, $i) {
+    font-size: $i + pt;
+  }
+}
+
+@each $i, $size in merge(map.get($_default, fontSize), ('small': small, 'smaller': smaller, 'x-small': x-small, 'xx-small': xx-small, 'large': large, 'x-large': x-large, 'xx-large': xx-large, 'larger': larger, 'medium': medium)) {
+  @include each($i) {
+    @if type-of($i) == number {
+      q.qs-#{$i} {
+        &::before, &::after {
+          font-size: $size;
+          line-height: normal
+        }
+      }      
+    }
+  }
+}
+
+@each $i, $weight in map.get($_default, fontWeight) {
+  @include each($i) {
+    .fw-#{$i} {
+      font-weight: $weight
+    }
+    
+    @include create-pseudo-variant-of(fw-#{$i}) {
+      font-weight: $weight
+    }
+  }  
+}
+
+@each $key, $style in map.get($_default, fontStyle) {
+  .#{$key} {
+    font-style: $style
+  }
+    
+  @include create-pseudo-variant-of(#{$key}) {
+    font-style: $style
+  }
+}
+
+.code, .monospace {
+  font: {
+    family: unquote($monospace);
+    size: 97.3%
+  }
+}

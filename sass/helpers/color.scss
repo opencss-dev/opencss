@@ -1,0 +1,38 @@
+@use 'sass:color';
+
+@each $color, $value in $theme-colors {
+  .fg-#{$color} {
+    color: $value;
+    @include shade-color(color, $value)
+  }
+
+  // 
+  @include create-pseudo-variant-of(fg-#{$color}) {
+    color: $value
+  }
+
+  // 
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(fg-#{$color}, $shade) {
+      color: shade-color($value, $weight)
+    }
+  }
+}
+
+// Fa-brands color
+@each $brand, $color in $brandcolors {
+  .bc-#{$brand} {
+    color: $color
+  }
+
+  @include create-pseudo-variant-of(bc-#{$brand}) {
+    color: $color
+  }
+}
+
+@include theme-colors('.bc');
+
+// Misc
+.currentColor {
+  color: currentColor
+}

@@ -1,0 +1,49 @@
+@use 'sass:map';
+@use 'sass:math';
+
+section {
+  @include background($size: cover, $repeat: no-repeat);
+  padding: {
+    left : $section-padding-x;
+    right: $section-padding-x;
+  };
+
+  overflow: hidden;
+  width: 100%;
+
+  &.section-min-height {
+    @extend %make-flex;
+    flex-direction: column;
+
+    &:not([height]) {
+      min-height: default('layoutSection', min)
+    }
+  }
+
+  &.fit-screen {
+    @extend %make-flex;
+    flex-direction: column;
+    justify-content: space-evenly
+  }
+
+  &.stretch {
+    padding: 0 {
+      left:  0;
+      right: 0
+    }
+  }
+}
+
+.inner-section {
+  @extend %make-flex__center;
+  
+  width: 100%;
+  
+  div {
+    flex: 1
+  }
+  
+  > .col {
+    align-self: stretch
+  }
+}

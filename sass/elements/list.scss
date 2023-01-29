@@ -1,0 +1,61 @@
+$ol_style: (
+  decimal               : decimal,
+  decimal-leading-zero  : decimal-leading-zero,
+  
+  lower-alpha           : lower-alpha,
+  lower-greek           : lower-greek,
+  lower-latin           : lower-latin,
+  lower-roman           : lower-roman,
+  
+  upper-alpha           : upper-alpha,
+  upper-latin           : upper-latin,
+  upper-roman           : upper-roman,
+  
+  armenian              : armenian,
+  cjk-ideographic       : cjk-ideographic,
+  georgian              : georgian,
+  hebrew                : hebrew,
+  hiragana              : hiragana,
+  hiragana-iroha        : hiragana-iroha,
+  katakana              : katakana,
+  katakana-iroha        : katakana-iroha,
+);
+
+$ul_style: (
+  circle                : circle,
+  disc                  : disc,
+  square                : square,
+);
+
+ol {
+  @each $list, $marker in $ol_style {
+    &.#{$list} {
+      list-style-type: $marker
+    }
+  }
+}
+
+ul {
+  @each $list, $marker in $ul_style {
+    &.list {
+      &-#{$list} {
+        list-style-type: $marker
+      }
+    }
+  }
+}
+
+.list {
+  &-none {
+    list-style-type: none
+  }
+
+  &-icon {
+    list-style-type: none;
+
+    li {
+      display: inline-flex;
+        align-items: center
+    }
+  }
+}

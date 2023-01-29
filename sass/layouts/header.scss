@@ -1,0 +1,22 @@
+@use 'sass:map';
+
+header {
+  display: flex;
+    align-items: center;
+    
+  h {
+    @for $i from 1 through 6 {
+      &#{$i} {
+        color: inherit;
+        margin: {
+          top: 0;
+          bottom: 0
+        }
+      }
+    }
+  }
+
+  &.bg-none {
+    background-color: $none;
+  }
+}

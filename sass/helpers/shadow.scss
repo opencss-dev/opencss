@@ -1,0 +1,78 @@
+@import '../utilities/mixins';
+@import '../utilities/functions';
+
+.box-shadow {
+  @include box-shadow();
+
+  &-in {
+    @include box-shadow($style: inset, $bottom: 0px, $right: 0px);
+    
+    @each $color, $value in $theme-colors {
+      &-#{$color} {
+        @include box-shadow($style: inset, $bottom: 0px, $right: 0px, $color: $value)
+      }
+    }
+  }
+
+  &-out {
+    @include box-shadow($bottom: 0px, $right: 0px);
+    
+    @each $color, $value in $theme-colors {
+      &-#{$color} {
+        @include box-shadow($bottom: 0px, $right: 0px, $color: $value)
+      }
+    }
+  }
+    
+  @each $color, $value in $theme-colors {
+    &-#{$color} {
+      @include box-shadow($color: $value)
+    }
+  }
+}
+
+// 
+@include create-pseudo-variant-of(box-shadow) {
+  @include box-shadow()
+}
+
+// 
+@include create-pseudo-variant-of(box-shadow-in) {
+  @include box-shadow($style: inset, $bottom: 0px, $right: 0px)
+}
+
+@include create-pseudo-variant-of(box-shadow-out) {
+  @include box-shadow($bottom: 0px, $right: 0px)
+}
+
+// 
+@each $color, $value in $theme-colors {
+
+  @include create-pseudo-variant-of(box-shadow-#{$color}) {
+    @include box-shadow($color: $value)
+  }
+
+  @include create-pseudo-variant-of(box-shadow-in, $color) {
+    @include box-shadow($style: inset, $bottom: 0px, $right: 0px, $color: $value)
+  }
+
+  @include create-pseudo-variant-of(box-shadow-out, $color) {
+    @include box-shadow($bottom: 0px, $right: 0px, $color: $value)
+  }
+}
+
+// Text
+.text-shadow {
+  @include text-shadow()
+}
+
+@include create-pseudo-variant-of(text-shadow) {
+  @include text-shadow()
+}
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(text-shadow-#{$color}) {
+    @include text-shadow($color: $value)
+  }
+}
+

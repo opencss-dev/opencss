@@ -1,0 +1,139 @@
+@use 'sass:map';
+
+$text: (
+  align: (left center right justify start end),
+
+  decoration-line: (
+    'underline': underline,
+    'overline': overline,
+    'deleted': deleted,
+    'strike': line-through,
+    'd-none': none,
+  ),
+
+  decoration-color: $theme-colors,
+  decoration-style: (solid double dotted dashed wavy),
+
+  transform: (
+    'uppercase': uppercase,
+    'lowercase': lowercase,
+    'capitalize': capitalize,
+    'normal-case': none,
+  )
+);
+
+.align {
+  &-auto {
+    vertical-align: auto
+  }
+
+  &-baseline {
+    vertical-align: baseline
+  }
+
+  &-middle {
+    vertical-align: top
+  }
+
+  &-middle {
+    vertical-align: middle
+  }
+  
+  &-bottom {
+    vertical-align: bottom
+  }
+}
+
+.text {
+  font-size: 1rem;
+  font-weight: inherit;
+
+  // Text truncate
+  &-ellipsis {
+    text-overflow: ellipsis
+  }
+}
+  
+// Text align
+@each $align in map.get($text, align) {
+  .text-#{$align} {
+    text-align: $align
+  }
+
+  @include breakpoint-up(text-#{$align}) {
+    text-align: $align
+  }
+}
+
+// Text color
+@include theme-colors('.text');
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(text-#{$color}) {
+    color: $value
+  }
+
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(text-#{$color}, $shade) {
+      color: shade-color($value, $weight)
+    }
+  }
+}
+
+.center {
+  text-align: center
+}
+
+@include breakpoint-up('center') {
+  text-align: center
+}
+
+@for $i from 1 through 6 {
+  .line-clamp-#{$i} {
+    @include line($clamp: ($i))
+  }
+  
+  @include breakpoint-up('line-clamp', #{$i}) {
+    @include line($clamp: ($i))
+  }
+}
+
+// Text decoration
+@each $decoration, $value in map.get($text, decoration-line) {
+  .#{$decoration} {
+    text-decoration: $value
+  }
+
+  @include create-pseudo-variant-of(#{$decoration}) {
+    text-decoration: $value
+  }
+}
+
+// Text transform
+@each $transform, $value in map.get($text, transform) {
+  .#{$transform} {
+    text-transform: $value
+  }
+}
+
+// Text decoration color
+@each $decoration, $value in map.get($text, decoration-line) {
+  @each $color, $value in map.get($text, decoration-color) {
+    @if $decoration != d-none {
+      .#{$decoration + '-' + $color} {
+        text-decoration-color: $value;
+      }
+    }
+  }
+}
+
+// Text decoration style
+@each $decoration, $value in map.get($text, decoration-line) {
+  @each $style in map.get($text, decoration-style) {
+    @if $decoration != d-none {
+      .#{$decoration + '-' + $style} {
+        text-decoration-style: $style;
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+@use 'sass:map';
+@use 'sass:math';
+
+progress {
+	@extend %make-flex__center;
+	background-color: $white;
+	@include border($radius: default('borderRadius', pill));
+
+	min-height: 3px;
+	
+	width: 350px;
+	max-width: 100%;
+
+	&:not([height]) {
+		height: 5px;
+	}
+
+	&::before {
+		content: '';
+			animation: loader;
+			animation-timing-function: ease-out;
+
+			background-color: $primary;
+			@include border($radius: inherit);
+			height: 100%;
+	}
+
+	&[value='']::before {
+		content: '';
+		width: 1%;
+	}
+
+	&:not([value])::before {
+		width: 100%;
+	}
+
+	$ms: (
+		10	:	10ms,
+		20	:	20ms,
+		30	:	30ms,
+		40	:	40ms,
+		50	:	50ms,
+		60	:	60ms,
+		70	:	70ms,
+		80	:	80ms,
+		90	:	90ms,
+		100 : 100ms,
+		);
+
+	@for $i from 1 through 100 {
+		@each $speed, $value in $ms {
+			&[value="#{$i}"]::before {
+				animation-duration: $i * 10ms;
+				width: $i * 1%;
+			}
+			
+			&[value="#{$i}"][class*=speed-#{$speed}]::before {
+				animation-duration: $i * $value;
+				width: $i * 1%;
+			}
+		}
+	}
+}

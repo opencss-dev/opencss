@@ -1,0 +1,137 @@
+@use 'sass:map';
+
+.divider {
+  background: $none;
+  display: flex;
+  align-items: center;
+  margin: {
+    left: auto;
+    right: auto
+  };
+  
+  margin: {
+    top: $separator-spacer;
+    bottom: $separator-spacer 
+  }
+
+  &::before, &::after {
+    content: '';
+    flex: 1 1 auto;
+
+    @include border(bottom, 1px, solid, $current)
+  }
+
+  &:not([height]) {
+    &::before, &::after {
+      width: 50%
+    }
+
+    &[class*=double-] {
+      &::before, &::after {
+        height: 3px;
+        border: {
+          top: 1px solid;
+          bottom: 1px solid 
+        }
+      }
+    }
+  }
+
+  * {
+    margin: 0;
+    vertical-align: middle;
+    min-width: fit-content
+  }
+
+  &:not(:empty) {
+    gap: .25em;
+
+    // =====
+    @each $divider, $height in map.get($_default, 'separatorHeight') {
+      @include each($divider) {
+        &[height='#{$divider}'] {
+          height: auto !important;
+          &::before, &::after {
+            border: {
+              bottom: {
+                width: $height
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // =====
+    @each $divider, $style in map.get($_default, 'borderStyle') {
+      &.#{$divider}-line {
+        &::before, &::after {
+          border: {
+            bottom: {
+              style: unquote($style)
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &:empty {
+    opacity: .75;
+
+    &::before, &::after {
+      display: none
+    }
+
+    &:not([height]) {
+      border: {
+        bottom: {
+          style: solid;
+          width: default('separatorHeight')
+        }
+      }
+    }
+    // =====
+    @each $divider, $height in map.get($_default, 'separatorHeight') {
+      @include each($divider) {
+        &[height='#{$divider}'] {
+          height: auto !important;
+          border: {
+            bottom: {
+              width: $height
+            }
+          }
+        }
+      }
+    }
+
+    // =====
+    @each $divider, $style in map.get($_default, 'borderStyle') {
+      &.#{$divider}-line {
+        border: {
+          bottom: {
+            style: unquote($style)
+          }
+        }
+      }
+    }
+  }
+
+  &.span {
+    @each $span, $flexspan in map.get($_default, 'flexItems') {
+      @include each($span) {
+        &-before-#{$span}::before {
+          flex: $flexspan !important
+        }
+      }
+    }
+
+    @each $span, $flexspan in map.get($_default, 'flexItems') {
+      @include each($span) {
+        &-after-#{$span}::after {
+          flex: $flexspan !important
+        }
+      }
+    }
+  }
+}

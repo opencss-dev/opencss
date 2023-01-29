@@ -1,0 +1,604 @@
+@use 'sass:map';
+
+// = Keyframes ==============
+// Fade
+@keyframes fadeIn {
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1
+  }
+  to {
+    opacity: 0
+  }
+}
+
+// Entrance Slider
+@keyframes fadeIn-left {
+  from {
+    opacity: 0;
+    transform: translate3d(-100%, 0, 0)
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeIn-right {
+  from {
+    opacity: 0;
+    transform: translate3d(100%, 0, 0)
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeIn-top {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0)
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeIn-bottom {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0)
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeOut-left {
+  from {
+    opacity: 1;
+    transform: translate3d(-100%, 0, 0)
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeOut-right {
+  from {
+    opacity: 1;
+    transform: translate3d(100%, 0, 0)
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeOut-top {
+  from {
+    opacity: 1;
+    transform: translate3d(100%, 0, 0)
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes fadeOut-bottom {
+  from {
+    opacity: 1;
+    transform: translate3d(0, -100%, 0)
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+// Slider
+@keyframes slideLeft {
+  from {
+    transform: translate3d(-100%, 0, 0);
+    visibility: hidden
+  }
+  to {
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: hidden
+  }
+  to {
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes slideTop {
+  from {
+    transform: translate3d(100%, 0, 0);
+    visibility: hidden
+  }
+  to {
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+@keyframes slideBottom {
+  from {
+    transform: translate3d(0, -100%, 0);
+    visibility: hidden
+  }
+  to {
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+// Zoom
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale3d(.1, .1, .1)
+  }
+  to {
+    opacity: 1;
+    transform: scale3d(1, 1, 1)
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    opacity: 1;
+    transform: scale3d(1, 1, 1)
+  }
+  to {
+    opacity: 0;
+    transform: scale3d(.1, .1, .1)
+  }
+}
+
+// Spinner
+@keyframes spin {
+  from {
+    transform: rotate(0deg)
+  }
+  to {
+    transform: rotate(1turn)
+  }
+}
+
+// Rotate
+$rotate: (
+  rotateX : '1, 0, 0',
+  rotateY : '0, 1, 0',
+  rotateZ : '0, 0, 1',
+
+  rotate  : '0, 0, 1',
+  rotate3D: '1, 1, 1',
+);
+
+$rotate_angle: (
+  45  : .125turn,
+  90  : .23turn,
+  180 : .5turn,
+  360 : 1turn,
+);
+
+@each $key, $pattern in $rotate {
+  @each $angle, $turn in $rotate_angle {
+    @keyframes #{$key}-#{$angle} {
+      from {
+        transform: rotate3d(unquote($pattern), 0deg)
+      }
+
+      to {
+        transform: rotate3d(unquote($pattern), $turn)
+      }
+    }
+  }
+}
+
+// Glow
+@keyframes glow {
+  from {
+    background-position: from
+  }
+  to {
+    background-position: 40from
+  }
+}
+
+// Progress
+@keyframes loader {
+  0% {
+    transform: translate3d(-100%, 0, 0)
+  }
+  100% {
+    transform: translate3d(0, 0, 0)
+  }
+}
+
+// Ping
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0
+  }
+}
+
+// Pulse
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1
+  }
+  50% {
+    opacity: .5
+  }
+}
+
+// Bounce
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1)
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1)
+  }
+}
+
+// = Animate ================
+// Controls
+$animate: (
+  bounce: (
+    name: bounce,
+    duration: 1s,
+    iteration-count: infinite
+  ),
+
+  glow: (
+    name: glow,
+    duration: 1s,
+    iteration-count: infinite
+  ),
+
+  ping: (
+    name: ping,
+    duration: 1s,
+    timing-function: ease-in-out,
+  ),
+
+  pulse: (
+    name: pulse,
+    duration: 2s,
+    timing-function: ease-in-out,
+    iteration-count: infinite
+  ),
+
+  spin: (
+    name: spin,
+    duration: 1s,
+    timing-function: linear,
+    iteration-count: infinite
+  ),
+
+  fadeIn: (
+    name: fadeIn,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  fadeIn-up: (
+    name: fadeIn-top,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  fadeIn-right: (
+    name: fadeIn-right,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  fadeIn-down: (
+    name: fadeIn-bottom,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+    
+  fadeIn-left: (
+    name: fadeIn-left,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  fadeIn-Out: (
+    name: fadeOut,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  fadeOut-right: (
+    name: fadeOut-right,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  fadeOut-down: (
+    name: fadeOut-bottom,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  fadeOut-left: (
+    name: fadeOut-left,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+
+  slideIn: (
+    name: fadeIn,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  slideIn-up: (
+    name: fadeIn-top,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  slideIn-right: (
+    name: fadeIn-right,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  slideIn-down: (
+    name: fadeIn-bottom,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+    
+  slideIn-left: (
+    name: fadeIn-left,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
+  slideOut-Out: (
+    name: fadeOut,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  slideOut-up: (
+    name: fadeOut-top,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  slideOut-right: (
+    name: fadeOut-right,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  slideOut-down: (
+    name: fadeOut-bottom,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+  
+  slideOut-left: (
+    name: fadeOut-left,
+    duration: 1s,
+    timing-function: ease-out
+  ),
+
+  zoomIn: (
+        name: zoomIn,
+        duration: 1s,
+        timing-function: ease-in,
+      ),
+
+  zoomOut: (
+    name: zoomOut,
+    duration: 1s,
+    timing-function: ease-out
+  )
+);
+
+// Animation
+@each $animation, $properties in $animate {
+  @include animation($prefix: 'animate-', $name: map.get($properties, 'name'),  $duration: map.get($properties, 'duration'), $iteration: map.get($properties, 'iteration-count'), $timing: map.get($properties, 'timing-function'))
+}
+
+.animate {
+  // Animation delay
+  &-delay {
+    &-500 {
+      animation: {
+        delay: .5s
+      }
+    }
+
+    &-1000 {
+      animation: {
+        delay: 1s
+      }
+    }
+
+    &-1500 {
+      animation: {
+        delay: 1.5s
+      }
+    }
+
+    &-2000 {
+      animation: {
+        delay: 2s
+      }
+    }
+
+    &-2500 {
+      animation: {
+        delay: 2.5s
+      }
+    }
+
+    &-3000 {
+      animation: {
+        delay: 3s
+      }
+    }
+
+    &-3500 {
+      animation: {
+        delay: 3.5s
+      }
+    }
+
+    &-4000 {
+      animation: {
+        delay: 4s
+      }
+    }
+  }
+
+  // Misc animation properties
+  &d {
+    &-slow {
+      animation: {
+        duration: 2s
+      }
+    }
+
+    &-fast {
+      animation: {
+        duration: .5s
+      }
+    }
+
+    &-500 {
+      animation: {
+        duration: .5s
+      }
+    }
+
+    &-1000 {
+      animation: {
+        duration: 1s
+      }
+    }
+
+    &-1500 {
+      animation: {
+        duration: 1.5s
+      }
+    }
+
+    &-2000 {
+      animation: {
+        duration: 2s
+      }
+    }
+
+    &-2500 {
+      animation: {
+        duration: 2.5s
+      }
+    }
+
+    &-3000 {
+      animation: {
+        duration: 3s
+      }
+    }
+
+    &-3500 {
+      animation: {
+        duration: 3.5s
+      }
+    }
+
+    &-4000 {
+      animation: {
+        duration: 4s
+      }
+    }
+
+    &-infinite {
+      animation: {
+        iteration-count: infinite
+      }
+    }
+    
+    &-x {
+      &1 {
+        animation: {
+          iteration-count: 1
+        }
+      }
+
+      &2 {
+        animation: {
+          iteration-count: 2
+        }
+      }
+
+      &3 {
+        animation: {
+          iteration-count: 3
+        }
+      }
+
+      &4 {
+        animation: {
+          iteration-count: 4
+        }
+      }
+
+      &5 {
+        animation: {
+          iteration-count: 5
+        }
+      }
+
+      &6 {
+        animation: {
+          iteration-count: 6
+        }
+      }
+    }
+
+    &-alt {
+      animation-direction: alternate
+    }
+
+    &-revert {
+      animation-direction: reverse
+    }
+  }
+}
+
+[class*='Out'], [class$='Out'] {
+  opacity: 0;
+}

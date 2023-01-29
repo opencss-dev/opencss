@@ -1,0 +1,8 @@
+@use 'sass:map';
+
+// Fontawesome icons
+.fa, .fa-solid,
+.fab, .fa-brands,
+.far, .fa-regular {
+  color: $current;
+}

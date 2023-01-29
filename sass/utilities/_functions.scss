@@ -1,0 +1,126 @@
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+@use 'sass:math';
+
+// @functions
+
+// sass:color Helpers
+// To RGBA: change no-opacity support (rgb, hex & color)
+//          to rgba() opacity support
+@function to-rgba($color, $weight) {
+  $weight: math.div($weight, 100);
+  @return color.change($color, $alpha: $weight);
+}
+
+// Tint a color: mix a color with white
+@function tint-color($color, $weight) {
+  @return mix(white, $color, $weight);
+}
+
+// Shade a color: mix a color with black
+@function shade-color($color, $weight) {
+  @return mix(black, $color, $weight);
+}
+
+// sass:list Helpers
+// sass:map Helpers
+// Merge: merge two or three maps
+@function merge($arr_1, $arr_2, $arr_3: null) {
+  @if $arr_3 != null {
+    @return map.merge($arr_1, $arr_2, $arr_3);
+  } @else {
+    @return map.merge($arr_1, $arr_2);
+  }
+}
+
+// sass:math Helpers
+// Div: number divider
+@function div($divider, $divisor) { 
+  @return math.div($divider, $divisor);
+}
+
+// Neg: return a negative number
+@function neg($number) {
+  @if number($number) {
+    @return $number * (-1);
+  }
+}
+
+// misceli
+// Em: convert PX to EM unit
+@function em($pixels, $base: 16) {
+  @return math.div($pixels, $base) * 1em;
+}
+
+// Rem: create REM unit from number
+@function rem($weight) {
+  @return $weight * 1rem;
+}
+
+// Px: create PX unit from number
+@function px($weight) {
+  @return $weight * 1px;
+}
+
+// Repeat: variables repeater
+@function repeat($var, $i) {
+  $var: unquote($var);
+
+  @if $i == 0 {
+    @return null;
+  } @else if $i == 1 {
+    @return $var;
+  } @else if $i == 2 {
+    @return $var $var;
+  } @else if $i == 3 {
+    @return $var $var $var;
+  } @else if $i == 4 {
+    @return $var $var $var $var;
+  } @else if $i == 5 {
+    @return $var $var $var $var $var;
+  } @else if $i == 6 {
+    @return $var $var $var $var $var $var;
+  } @else if $i == 7 {
+    @return $var $var $var $var $var $var $var;
+  } @else if $i == 8 {
+    @return $var $var $var $var $var $var $var $var;
+  } @else if $i == 9 {
+    @return $var $var $var $var $var $var $var $var $var;
+  } @else if $i == 10 {
+    @return $var $var $var $var $var $var $var $var $var $var;
+  } @else if $i == 11 {
+    @return $var $var $var $var $var $var $var $var $var $var $var;
+  } @else if $i == 12 {
+    @return $var $var $var $var $var $var $var $var $var $var $var $var;
+  }
+}
+
+// default() - return values from <config> $_default
+@function default($key, $return: DEFAULT) {
+
+  $defined: map.get($_default, $key);
+  
+  @if map.get($defined, $return) {
+    $defined: map.get($defined, $return);
+    @return $defined;
+  }
+
+  @return $defined;
+}
+
+// String: check a string variables.
+@function string($var) {
+  @if type-of($var) == string {
+    @return true;
+  }
+}
+
+// Number: check a number variables
+@function number($var) {
+  @if type-of($var) == number {
+    @return true;
+  } @else {
+    @return false;
+  }
+}

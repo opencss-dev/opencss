@@ -1,0 +1,13 @@
+@use 'sass:map';
+
+$overflow: (visible hidden clip scroll auto);
+
+@each $var in $overflow {
+  .overflow-#{$var} {
+    overflow: $var
+  }
+
+  @include breakpoint-up("overflow-#{$var}") {
+    overflow: $var
+  }
+}

@@ -1,0 +1,82 @@
+::selection {
+  color: $current;
+  background-color: $primary
+}
+
+::before, ::after,
+::placeholder, ::first-letter {
+  user-select: none
+}
+
+select, .select {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  max-width: 100%;
+  user-select: none;
+
+  * {
+    user-select: none
+ }
+
+  &.hoverable:hover &-content {
+    display: block
+ }
+
+  &-content {
+    @include border($width: default('borderWidth'), $style: default('borderStyle'), );
+    @include list-divider('before');
+
+    &:not(.show) {
+      display: none;
+    }
+
+    background: {
+      color: default('inputColor', bg-color);
+    };
+
+    @include absolute() {
+      @include position($bottom: 0, $left: 50%) {
+        transform: translate(-50%, 100%);
+      }
+    }
+
+    width: max-content;
+    text-align: left
+ }
+
+  &-option {    
+    background: {
+      color: inherit;
+    };
+
+    padding: 1rem {
+      top: .5rem;
+      bottom: .5rem;
+    };
+
+    [type=checkbox],
+    [type=radio] {
+      display: none;
+    };
+
+
+    label {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    &:hover {
+      color: $white;
+      background: {
+        color: $primary;
+      };
+    }
+  }
+}
+
+.select {
+  &-none {
+    user-select: none
+ }
+}
