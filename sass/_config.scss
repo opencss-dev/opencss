@@ -71,7 +71,7 @@ $font_face: (
 
 // fonts - webfonts
 $fa_minify          : true;
-$webfonts_path      : '/home/user/Programs/GitHub/openCSS/webfonts';
+$webfonts_path      : 'https://github.com/bebagodfried/openCSS/webfonts';
 
 $font-family        : map.get($font_face, "verdana")  !default;
 $title-family       : map.get($font_face, "segeoui")  !default;
