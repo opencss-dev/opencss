@@ -1,2 +1,2 @@
 # openCSS
-Simple responssive HTML, CSS, JS framework
+Simple responsive HTML, CSS, JS framework
