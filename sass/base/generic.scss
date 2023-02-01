@@ -42,8 +42,7 @@ a {
     text-decoration: none
   }
 
-  &:active,
-  &:hover {
+  &:active {
     color: shade-color($primary, 20%);
     @include transition()
   }
@@ -497,7 +496,9 @@ p {
 
   a {
     text-decoration: underline dotted;
-    &:hover {
+    &:hover,
+    &:active {
+      color: shade-color($primary, 20%);
       text-decoration: underline solid
     }
   }

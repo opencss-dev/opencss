@@ -8,11 +8,16 @@
 // Width
 @each $width, $value in map.get($_default, 'borderWidth') {
   @if number($width) {
+    // Width
     .border-#{$width} {
       @include border($width: $value)
     }
 
-    // Sides.
+    @include create-pseudo-variant-of(border-#{$width}) {
+      @include border($width: $value)
+    }
+
+    // Sides
     @each $side, $values in default('borderSide') {
       .border-#{$side + '-' + $width} {
         @each $var in $values {
@@ -52,6 +57,10 @@
       &:not([class*=border-]) {
         border: default('borderWidth') unquote($value) map.get($_default, 'borderColor')
       }
+    }
+
+    .#{$value} {
+      border-style: unquote($value);
     }
 
     @include create-pseudo-variant-of(#{$style}) {

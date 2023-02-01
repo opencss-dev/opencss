@@ -1,29 +1,34 @@
 @use  'sass:map';
 
-@if $custom-scrollbar {
-  ::-webkit{
-    &-scrollbar {
-      @each $property, $value in map.get($_default, 'scrollbar') {
-        #{$property}: $value;
-      }
+@if ($webkit-scrollbar) {
+  ::-webkit-scrollbar {
+    @each $property, $value in map.get($_default, 'webkit-scrollbar') {
+      #{$property}: $value;
+    }
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $primary;
+    @include  border($width: default('borderWidth'), $style: default('borderStyle'), $color: $primary, $radius: default('borderRadius') * 3);
+    
+    &:active {
+      @include  border($width: default('borderWidth'), $style: default('borderStyle'), $color: default('scrollbar-thumb', active-color), $radius: default('borderRadius') * 3);
+    
+      background-color: default('scrollbar-thumb', active-color);
+      cursor: grabbing;
     }
 
-    &-scrollbar-thumb {
-      background: $primary;
-      @include  border($width: default('borderWidth'), $style: default('borderStyle'), $color: $primary, $radius: default('borderRadius'));
-      
-      &:active {
-        cursor: grabbing;
-      }
-
-      &:hover {
-        cursor: grab;
-      }
+    &:hover {
+      @include  border($width: default('borderWidth'), $style: default('borderStyle'), $color: default('scrollbar-thumb', hover-color), $radius: default('borderRadius') * 3);
+    
+      background-color: default('scrollbar-thumb', hover-color);
+      cursor: grab;
     }
   }
 }
 
-.scroll {
+.scroll,
+.\:\:webkit-scrollbar {
   overflow: scroll;
   
   &-x {
@@ -34,7 +39,7 @@
     overflow-y: scroll
   }
 
-  @if $custom-scrollbar {
+  @if $webkit-scrollbar {
     &bar {
       @each $i in (1 2 3 4 5) {
         &-#{$i}::-webkit-scrollbar {

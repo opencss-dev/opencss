@@ -4,6 +4,7 @@
 // @license: CC BY 4.0, MIT
 
 @use 'sass:map';
+@import 'utilities/setup';
 
 // This file contains:
 // - Colors
@@ -150,7 +151,7 @@ $separator-spacer   : .5rem !default;
 $enable-outline     : false !default; // ***
 $enable-round-border: false !default; // ***
 
-$custom-scrollbar   : true  !default; // ***
+$webkit-scrollbar   : true  !default; // ***
 
 // borders
 $border-width       : 1px !default;
@@ -572,10 +573,15 @@ $_default: (
   outlineColor      : $outline-color,
 
   // Scrollbar
-  scrollbar: (
-    background-color: to-rgba($secondary, 50%),
+  webkit-scrollbar  : (
+    background-color: to-rgba($secondary, 75%),
     height          : 0px,
     width           : 5px,
+  ),
+
+  scrollbar-thumb   : (
+    active-color    : shade-color($primary, 10%),
+    hover-color     : shade-color($primary, 10%),
   ),
 
   // Button
@@ -740,7 +746,7 @@ $_default: (
     DEFAULT         : $icon-size, 
   ),
 
-  size: (16 32 48 72 96 144 180 256 360 512),
+  size: (16 22 32 48 64 96 128 256 512 1024),
 
 );
 
@@ -768,8 +774,7 @@ $theme-colors       : map.get($_default, colors);
 $filter-effects     : map.get($_default, filters);
 
 // ===================================================
-
-
+// utilities
 @import 'utilities/extends';
 @import 'utilities/functions';
 @import 'utilities/mixins';

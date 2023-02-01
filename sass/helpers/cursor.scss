@@ -39,7 +39,12 @@ $cursor: (
 
 @each $name, $value in $cursor {
   .cursor-#{$name} {
-    cursor: $value
+    @if ($name == none ) {
+      cursor: $value;
+      user-select: none
+    } @else {
+      cursor: $value
+    }
   }
   
   @include create-pseudo-variant-of(cursor-#{$name}) {

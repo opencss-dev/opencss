@@ -8,14 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Open CSS v2023.1</title>
-  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
   <link rel="apple-touch-icon" href="favicon.png">
   
   <meta name="generator" content="opencss" />
   <meta property="og:title" content="home" />
   <meta property="og:locale" content="en_US" />
-  <link rel="canonical" href="https://bebagodfried.github.io/elvys/" />
-  <meta property="og:url" content="https://bebagodfried.github.io/elvys/" />
+  <link rel="canonical" href="https://bebagodfried.github.io/opencss/" />
+  <meta property="og:url" content="https://bebagodfried.github.io/opencss/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary" />
   <meta property="twitter:title" content="home" />
@@ -23,127 +23,52 @@
   <link rel="stylesheet" href="open.css">
 
 </head>
-<body class="font:ubuntu">
-  <section class="bg-dark-900 vh-35">
-    <header class="bg-none text-light no-border box-shadow left-0">
-      <section class="flex stretch items-center justify-between">
-        <a href="https://bebagodfried.github.io/elvys"><h1 class="fs-3 text-light">elvys</h1></a>
-        <nav class="inline-flex">
-          <u class="opacity-20 mr-1 select-none">Theme:</u>
-          <ul>
-            <li class="mr-1">
-              <a href="" class="hover:text-light hover:underline">Sample</a>
-            </li>
-            <li>
-              <a href="#" class="hover:text-light hover:underline" >more <i class="fa-solid fa-angle-right"></i></a>
-            </li>
-          </ul>
-        </nav>
-      </section>
+<body class="bg-dark-900 bg-no-repeat bg-fixed bg-center font:16 ubuntu" style="background-image: url(favicon.png)">
+  <section class="absolute z-9" hidden>
+    <header class="bg-none no-border flex justify-between py-1 text-white">
+      <a href="#" class="font:21 monospace bold currentColor">open<span class="">.CSS</span>
+      </a>
+
+      <ul class="inline-flex capitalize child-opacity:50">
+        <li class="hover:text-white border-0 hover:ease-in px-1"><a href="#" class="">colors</a></li>
+        <li class="hover:text-white border-0 hover:ease-in px-1"><a href="#" class="">typography</a></li>
+        <li class="hover:text-white border-0 hover:ease-in px-1"><a href="#" class="">flexbox</a></li>
+        <li class="hover:text-white border-0 hover:ease-in px-1"><a href="#" class="">grid</a></li>
+        <li class="hover:text-white hover:ease-in p-1"><a href="#" class=""><i class="fa-regular fa-question-circle"></i></a></li>
+      </ul>
     </header>
-    <div class="flex flex-column justify-center items-center fs-3 h-full">
-      <div class="flex-row">
-        <div class="w-75 mx-auto">
-          <p class="m-0 w-full text-white text-center">Hello world!</p>
-          <span class="double-line divider w-50" height="5"></span>
-        </div>
-      </div>
-
-    </div>
   </section>
-
-  <div class="spacer"></div>
   
-  <section>
-    <h1>Heading title 1</h1>
-    <h2>Heading title 2</h2>
-    <h3>Heading title 3</h3>
-    <h4>Heading title 4</h4>
-    <h5>Heading title 5</h5>
-    <h6>Heading title 6</h6>
+  <main class="bg-none">
+    <section class="fit-screen">
+      <div class="absolute left-0 bg-no-repeat bg-center h-full w-full" style="background-image: url(img/landing.jpg)"></div>
+      <div id="backdrop" class="absolute left-0 fit-screen flex center items-center justify-center bg-black bg-opacity-75">
+        <div class="">
+          <h1 class="fg-dark font:96 bold scale-50 mb-1 cursor-none text-shadow"><span class="">::</span>open<span class="text-light inline-block">|CSS</span></h1>
 
-    <p class="font:6">font: 6</p>
-    <p class="font:16">font: 16</p>
-    <p class="font:28">font: 28</p>
-    <p class="font:32">font: 32</p>
-    <p class="font:66">font: 66</p>
-    <p class="font:72">font: 72</p>
-    <p class="font:96">font: 96</p>
-    <hr/>
-    <div>
-      <h3><u>Paragraph</u></h3>
-      <p class="line-clamp-1">
-        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nesciunt, id laborum. Nesciunt expedita accusantium quas voluptatibus numquam velit corporis placeat ut optio perferendis! Nulla, deleniti quidem quam dolor dignissimos exercitationem!
-      </p>
-    </div>
-    
-    <span class="solid-line divider" height="3"><b>Text solid-line divider</b></span>
+          <p class="lh-2">Simple Responsive HTML, CSS, & JS framework</p>
 
-    <div class="grid">
-      <h3><u>Form elements</u></h3>
-      <div class="row g-3">
-        <form method="get" class="col-4">
-          <input type="text" name="" id="" placeholder="text here (eg: hi elvys!) ..." />
-          <input type="number" name="" id="" placeholder="number here (eg: 123) ..." />
-          <input type="password" name="" id="" placeholder="password here (eg: vd$Ud%3d#5@4_) ..." />
-          <input type="email" name="" id="" placeholder="email here (eg: hi@elvys.io ..." />
-          <input type="url" name="" id="" placeholder="url here (eg: http(s)://elvys.io) ..." />
-        
-          <button type="submit">submit</button>
-        </form>
-
-        <div class="col-4">
-          <h4>Options</h4>
-          <div>
-            <label for="checkbox">subscribe <input type="checkbox" name="checkbox" id="checkbox"></label>
-            <div class="flex justify-around">
-              <label for="radio1">Option 1 <input type="radio" name="radio" id="radio1"></label>
-              <label for="radio2">Option 2 <input type="radio" name="radio" id="radio2"></label>
-              <label for="radio3">Option 3 <input type="radio" name="radio" id="radio3"></label>
+            <div class="flex justify-around py-1 text-white select-none">
+              <ul class="inline-flex capitalize child-opacity:50">
+                <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="start" class="">Get started</a></li>
+                <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="https://github.com/bebagodfried/openCSS" class="">view on GitHub</a></li>
+                <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="showcase" class="">showcase</a></li>
+                <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="https://github.com/bebagodfried/openCSS/issues" class="">Report Bug</a></li>
+                <li class="hover:text-white hover:ease-in p-1"><a href="#support" class=""><i class="fa-regular fa-question-circle"></i></a></li>
+              </ul>
             </div>
-          </div>
-        
-          <h4>buttons</h4>
-          <div>
-            <button>button</button>
-            <button disabled="disabled">disabled</button>
-          </div>
-        </div>
-        <div class="col-4">
-          <h3>Address</h3>
-          <address>
-            <p><b>tel  :</b> +1 00 00 0000</p>
-            <p><b>mail :</b> support@domain.com</p>
-            <p><b>state:</b> USA, 01 - Lincon roads.</p>
-          </address>
         </div>
       </div>
-    </div>
-
-    <ul class="flex flex-column g-1 fixed bottom-50 right-0 translateY-50 mr-1">
-      <li class="hover:translateX--25 ease-in"><a href="" class="bg-white rounded-full box-shadow ease-in size-48 hover:scale-125"><i class="fa-brands x-large fa-facebook-square bc-facebook"></i></a></li>
-      <li class="hover:translateX--25 ease-in"><a href="" class="bg-white rounded-full box-shadow ease-in size-48 hover:scale-125"><i class="fa-brands x-large fa-instagram bc-instagram-4"></i></a></li>
-      <li class="hover:translateX--25 ease-in"><a href="" class="bg-white rounded-full box-shadow ease-in size-48 hover:scale-125"><i class="fa-brands x-large fa-twitter bc-twitter"></i></a></li>
-    </ul>
-  </section>
-  <br>
-  <div class="spacer"></div>
-  <footer class="bg-none fit-content absolute right-0">
-    <section class="flex items-center justify-between py-1">
-      <small class="text-center italic w-full">
-        Powered by
-        <a href="https://bebagodfried.github.io/elvys" class="d-none fw-500">
-          <i id="fwk" class="opacity-50 hover:opacity-100 underline"></i>
-          <span class="opacity-50">
-            <i class="fa-regular fa-copyright"></i>
-            <date id="copyright"></date>
-          </span>
-        </a>
-      </small>
+      <button class="fixed bottom-10 left-50 z-1 solid border-2 border-dark bg-none p-0 size-w-22 rounded-pill translateX-50"><i class="animate-bounce animated-1500">&bull;</i></button>
     </section>
+
+    <section>
+
+    </section>
+  </main>
+
+  <footer class="absolute bottom-0 bg-none py-1">
+    <p class="px-3 text-right italic font:12 select-none"><a href="https://github.com/bebagodfried/openCSS/releases" class="text-dark d-none hover:d-none hover:fg-light">openCSS 2023.1</a></p>
   </footer>
-  <!--  -->
-  <script src="app.js" defer></script>
-  <script src="dist/1.0.0/js/ui.min.js"></script>
 </body>
 </html>

@@ -1,9 +1,19 @@
 @use 'sass:map';
 
 @each $key, $alpha in map.get($_default, 'opacity') {
+  //
   [opacity='#{$key}']::before,
   [opacity='#{$key}']::after {
     opacity: $alpha
+  }
+
+  //
+  .child-opacity\:#{$key} > * {
+    opacity: $alpha;
+
+    &:hover {
+      opacity: unset
+    }
   }
 }
 
