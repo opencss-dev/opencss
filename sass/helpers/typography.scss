@@ -63,7 +63,7 @@
   @include each($i) {
     @if type-of($i) == number {
       .fs-#{$i} {
-        font-size: $size 
+        font-size: $size
       }
 
       @include create-pseudo-variant-of(fs-#{$i}) {
@@ -82,9 +82,15 @@
 }
 
 // 
-@each $i in $font-utility {
+@each $i, $values in $font-utility {
   @include create-new-variant-of(font, $i) {
-    font-size: $i + pt;
+    font-size: $i * $font-unit;
+
+    @if ( $i < 72) {
+      font-size: clamp($i * .75px, 5vw, $i * 1px);
+    } @else {
+      font-size: clamp($i * .75px, 10vw, $i * 1.5px);
+    }
   }
 }
 

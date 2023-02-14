@@ -35,6 +35,17 @@ $gridbox: (
 );
 
 @each $_display, $value in $display {
+  @each $br, $br_value in $breakpoint {
+    [class^=#{$br}\:#{$_display}] {
+      display: none;
+    }
+
+    @include from($br_value) {
+      .#{$br}\:#{$_display} {
+        display: $value;
+      }
+    }
+  }
   @if ($_display != none) {
     .#{$_display} {
       display: $value;
@@ -61,7 +72,7 @@ $gridbox: (
       }
     }
 
-    @include breakpoint-up(#{$_display}) {
+    @include breakpoint-from(#{$_display}) {
       display: $value;
   
       $i: 2;
@@ -89,10 +100,10 @@ $gridbox: (
 }
 
 .hidden {
-  display: none !important
+  display: none
 }
 
-@include breakpoint-up(hidden) {
+@include breakpoint-from(hidden) {
   display: none !important
 }
 

@@ -7,7 +7,7 @@ $overflow: (visible hidden clip scroll auto);
     overflow: $var
   }
 
-  @include breakpoint-up("overflow-#{$var}") {
+  @include breakpoint-from("overflow-#{$var}") {
     overflow: $var
   }
 }

@@ -7,7 +7,13 @@ $itemsPlace: (
   stretch: stretch,
 ) !default;
 
-// = GRID COLUMNS ===========
+//** GRID COLUMNS */
+@include until(map.get($breakpoint, 'sm')) {
+  [class*=col-] {
+    width: 100%
+  }
+}
+
 // column-span start/end
 @each $i, $value in map.get($_default, gridSpans) {
   @if number($i) {
@@ -17,24 +23,20 @@ $itemsPlace: (
       }
     }
 
-    @include breakpoint-up('col-span', #{$i}) {
+    @include breakpoint-from('col-span', #{$i}) {
       grid-column: $value
     }
   }
 }
 
-
-
-
-
-  // columns
+// columns
 @each $i, $value in map.get($_default, gridItems) {
   @if number($i) {
     .col-#{$i} {
       width: $value
     }
 
-    @include breakpoint-up(#{'col-' + $i}) {
+    @include breakpoint-from(#{'col-' + $i}) {
       width: $value
     }
 
@@ -45,7 +47,7 @@ $itemsPlace: (
       }
     }
 
-    @include breakpoint-up('col-start', #{$i}) {
+    @include breakpoint-from('col-start', #{$i}) {
       grid-column-start: $i
     }
 
@@ -56,7 +58,7 @@ $itemsPlace: (
       }
     }
 
-    @include breakpoint-up('col-end', #{$i}) {
+    @include breakpoint-from('col-end', #{$i}) {
       grid-column-end: $i
     }
   }
@@ -86,7 +88,7 @@ $itemsPlace: (
         grid-row: $value
       }
 
-      @include breakpoint-up(#{'row-span' + $i}) {
+      @include breakpoint-from(#{'row-span' + $i}) {
         grid-row: $value
       }
     }
@@ -101,7 +103,7 @@ $itemsPlace: (
         grid-row-start: $value
       }
 
-      @include breakpoint-up('row-start', #{$i}) {
+      @include breakpoint-from('row-start', #{$i}) {
         grid-row-start: $value
       }
     }
@@ -114,7 +116,7 @@ $itemsPlace: (
         grid-row-end: $i
       }
 
-      @include breakpoint-up('row-end', #{$i}) {
+      @include breakpoint-from('row-end', #{$i}) {
         grid-row-end: $value
       }
     }
@@ -180,7 +182,7 @@ $itemsPlace: (
           }
         }
 
-        @include breakpoint-up(#{'grid-rows' + $i}) {
+        @include breakpoint-from(#{'grid-rows' + $i}) {
           grid-template-rows: repeat(auto, $i)
         }
       }

@@ -93,7 +93,7 @@ $padding: (
         }
       }
 
-      @include breakpoint-up (#{map.get($_margin, class)}-#{$i}) {
+      @include breakpoint-from (#{map.get($_margin, class)}-#{$i}) {
         @each $property in map.get($_margin, property) {
           #{$property}: $_spacer
         }
@@ -122,15 +122,15 @@ $padding: (
   }
 }
 
-@include breakpoint-up ('m-auto') {
+@include breakpoint-from ('m-auto') {
   margin: auto
 }
 
-@include breakpoint-up ('mx-auto') {
+@include breakpoint-from ('mx-auto') {
   margin: auto
 }
 
-@include breakpoint-up ('my-auto') {
+@include breakpoint-from ('my-auto') {
   margin: auto
 }
 
@@ -150,7 +150,7 @@ $padding: (
         }
       }
 
-      @include breakpoint-up (#{map.get($_padding, class)}-#{$i}) {
+      @include breakpoint-from (#{map.get($_padding, class)}-#{$i}) {
         @each $property in map.get($_padding, property) {
           #{$property}: $_spacer
         }
@@ -179,15 +179,15 @@ $padding: (
   }
 }
 
-@include breakpoint-up ('p-auto') {
+@include breakpoint-from ('p-auto') {
   padding: auto
 }
 
-@include breakpoint-up ('px-auto') {
+@include breakpoint-from ('px-auto') {
   padding: auto
 }
 
-@include breakpoint-up ('py-auto') {
+@include breakpoint-from ('py-auto') {
   padding: auto
 }
 
@@ -225,7 +225,7 @@ $gaps: (
       gap: $value
     }
 
-    @include breakpoint-up (g-#{$i}) {
+    @include breakpoint-from (g-#{$i}) {
       gap: $value
     }
     
@@ -238,7 +238,7 @@ $gaps: (
       column-gap: $value
     }
 
-    @include breakpoint-up (gy-#{$i}) {
+    @include breakpoint-from (gy-#{$i}) {
       row-gap: $value
     }
 
@@ -251,7 +251,7 @@ $gaps: (
       gap: $value
     }
 
-    @include breakpoint-up (gx-#{$i}) {
+    @include breakpoint-from (gx-#{$i}) {
       gap: $value
     }
   }
@@ -275,7 +275,7 @@ $gap-size: (
       }
     }
 
-    @include breakpoint-up (#{$key + '-' + $gap}) {
+    @include breakpoint-from (#{$key + '-' + $gap}) {
       #{$property}: $value
     }
   }
@@ -285,6 +285,6 @@ $gap-size: (
   gap: 0
 }
 
-@include breakpoint-up (no-gap) {
+@include breakpoint-from (no-gap) {
   gap: 0
 }

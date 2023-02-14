@@ -585,7 +585,7 @@ $as: '\\:';
   }  
 }
 
-@mixin breakpoint-up ($property, $value: null) {
+@mixin breakpoint-until ($property, $value: null) {
   @each $device, $viewport in $breakpoint { 
     @include until($viewport) {
       @if $value {
@@ -602,7 +602,7 @@ $as: '\\:';
   }
 }
 
-@mixin breakpoint-down($property, $value: null) {
+@mixin breakpoint-from($property, $value: null) {
   @each $device, $viewport in $breakpoint {
     @include from($viewport) {
       @if $value {

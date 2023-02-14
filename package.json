@@ -1,0 +1,35 @@
+{
+  "name": "opencss",
+  "version": "1.0.0",
+  "description": "Simple responsive HTML, CSS, JS framework",
+  "main": "dist/open.css",
+  "scripts": {
+    "test": "echo \"Successfully install openCSS v.1.0.0\" && exit 1",
+    "opencss": "sass sass/index.scss dist/1.0.0/open.css --no-source-map && sass sass/index.scss dist/1.0.0/open.min.css --style=compressed --no-source-map"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bebagodfried/openCSS.git"
+  },
+  "keywords": [
+    "scss",
+    "scss-utility",
+    "css",
+    "css-framework",
+    "frontend",
+    "responsive",
+    "utility-classes",
+    "js-framework",
+    "flexible"
+  ],
+  "author": "beba godfried <me@bebagodfried.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bebagodfried/openCSS/issues"
+  },
+  "homepage": "https://github.com/bebagodfried/openCSS#readme",
+  "devDependencies": {
+    "sass": "^1.58.0",
+    "typescript": "^4.9.5"
+  }
+}

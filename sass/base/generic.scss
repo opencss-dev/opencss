@@ -95,9 +95,11 @@ blockquote {
 body {
   font-family: default('fontFamily', body);
   color: $text;
+  cursor: default;
 
   font: {
     size: default('fontSize');
+    size: clamp(default('fontSize')*.75, 3vw,default('fontSize')*1.25);
     weight: default('fontWeight', DEFAULT)
   }
 

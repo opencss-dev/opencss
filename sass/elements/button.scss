@@ -3,3 +3,7 @@ button {
     color: $current
   }
 }
+
+button:empty():before {
+  content: attr(type)
+}

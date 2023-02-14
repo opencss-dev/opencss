@@ -45,7 +45,7 @@
     }
   }
 
-  @include breakpoint-up(bg-#{$bg_size}) {
+  @include breakpoint-from(bg-#{$bg_size}) {
     @if $bg_size == 'cover' {
       @include background($size: $bg_size)
     } @else {
@@ -64,7 +64,7 @@
     @include background($repeat: $bg_repeat)
   }
 
-  @include breakpoint-up(bg-#{$bg_repeat}) {
+  @include breakpoint-from(bg-#{$bg_repeat}) {
     @include background($repeat: $bg_repeat)
   }
 }
@@ -75,7 +75,7 @@
     @include background($attach: $bg_attach)
   }
 
-  @include breakpoint-up(bg-#{$bg_attach}) {
+  @include breakpoint-from(bg-#{$bg_attach}) {
     @include background($attach: $bg_attach)
   }
 }
@@ -214,7 +214,7 @@ $bg-position: (
     background-position: $value
   }
 
-  @include breakpoint-up(bg-#{$position}) {
+  @include breakpoint-from(bg-#{$position}) {
     background-position: $value
   }
 }

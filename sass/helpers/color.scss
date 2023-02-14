@@ -14,7 +14,13 @@
   // 
   @each $shade, $weight in default('darken') {
     @include create-pseudo-variant-of(fg-#{$color}, $shade) {
-      color: shade-color($value, $weight)
+      @if ($weight < 500) {
+        color: darken($value, $weight)
+      } @else if ($weight > 500) {
+        color: tint-color($value, $weight)
+      } @else {
+        color: $value
+      }
     }
   }
 }

@@ -10,7 +10,7 @@
 //          to rgba() opacity support
 @function to-rgba($color, $weight) {
   $weight: math.div($weight, 100);
-  @return color.change($color, $alpha: $weight);
+  @return color.change($color, $alpha: calc($weight / 1%));
 }
 
 // Tint a color: mix a color with white

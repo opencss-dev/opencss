@@ -7,7 +7,7 @@
       height: 100%
     }
 
-    @include breakpoint-up(#{'h-full'}) {
+    @include breakpoint-from(#{'h-full'}) {
       height: 100%
     }
   }
@@ -16,7 +16,7 @@
       height: $i * 1%
     }
 
-    @include breakpoint-up(#{'h-' + $i}) {
+    @include breakpoint-from(#{'h-' + $i}) {
       height: $i * 1%
     }
   }
@@ -28,7 +28,7 @@
       min-height: 100%
     }
 
-    @include breakpoint-up(#{'min-h-full'}) {
+    @include breakpoint-from(#{'min-h-full'}) {
       min-height: 100%
     }
   }
@@ -37,7 +37,7 @@
       min-height: $i * 1%
     }
 
-    @include breakpoint-up(#{'min-h-' + $i}) {
+    @include breakpoint-from(#{'min-h-' + $i}) {
       min-height: $i * 1%
     }
   }
@@ -49,7 +49,7 @@
       max-height: 100%; 
     }
 
-    @include breakpoint-up(#{'max-h-full'}) {
+    @include breakpoint-from(#{'max-h-full'}) {
       max-height: 100%
     }
   }
@@ -58,7 +58,7 @@
       max-height: $i * 1%
     }
 
-    @include breakpoint-up(#{'max-h-' + $i}) {
+    @include breakpoint-from(#{'max-h-' + $i}) {
       max-height: $i * 1%
     }
   }
@@ -113,7 +113,7 @@
       width: 100%
     }
 
-    @include breakpoint-up(#{'w-full'}) {
+    @include breakpoint-from(#{'w-full'}) {
       width: 100%
     }
   }
@@ -122,7 +122,7 @@
       width: $i * 1%;       
     }
 
-    @include breakpoint-up(#{'w-' + $i}) {
+    @include breakpoint-from(#{'w-' + $i}) {
       width: $i * 1%
     }
   }
@@ -134,7 +134,7 @@
       min-width: 100%
     }
 
-    @include breakpoint-up(#{'min-w-full'}) {
+    @include breakpoint-from(#{'min-w-full'}) {
       min-width: 100%
     }
   }
@@ -143,7 +143,7 @@
       min-width: $i * 1%
     }
 
-    @include breakpoint-up(#{'min-w-' + $i}) {
+    @include breakpoint-from(#{'min-w-' + $i}) {
       min-width: $i * 1%
     }
   }
@@ -155,7 +155,7 @@
       max-width: 100%
     }
 
-    @include breakpoint-up(#{'max-w-full'}) {
+    @include breakpoint-from(#{'max-w-full'}) {
       max-width: 100%
     }
   }
@@ -164,7 +164,7 @@
       max-width: $i * 1%
     }
 
-    @include breakpoint-up(#{'max-w-' + $i}) {
+    @include breakpoint-from(#{'max-w-' + $i}) {
       max-width: $i * 1%
     }
   }
@@ -298,7 +298,7 @@
       line-height: $value
     }
     
-    @include breakpoint-up(lh-#{$lh}) {
+    @include breakpoint-from(lh-#{$lh}) {
       line-height: $value
     }
   }

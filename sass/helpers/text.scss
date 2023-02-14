@@ -60,7 +60,7 @@ $text: (
     text-align: $align
   }
 
-  @include breakpoint-up(text-#{$align}) {
+  @include breakpoint-from(text-#{$align}) {
     text-align: $align
   }
 }
@@ -84,7 +84,7 @@ $text: (
   text-align: center
 }
 
-@include breakpoint-up('center') {
+@include breakpoint-from('center') {
   text-align: center
 }
 
@@ -93,7 +93,7 @@ $text: (
     @include line($clamp: ($i))
   }
   
-  @include breakpoint-up('line-clamp', #{$i}) {
+  @include breakpoint-from('line-clamp', #{$i}) {
     @include line($clamp: ($i))
   }
 }

@@ -64,7 +64,7 @@ $flex_wrap: (
     flex-wrap: $value
   }
 
-  @include breakpoint-up(flex-#{$key}) {
+  @include breakpoint-from(flex-#{$key}) {
     flex-wrap: $value
   }
 }
@@ -75,7 +75,7 @@ $flex_wrap: (
     align-items: $value
   }
 
-  @include breakpoint-up(items-#{$key}) {
+  @include breakpoint-from(items-#{$key}) {
     align-items: $value
   }
 }
@@ -85,7 +85,7 @@ $flex_wrap: (
     align-self: $value
   }
 
-  @include breakpoint-up(self-#{$key}) {
+  @include breakpoint-from(self-#{$key}) {
     align-self: $value
   }
 }
@@ -123,7 +123,11 @@ $flex_wrap: (
     justify-content: $value
   }
 
-  @include breakpoint-up(justify-#{$key}) {
+  .justify-content-#{$key} {
+    justify-content: $value
+  }
+
+  @include breakpoint-from(justify-#{$key}) {
     justify-content: $value
   }
 }
@@ -136,7 +140,7 @@ $flex_wrap: (
     }
   }
 
-  @include breakpoint-up('justify-items', #{$key}) {
+  @include breakpoint-from('justify-items', #{$key}) {
     justify-items: $value
   }
 }
@@ -149,7 +153,7 @@ $flex_wrap: (
     }
   }
 
-  @include breakpoint-up('justify-self', #{$key}) {
+  @include breakpoint-from('justify-self', #{$key}) {
     justify-self: $value
   }
 }
@@ -161,7 +165,7 @@ $flex_wrap: (
       order: $i
     }
 
-    @include breakpoint-up(item-#{$i}) {
+    @include breakpoint-from(item-#{$i}) {
       order: $i
     }
   }
