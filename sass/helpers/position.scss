@@ -6,49 +6,49 @@ $position: (static absolute fixed relative sticky) !default;
 
 $sides: (
   top: (
-    class: '.top',
+    class: 'top',
     property: (top),
     unit: 1vh,
   ),
 
   left: (
-    class: '.left',
+    class: 'left',
     property: (left),
     unit: 1vw,
   ),
 
   bottom: (
-    class: '.bottom',
+    class: 'bottom',
     property: (bottom),
     unit: 1vh,
   ),
 
   right: (
-    class: '.right',
+    class: 'right',
     property: (right),
     unit: 1vw,
   ),
 
   top-left: (
-    class: '.top-left',
+    class: 'top-left',
     property: (top left),
     value: 0,
   ),
 
   top-right: (
-    class: '.top-right',
+    class: 'top-right',
     property: (top right),
     value: 0,
   ),
 
   bottom-left: (
-    class: '.bottom-left',
+    class: 'bottom-left',
     property: (bottom left),
     value: 0,
   ),
 
   bottom-right: (
-    class: '.bottom-right',
+    class: 'bottom-right',
     property: (bottom right),
     value: 0,
   ),
@@ -58,10 +58,14 @@ $sides: (
   .#{$_position} {
     position: $_position
   }
+
+  @include breakpoint-from($_position) {
+    position: $_position
+  }
 }
 
 @each $_, $values in $sides {
-  #{map.get($values, class)} {
+  .#{map.get($values, class)} {
     @each $dir in map.get($values, property) {
       #{$dir}: map.get($values, value)
     }
@@ -78,11 +82,23 @@ $sides: (
         @if $key != 'bottom-left' {
           @if $key != 'bottom-right' {
             @if $key != 'middle' {
-              #{map.get($values, class)}-#{$x} {
+              .#{map.get($values, class)}-#{$x} {
                 @each $dir in map.get($values, property) {
                   @if map.get($values, unit) {
                     #{$dir}: map.get($values, unit) * $x;
                   } @else {
+                    #{$dir}: $unit * $x;
+                  }
+                }
+              }
+
+              @include breakpoint-from(#{map.get($values, class)}-#{$x}) {
+                @each $dir in map.get($values, property) {
+                  @if map.get($values, unit) {
+                    #{$dir}: map.get($values, unit) * $x;
+                  }
+
+                  @else {
                     #{$dir}: $unit * $x;
                   }
                 }
@@ -99,6 +115,7 @@ $sides: (
   clear: both
 }
 
+// floating
 .float {
   &-left {
     float: left

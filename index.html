@@ -24,19 +24,19 @@
 
 </head>
 <body class="font:ubuntu" style="background-image: url(favicon.svg)">
-  <section class="absolute z-9 sm:hidden">
-    <header class="bg-none no-border flex justify-between py-1 text-white">
+  <section class="absolute py-3 z-9 sm:hidden">
+    <header class="bg-none no-border flex justify-between px-2 text-white">
       <a href="#" class=""></a>
 
-      <ul class="hidden fixed overlay bg-black bg-opacity-75 inline-flex flex-column g-1 justify-center backdrop-blur-10 font:32 capitalize child-opacity:50">
+      <ul id="mobile_nav" class="hidden fixed overlay bg-black bg-opacity-75 inline-flex flex-column g-1 justify-center backdrop-blur-10 font:32 capitalize animate-fadeIn animated-500 ease-in-out child-opacity:50">
         <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="start" class="">Get started</a></li>
         <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="https://github.com/bebagodfried/openCSS" class="">view on GitHub</a></li>
         <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="showcase" class="">showcase</a></li>
         <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="https://github.com/bebagodfried/openCSS/issues" class="">Report Bug</a></li>
-        <li class="hover:text-white hover:ease-in p-1"><a href="#support" class=""><i class="fa-regular fa-question-circle"></i></a></li>
+        <li class="absolute top-0 left-0 p-3 hover:text-white hover:ease-in p-1"><a href="#support" class=""><i class="fa-regular fa-question-circle"></i></a></li>
       </ul>
 
-      <button class="bg-none p-0 size-32"><i class="fa-solid fa-bars"></i></button>
+      <button class="bg-none p-0 size-32 z-9" onclick="display('#mobile_nav'); classlist('#mobile_nav_icon', ['fa-bars', 'fa-xmark', 'fg-dark', 'fg-light']);"><i id="mobile_nav_icon" class="fa-solid fa-bars fg-dark font:32"></i></button>
     </header>
   </section>
   
@@ -63,10 +63,10 @@
         </div>
       </div>
       <!-- <button class="fixed sm:hidden bottom-10 left-50 pb-1 z-1 solid border-2 border-dark bg-none p-0 size-w-22 rounded-pill translateX-50"><i class="animate-bounce animated-1500">&bull;</i></button> -->
-      <div class="fixed flex self-center bottom-10 z-1 bg-none rounded-pill p-0 g-1 size-h-48 overflow-visible">
-        <button class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="follow on github"><i class="fa-brands fa-github bc-github-6"></i></button>
-        <button class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="follow on npm"><i class="fa-brands fa-npm bc-npm"></i></button>
-        <button class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="start with jsdelivr cdn"><i class="fa-solid fa-link"></i></button>
+      <div class="sm:fixed sm:bottom-10 sm:top-80 top-15 flex self-center z-1 bg-none rounded-pill p-0 g-1 size-h-48 overflow-visible">
+        <button onclick="$_('href', 'https\:\/\/github.com\/bebagodfried\/opencss.git')" class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="follow on github"><i class="fa-brands fa-github bc-github-6"></i></button>
+        <button onclick="$_('href', 'https\:\/\/www.npmjs.com\/package\/opencss')" class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="follow on npm"><i class="fa-brands fa-npm bc-npm"></i></button>
+        <button onclick="$_" class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="start with jsdelivr cdn"><i class="fa-solid fa-link"></i></button>
       </div>
     </section>
 

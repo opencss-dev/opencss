@@ -5,7 +5,7 @@
   "main": "dist/open.css",
   "scripts": {
     "test": "echo \"Successfully install openCSS v.1.0.0\" && exit 1",
-    "opencss": "sass sass/index.scss dist/1.0.0/open.css --no-source-map && sass sass/index.scss dist/1.0.0/open.min.css --style=compressed --no-source-map"
+    "opencss": "sass sass/index.scss dist/open.css --no-source-map && sass sass/index.scss dist/open.min.css --style=compressed --no-source-map"
   },
   "repository": {
     "type": "git",

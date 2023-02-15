@@ -355,8 +355,8 @@ let attrib = (attrib: any, el: string, set?: any) => {
   }
 }
 
-// classList: add/remove element classes
-let classList = (el: string, toggles: string[]) => {
+// classlist: add/remove element classes
+let classlist = (el: string, toggles: string[]) => {
   let x: any = select(el);
 
   toggles.forEach(key => {

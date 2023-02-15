@@ -320,8 +320,8 @@ let attrib = (attrib, el, set) => {
         return x.getAttribute(`${attrib}`);
     }
 };
-// classList: add/remove element classes
-let classList = (el, toggles) => {
+// classlist: add/remove element classes
+let classlist = (el, toggles) => {
     let x = select(el);
     toggles.forEach(key => {
         x.classList.toggle(key);

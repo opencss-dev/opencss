@@ -52,10 +52,12 @@
 // Style
 @each $style, $value in map.get($_default, 'borderStyle') {
   @include each($style) {
-    .#{$style} {
-      border-style: unquote($value);
-      &:not([class*=border-]) {
-        border: default('borderWidth') unquote($value) map.get($_default, 'borderColor')
+    @if $style != 'hidden' {
+      .#{$style} {
+        border-style: unquote($value);
+        &:not([class*=border-]) {
+          border: default('borderWidth') unquote($value) map.get($_default, 'borderColor')
+        }
       }
     }
 
