@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- /**
+      * @package: openCSS - Simple responssive HTML, CSS, JS framework
+      * @link : https://github.com/bebagodfried/opencss.git
+      * @version: 1.0.0
+      * @license: CC BY 4.0, MIT
+      **/ -->
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Open css v1.0.0</title>
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <meta name="generator" content="opencss" />
+  <meta property="og:title" content="opencss" />
+  <meta property="og:locale" content="en_US" />
+  <link rel="canonical" href="https://bebagodfried.github.io/opencss/" />
+  <meta property="og:url" content="https://bebagodfried.github.io/opencss/" />
+  <meta property="og:type" content="opencss" />
+
+  <link rel="stylesheet" href="dist/open.min.css">
+  <script src="dist/helper.js" defer></script>
+
+</head>
+<body class="font:arial">
+  <section class="absolute py-3 z-9">
+    <header class="bg-none no-border flex justify-between px-2 text-white">
+      <a href="#" class=""></a>
+
+      <ul id="mobile_nav"
+        class="hidden fixed overlay bg-black bg-opacity-75 inline-flex flex-column g-1 justify-center backdrop-blur-10 font:32 capitalize animate-fadeIn-left animated-500 ease-in child-opacity:50">
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="https://bebagodfried.github.io/opencss" class="">Overflow</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="https://www.npmjs.com/package/opencss" class="">Get started</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="https://github.com/bebagodfried/opencss" class="">view on GitHub</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="showcase.html" class="">showcase</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="https://github.com/bebagodfried/opencss/issues" class="">Report Bug</a></li>
+        <li class="absolute top-0 left-0 p-3 hover:text-white hover:ease-in p-1"><a href="#support" class=""><i
+              class="fa-regular fa-question-circle"></i></a></li>
+      </ul>
+
+      <button class="bg-none p-0 size-32 z-9"
+        onclick="display('#mobile_nav'); classlist('#mobile_nav_icon', ['fa-bars', 'fa-xmark', 'fg-dark', 'fg-light']);"><i
+          id="mobile_nav_icon" class="fa-solid fa-bars fg-dark font:32"></i></button>
+    </header>
+  </section>
+
+  <main class="bg-none p-2">
+    <h1>Showcase</h1>
+
+    <div class="flex flex-warp items-stretch justify-center g-1 p-1">
+
+      <!--  -->
+      <div class="flex-1 bg-white rounded-5 p-1 shadow" style="min-width: 300px">
+        <span class="flex flex-column items-center bg-white fit-content rounded-pill shadow-md absolute z-1 ml-1 mt-1">
+          <h2 class="m-0 font:12 bold text-center lh-2 px-1">Sample title</h2>
+        </span>
+        <div class="bg-dark-900 fg-light rounded size-h-256">
+          <pre class="m-auto fit-container">
+            <code class="block warp font:10 px-1">
+<span class="fg-white-600">// ideal property as class</span>
+&lt;p <span class="fg-red">class</span>=<span class="fg-green">"font:16 bold uppercase text-center"</span>&gt;
+  &lt;h3 <span class="fg-red">class</span>=<span class="fg-green">"m-0 uppercase"</span>&gt;Sample title&lt;/h3&gt;
+  Lorem ipsum dolor sit amet consectetur.
+&lt;/p&gt;
+            </code>
+          </pre>
+        </div>
+        <span>preview:</span>
+        <div class="bg-light p-1 rounded border small">
+          <p class="font:16 bold uppercase text-center m-0">
+          <h3 class="m-0 uppercase">Sample title</h3>
+          Lorem ipsum dolor sit amet consectetur.
+          </p>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="flex-1 bg-white rounded-5 p-1 shadow" style="min-width: 300px">
+        <span class="flex flex-column items-center bg-white fit-content rounded-pill shadow-md absolute z-1 ml-1 mt-1">
+          <h2 class="m-0 font:12 bold text-center lh-2 px-1">List items</h2>
+        </span>
+        <div class="bg-dark-900 fg-light rounded size-h-256">
+          <pre class="m-auto fit-container">
+            <code class="block warp font:10 px-1">
+<span class="fg-white-600">// ideal property as class</span>
+&lt;ul <span class="fg-red">class</span>=<span class="fg-green">"list-circle"</span>&gt;
+  &lt;li <span class="fg-red">class</span>=<span class="fg-green">"item-disc"</span>&gt;List item 1&lt;/li&gt;
+  &lt;li <span class="fg-red">class</span>=<span class="fg-green">""</span>&gt;List item 2&lt;/li&gt;
+  &lt;li <span class="fg-red">class</span>=<span class="fg-green">"item-square"</span>&gt;...&lt;/li&gt;
+&lt;/ul&gt;
+            </code>
+          </pre>
+        </div>
+        <span>preview:</span>
+        <div class="bg-light p-1 rounded border">
+        <ul class="list-circle">
+          <li class="item-disc">list item 1</li>
+          <li class="">list item 2</li>
+          <li class="item-square">...</li>
+        </ul>
+        </div>
+      </div>
+
+      <!--  -->
+      <div class="flex-1 bg-white rounded-5 p-1 shadow" style="min-width: 300px">
+        <span class="flex flex-column items-center bg-white fit-content rounded-pill shadow-md absolute z-1 ml-1 mt-1">
+          <h2 class="m-0 font:12 bold text-center lh-2 px-1">Button & Input</h2>
+        </span>
+        <div class="bg-dark-900 fg-light rounded size-h-256">
+          <pre class="m-auto fit-container">
+            <code class="block warp font:10 px-1 overflow-scroll">
+&lt;div <span class="fg-red">class</span>=<span class="fg-green">"flex justify-between g-1"</span>&gt;
+  &lt;button <span class="fg-red">class</span>=<span class="fg-green">"bg-none p-0 size-32"</span>&gt;&lt;i <span class="fg-red">class</span>=<span class="fg-green">"fa-solid fa-home"</span>&gt;&lt;/i&gt;&lt;/button&gt;
+  &lt;input <span class="fg-red">class</span>=<span class="fg-green">"m-0 px-1 font:14 rounded-full bg-none shadow-md outline fg-primary"</span>&gt;
+  &lt;button <span class="fg-red">class</span>=<span class="fg-green">"px-1 font:14 rounded-full"</span>&gt;prymary&lt;/button&gt;
+  &lt;hr&gt;
+  &lt;div <span class="fg-red">class</span>=<span class="fg-green">"flex justify-center items-center g-3 font:4"</span>>
+    &lt;button <span class="fg-red">class</span>=<span class="fg-green">"bg-white p-0 size-32 shadow active:animate-ping hover:scale-25"</span>&gt;
+      &lt;i <span class="fg-red">class</span>=<span class="fg-green">"fa-brands fa-instagram bc-instagram-4"</span>&lt;/i&gt;&lt/button&gt;
+    &lt;button <span class="fg-red">class</span>=<span class="fg-green">"bg-white p-0 size-32 shadow active:animate-ping hover:scale-25"</span>&gt;
+      &lt;i <span class="fg-red">class</span>=<span class="fg-green">"fa-brands fa-facebook bc-facebook"</span>&lt;/i&gt;&lt/button&gt;
+    &lt;button <span class="fg-red">class</span>=<span class="fg-green">"bg-white p-0 size-32 shadow active:animate-ping hover:scale-25"</span>&gt;
+      &lt;i <span class="fg-red">class</span>=<span class="fg-green">"fa-brands fa-whatsapp bc-whatsapp"</span>&lt;/i&gt;&lt/button&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+            </code>
+          </pre>
+        </div>
+        <span>preview:</span>
+        <div class="bg-light p-1 rounded border">
+          <div class="flex justify-between g-1">
+            <button class="bg-none p-0 size-32"><i class="fa-solid fa-home"></i></button>
+            <input class="m-0 px-1 font:14 rounded-full bg-none shadow-md outline fg-primary">
+            <button class="px-1 font:14 rounded-full">prymary</button>
+          </div>
+          <hr>
+          <div class="flex justify-center items-center g-3 font:4">
+            <button class="bg-white p-0 size-32 shadow active:animate-ping hover:scale-25"><i class="fa-brands fa-instagram bc-instagram-4"></i></button>
+            <button class="bg-white p-0 size-32 shadow active:animate-ping hover:scale-25"><i class="fa-brands fa-facebook bc-facebook"></i></button>
+            <button class="bg-white p-0 size-32 shadow active:animate-ping hover:scale-25"><i class="fa-brands fa-whatsapp bc-whatsapp"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="divider opacity-25">
+    
+  </main>
+
+  <footer class="absolute bottom-0 bg-none py-1">
+    <p class="px-3 text-center sm:text-right italic font:12 select-none">
+      <a href="https://github.com/bebagodfried/opencss/releases" class="text-light-100 d-none hover:d-none hover:fg-dark">opencss v.1.1.0</a>
+    </p>
+  </footer>
+</body>
+</html>

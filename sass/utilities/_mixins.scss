@@ -68,8 +68,8 @@ $as: '\\:';
   }
 }
 
-@mixin animation($prefix: '', $name, $duration: 1s, $iteration: null, $timing: null) {
-  .#{$prefix + $name} {
+@mixin animation($keyframe: '', $name, $duration: 1s, $iteration: null, $timing: null) {
+  .#{$keyframe} {
     animation: {
       name: #{$name};
       duration: $duration;
@@ -78,7 +78,7 @@ $as: '\\:';
     }
   }
 
-  @include create-pseudo-variant-of(#{$prefix + $name}) {
+  @include create-pseudo-variant-of(#{$keyframe}) {
     animation: {
       name: #{$name};
       duration: $duration;
@@ -197,11 +197,109 @@ $as: '\\:';
 }
 
 // Shadow
-@mixin box-shadow($bottom: 2px, $right: 2px, $opacity: 5px, $color: to-rgba($black, 20%), $style: null) {
+// Create utility classes for shadow each shadow base and/with color
+@mixin shadow-utility ($color: null) {
+  @if $color != null {
+    $base: map.get($shadow-utility, 'sm');
+
+    .shadow-#{$color} {
+      // add an extra outline of 2px around the $base with the specified $color.
+      box-shadow: $base 0 0 0 2px $color;
+    }
+
+    @include create-pseudo-variant-of(shadow-#{$color}) {
+      box-shadow: $base 0 0 0 2px $color;
+    }
+
+    .shadow-inset-#{$color} {
+      // add an extra inline of 2px around the $base with the specified $color.
+      box-shadow: inset $base 0 0 0 2px $color;
+    }
+    
+    @include create-pseudo-variant-of(shadow-inset-#{$color}) {
+      box-shadow: inset $base 0 0 0 2px $color;
+    }
+  }
+
+  @else {
+    // Simple shadow
+    // outset
+    @each $key, $base in $shadow-utility {
+      .shadow-#{$key} {
+        box-shadow: $base to-rgba($shadow-color, $shadow-opacity);
+      }
+
+      @include create-pseudo-variant-of(shadow, #{$key}) {
+        box-shadow: $base to-rgba($shadow-color, $shadow-opacity);
+      }
+    }
+
+    // inset
+    @each $key, $base in $shadow-utility {
+      .shadow-inset-#{$key} {
+        box-shadow: inset $base;
+      }
+
+      @include create-pseudo-variant-of(shadow-inset, #{$key}) {
+        box-shadow: inset $base;
+      }
+    }
+
+    // Colored shadow
+    @each $color_key, $shadow_color in $theme-colors {
+      @each $shadow_key, $base in $shadow-utility {
+        // outset shadow
+        // add an shadow $color the $base on $shadow-utility
+        @if $shadow_key == 'sm' {
+          .shadow-#{$color_key},
+          .shadow-#{$color_key+'-'+$shadow_key} {
+            box-shadow: $base to-rgba($shadow_color, $shadow-opacity);
+          }
+        } @else {
+          .shadow-#{$color_key+'-'+$shadow_key} {
+            box-shadow: $base to-rgba($shadow_color, $shadow-opacity);
+          }
+        }
+
+        @include create-pseudo-variant-of(shadow, #{$color_key+'-'+$shadow_key}) {
+          box-shadow: $base to-rgba($shadow_color, $shadow-opacity)
+        }
+
+        // inset shadow
+        // add an inset shadow $color the $base on $shadow-utility
+        .shadow-inset-#{$color_key+'-'+$shadow_key} {
+          box-shadow: inset $base to-rgba($shadow_color, $shadow-opacity)
+        }
+        
+        @include create-pseudo-variant-of(shadow-inset, #{$color_key}) {
+          box-shadow: inset $base to-rgba($shadow_color, $shadow-opacity)
+        }
+      }
+    }
+  }
+}
+
+@mixin box-shadow($style: null, $bottom: null, $right: null, $color: to-rgba($shadow_color, $shadow-opacity)) {
+  $base: map.get($shadow-utility, 'sm');
+
   @if $style != null {
-    box-shadow: $style $right $bottom $opacity $color
+    @if ($bottom != null) {
+      box-shadow: $style 0 $bottom 2px $color
+    } @else if ($right != null) {
+      box-shadow: $style $right $bottom 2px $color
+    } @else {
+      box-shadow: $style $base to-rgba($shadow-color, $shadow-opacity)
+    }
   } @else {
-    box-shadow: $right $bottom $opacity $color
+    @if ($bottom != null) {
+      box-shadow: $right $bottom 2px $color
+
+    } @else if ($right != null) {
+      box-shadow: $right $bottom 2px $color
+
+    } @else {
+      box-shadow: $base to-rgba($shadow-color, $shadow-opacity)
+    }
   }
 }
 

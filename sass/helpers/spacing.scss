@@ -93,6 +93,12 @@ $padding: (
         }
       }
 
+      @include breakpoint-from (#{map.get($_margin, class)+ '-auto'}) {
+        @each $property in map.get($_margin, property) {
+          #{$property}: auto
+        }
+      }
+
       @include breakpoint-from (#{map.get($_margin, class)}-#{$i}) {
         @each $property in map.get($_margin, property) {
           #{$property}: $_spacer
@@ -102,36 +108,22 @@ $padding: (
   }
 }
 
-.m {
-  &-auto {
-    margin: auto {}
+@each $key in ('m','mx', 'my') {
+  @include breakpoint-from(#{$key+ '-auto'}) {
+    @if ($key == 'mx') {
+      margin: {
+        left: auto;
+        right: auto
+      }
+    } @else if ($key == 'my') {
+      margin: {
+        left: auto;
+        right: auto
+      }
+    } @else {
+      margin: auto
+    }    
   }
-
-  &x-auto {
-    margin: {
-      left: auto;
-      right: auto
-    }
-  }
-
-  &y-auto {
-    margin: {
-      top: auto;
-      bottom: auto
-    }
-  }
-}
-
-@include breakpoint-from ('m-auto') {
-  margin: auto
-}
-
-@include breakpoint-from ('mx-auto') {
-  margin: auto
-}
-
-@include breakpoint-from ('my-auto') {
-  margin: auto
 }
 
 // Padding
@@ -150,6 +142,12 @@ $padding: (
         }
       }
 
+      @include breakpoint-from (#{map.get($_padding, class)+ '-auto'}) {
+        @each $property in map.get($_padding, property) {
+          #{$property}: auto
+        }
+      }
+
       @include breakpoint-from (#{map.get($_padding, class)}-#{$i}) {
         @each $property in map.get($_padding, property) {
           #{$property}: $_spacer
@@ -159,36 +157,22 @@ $padding: (
   }
 }
 
-.p {
-  &-auto {
-    padding: auto {}
+@each $key in ('p','px', 'py') {
+  @include breakpoint-from(#{$key+ '-auto'}) {
+    @if ($key == 'px') {
+      padding: {
+        left: auto;
+        right: auto
+      }
+    } @else if ($key == 'py') {
+      padding: {
+        left: auto;
+        right: auto
+      }
+    } @else {
+      padding: auto
+    }    
   }
-
-  &x-auto {
-    padding: {
-      left: auto;
-      right: auto
-    }
-  }
-
-  &y-auto {
-    padding: {
-      top: auto;
-      bottom: auto
-    }
-  }
-}
-
-@include breakpoint-from ('p-auto') {
-  padding: auto
-}
-
-@include breakpoint-from ('px-auto') {
-  padding: auto
-}
-
-@include breakpoint-from ('py-auto') {
-  padding: auto
 }
 
 // Spacer:

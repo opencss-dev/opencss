@@ -307,17 +307,46 @@ let DOM = (el) => {
         }
     }
     else {
-        console.error('DOM(elememt: object, all?: boolean)' + `:  => '${el}' is not a valid selector.`);
+        console.error('DOM(el: string)' + `:  => '${el}' is not a valid selector.`);
+    }
+};
+// copie a text to clipboard
+let strcopy = async (text) => {
+    try {
+        await navigator.clipboard.writeText(text);
+    }
+    catch (err) {
+        console.error('Failed to copy text: ', err);
     }
 };
 // Attrib: Return element specific attribute
-let attrib = (attrib, el, set) => {
+let attrib = (el, attrib, set) => {
     let x = select(el);
     if (set) {
         x.setAttribute(`${attrib}`, `${set}`);
     }
     else {
         return x.getAttribute(`${attrib}`);
+    }
+};
+let set_attrib = (el, attrib, set) => {
+    let x = select(el);
+    if (set) {
+        x.setAttribute(`${attrib}`, `${set}`);
+    }
+    else {
+        console.warn('set_attrib(el: string, attrib: any, set?: any)' + `:  => '${el}.atribute(${attrib}) will be empty.`);
+        x.setAttribute(`${attrib}`, '');
+    }
+};
+let get_attrib = (el, attrib) => {
+    let x = select(el);
+    try {
+        return x.getAttribute(`${attrib}`);
+    }
+    catch (ATTR_ERR) {
+        console.error(`${ATTR_ERR.name}: get_attrib(el: string, attrib: any) => '${el}' has no a ${attrib} attribute.`);
+        return null;
     }
 };
 // classlist: add/remove element classes
@@ -350,7 +379,7 @@ let select = (el, all = false) => {
         }
     }
     else {
-        console.error('select(elememt: object, all?: boolean)' + `:  => '${el}' is not a valid selector.`);
+        console.error('select(elememt: string, all?: boolean)' + `:  => '${el}' is not a valid selector.`);
     }
 };
 // SelectTag: HTMLCollection selector
@@ -361,7 +390,7 @@ let selectTag = (el) => {
         return document.getElementsByTagName(el);
     }
     catch (select_ERR) {
-        console.error(`${select_ERR.name}: selectTag(tag: object) => '${el}' is not a valid selector.`);
+        console.error(`${select_ERR.name}: selectTag(tag: string) => '${el}' is not a valid selector.`);
         return null;
     }
 };
@@ -373,7 +402,7 @@ let selectId = (el) => {
         return document.getElementById(el);
     }
     catch (selectId_ERR) {
-        console.error(`${selectId_ERR.name}: selectId(id: object) => '${el}' is not a valid selector.`);
+        console.error(`${selectId_ERR.name}: selectId(id: srting) => '${el}' is not a valid selector.`);
         return null;
     }
 };
@@ -545,32 +574,43 @@ let isset = (key) => {
 };
 /**
  * Mixed
- * Modalbox: create pup-up box
+ * pop_up: create pup-up box style
  * @param pop_up
  */
-let pop_up = function (modal = { title: ``, icon: ``, text: ``, html: ``, href: ``, header: true, classList: [], style: ``, border: true, overlay: false, height: ``, width: ``, top: ``, right: ``, bottom: ``, left: ``, level: 8 }) {
+let pop_up = function (modal = { title: ``, favicon: ``, content: ``, html: ``, href: ``, titlebar: true, rounded: true, shadow: true, classlist: [], style: ``, border: true, overlay: false, height: ``, width: ``, top: ``, right: ``, bottom: ``, left: ``, index: 8, timeout: 0 }) {
+    // Pop_up 
+    // #1. Create a new window with basic set
     const WINDOW = create('div');
+    // setup
     WINDOW.id = modal.title;
-    WINDOW.classList.add('rounded', 'flex', 'flex-column');
-    if (selectId(`${modal.title}`)) {
-        let el = selectId(modal.title);
+    WINDOW.classList.add('rounded', 'flex', 'flex-column', 'select-none');
+    WINDOW.style.position = 'fixed';
+    // size
+    WINDOW.style.height = modal.height;
+    WINDOW.style.width = modal.width;
+    // #2. Check window's already exist
+    if (selectId(`${WINDOW.id}`)) {
+        let el = selectId(WINDOW.id);
         el?.classList.add('animate-pulse');
         setTimeout(() => {
             el?.classList.remove('animate-pulse');
         }, 1000);
         return null;
     }
-    if (modal.classList) {
-        modal.classList.forEach(classItem => {
+    // #3. classlist: Add more features/tweaks
+    if (modal.classlist) {
+        modal.classlist.forEach(classItem => {
             WINDOW.classList.add(classItem);
         });
     }
-    if (modal.level) {
-        WINDOW.classList.add(`${'z-' + modal.level}`);
+    // #4. index/z-index: add a window priority (default: 8)
+    if (modal.index) {
+        WINDOW.classList.add(`${'z-' + modal.index}`);
     }
     else {
         WINDOW.classList.add('z-8');
     }
+    // #5. style: choose apearence between dark/light (default: light)
     if (`${modal.style}` == 'dark') {
         WINDOW.classList.add('bg-dark-900', 'fg-light');
     }
@@ -583,18 +623,37 @@ let pop_up = function (modal = { title: ``, icon: ``, text: ``, html: ``, href: 
     else {
         WINDOW.classList.add('bg-light', 'fg-dark-900');
     }
+    // #6. border: enable window border (default: true)
     if (modal.border == true) {
         WINDOW.classList.add('border');
     }
     else if (modal.border == false) {
-        WINDOW.classList.add('no-border');
+        // do nothing ...
     }
     else {
         WINDOW.classList.add('border');
     }
-    WINDOW.style.position = 'fixed';
-    WINDOW.style.height = modal.height;
-    WINDOW.style.width = modal.width;
+    // #7. rounded: enable window rounded border (default: true)
+    if (modal.rounded == true) {
+        WINDOW.classList.add('rounded');
+    }
+    else if (modal.rounded == false) {
+        // do nothing ...
+    }
+    else {
+        WINDOW.classList.add('rounded');
+    }
+    // #8. shadow: enable window shadow (default: true)
+    if (modal.shadow == true) {
+        WINDOW.classList.add('shadow-sm');
+    }
+    else if (modal.shadow == false) {
+        // do nothing ...
+    }
+    else {
+        WINDOW.classList.add('shadow-sm');
+    }
+    // #9. [top, right, bottom, left]: set window position
     if (modal.top || modal.right || modal.bottom || modal.left) {
         WINDOW.style.top = modal.top;
         WINDOW.style.right = modal.right;
@@ -606,48 +665,67 @@ let pop_up = function (modal = { title: ``, icon: ``, text: ``, html: ``, href: 
         WINDOW.style.left = '50%';
         WINDOW.classList.add('translate--50');
     }
-    // ========================
+    // #10. header/title bar
+    // #10.1 Create a title bar 
     const HEADER = create('div');
     HEADER.classList.add('flex', 'items-center', 'justify-between', 'full-width');
     HEADER.style.padding = '.2rem';
+    // #10.2 favicon: add an icon as window illustrator
     const FAVICON = create('img');
-    if (modal.icon) {
-        FAVICON.src = modal.icon;
+    if (modal.favicon) {
+        FAVICON.src = modal.favicon;
         FAVICON.classList.add('size-32');
     }
+    // #10.3 Window action bar
+    // * title: set the window title/id
     const TITLE = create('span');
-    TITLE.classList.add('pl-1', 'line-clamp-1', 'line-clamp-sm-1');
+    TITLE.classList.add('pl-1', 'line-clamp-1', 'sm:line-clamp-1');
     TITLE.innerHTML = modal.title;
+    // * add moving icon
     const WIN_Move = create('button');
     WIN_Move.classList.add('bg-none', 'cursor-default', 'fa-solid', 'fa-up-down-left-right', 'p-0', 'rounded-full', 'size-32', 'muted');
+    // * add closing button
     const WIN_Close = create('button');
     WIN_Close.classList.add('bg-none', 'fa-solid', 'fa-times', 'hover:bg-danger', 'p-0', 'rounded-full', 'size-32');
-    if (modal.text) {
-        var CONTENT = create('p');
-        CONTENT.classList.add('border', 'border-t', 'm-0', 'px-2', 'py-1', 'w-full');
-        CONTENT.innerHTML = modal.text;
+    // #11. views: create adaptable content
+    var view = null;
+    if (modal.content) {
+        view = 'p';
     }
     else if (modal.html) {
-        var CONTENT = create('div');
-        CONTENT.classList.add('max-height', 'px-2', 'py-1', 'w-full');
+        view = 'div';
+    }
+    else if (modal.href) {
+        view = 'iframe';
+    }
+    // - create main window view
+    const CONTENT = create(view);
+    if (modal.content) {
+        CONTENT.classList.add('m-0', 'px-2', 'py-1', 'w-full');
+        CONTENT.innerHTML = modal.content;
+        if (modal.titlebar == true) {
+            CONTENT.classList.add('border', 'border-0', 'border-t-1');
+        }
+    }
+    else if (modal.html) {
+        CONTENT.classList.add('max-height', 'border-0', 'border-t-1', 'border-white', 'px-2', 'py-1', 'w-full');
         CONTENT.innerHTML = modal.html;
     }
     else if (modal.href) {
-        var CONTENT = create('iframe');
         CONTENT.classList.add('no-border');
         CONTENT.height = '100%';
         CONTENT.width = '100%';
         CONTENT.src = modal.href;
-        if (modal.header == true) {
-            CONTENT.classList.add('border', 'border-t');
+        if (modal.titlebar == true) {
+            CONTENT.classList.add('border-0', 'border-t-1', 'border-white');
         }
     }
-    // ======================
-    HEADER.ondblclick = () => {
-        let move = select('.js_focus');
-        let modalGrab = move.getAttribute('aria-grabbed');
-        HEADER.classList.toggle('cursor-grabbing');
-        if (modalGrab == 'true') {
+    // #12. Actions
+    // #12.1 draging action (double-click)
+    WINDOW.ondblclick = () => {
+        let move = get_attrib('.js_focus', 'aria-grabbed');
+        WINDOW.classList.toggle('cursor-grabbing');
+        if (move == 'true') {
             WINDOW.setAttribute('aria-grabbed', 'false');
             WIN_Move.classList.add('muted');
         }
@@ -656,19 +734,32 @@ let pop_up = function (modal = { title: ``, icon: ``, text: ``, html: ``, href: 
             WIN_Move.classList.remove('muted');
         }
     };
+    WINDOW.addEventListener('mousemove', (e) => {
+        let focus = select('.js_focus');
+        let drag = get_attrib(`#${focus.id}`, 'aria-grabbed');
+        // ajust window option according to cursor position
+        if (focus && drag == 'true') {
+            let x = e.clientX;
+            let y = e.clientY;
+            WINDOW.style.left = `${x}px`;
+            WINDOW.style.top = `${y}px`;
+        }
+    });
+    // #12.1 closing action (cross button click)
     WIN_Close.onclick = () => {
         drop(['.js_focus']);
         try {
+            // remove window overlay if enabled
             drop(['#modal_overlay']);
         }
         catch (error) {
             return null;
         }
     };
-    // ======================
+    // #12.2 focus/`switch focus` action priority(hover/click on window)
     WINDOW.addEventListener('mouseover', () => {
         WINDOW.classList.add('js_focus');
-        if (!modal.level) {
+        if (!modal.index) {
             WINDOW.onclick = () => {
                 let lostFocus = select('.z-8');
                 if (lostFocus) {
@@ -679,34 +770,47 @@ let pop_up = function (modal = { title: ``, icon: ``, text: ``, html: ``, href: 
             };
         }
     });
+    // #12.3 lost focus priority
     WINDOW.addEventListener('mouseleave', () => {
         WINDOW.classList.remove('js_focus');
     });
-    // =====================
+    // #12.4 timeout
+    if (modal.timeout != 0 && modal.timeout != null) {
+        let timeout = modal.timeout;
+        setTimeout(() => {
+            WINDOW.classList.add('animate-fadeOut');
+        }, timeout);
+        WINDOW.remove();
+    }
+    // #13. final views
+    // # header sections
+    //   - favicon & title block
     let div_1 = create('div');
     div_1.classList.add('flex', 'items-center');
-    if (modal.icon) {
+    if (modal.favicon) {
         div_1.appendChild(FAVICON);
     }
     div_1.appendChild(TITLE);
+    //   - window actions block
     let div_2 = create('div');
     div_2.classList.add('flex', 'items-center', 'g-1');
     div_2.appendChild(WIN_Move);
     div_2.appendChild(WIN_Close);
     HEADER.appendChild(div_1);
     HEADER.appendChild(div_2);
-    // ========================
-    if (modal.header != false) {
+    // #14. Ready header view's
+    if (modal.titlebar != false) {
         WINDOW.appendChild(HEADER);
     }
-    // =========================
+    // #15. Ready content view's
     WINDOW.appendChild(CONTENT);
+    // *** overlay options view ***
     if (modal.overlay == true) {
         let overlay = create('div');
         overlay.id = 'modal_overlay';
         overlay.classList.add('absolute', 'fullscreen', 'top-0', 'left-0', 'backdrop-blur-10', 'ease-in', 'animate-fadeIn', 'animated-500');
-        if (modal.level) {
-            let i = modal.level;
+        if (modal.index) {
+            let i = modal.index;
             overlay.classList.add(`z-${i - 1}`);
         }
         else {
@@ -720,9 +824,9 @@ let pop_up = function (modal = { title: ``, icon: ``, text: ``, html: ``, href: 
     }
 };
 /**
- * Cookies
+ * Cookies manage
  */
-let setCookie = (cookieName, cookieValue, cookieExpiry) => {
+let set_cookie = (cookieName, cookieValue, cookieExpiry) => {
     try {
         if (isset(cookieExpiry)) {
             document.cookie = `${cookieName = cookieValue}; expires=${cookieExpiry};`;
@@ -735,7 +839,7 @@ let setCookie = (cookieName, cookieValue, cookieExpiry) => {
         console.error(Cookie_ERR);
     }
 };
-let unsetCookie = (cookieName, cookieExpiry) => {
+let unset_cookie = (cookieName, cookieExpiry) => {
     try {
         if (isset(cookieExpiry)) {
             document.cookie = `username=${cookieName}; expires=${cookieExpiry};`;

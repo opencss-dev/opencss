@@ -96,7 +96,7 @@
   }
 }
 
-// default() - return values from <config> $_default
+// get_default() - return values from <config> $_default
 @function default($key, $return: DEFAULT) {
 
   $defined: map.get($_default, $key);

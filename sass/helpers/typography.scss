@@ -8,7 +8,7 @@
   font-style: normal;
   font-weight: 400;
 
-  src: url('#{$webfonts_path}/googlefonts/roboto/regular.ttf')
+  src: url('#{$webfonts_path}/@googlefonts/roboto/regular.ttf')
 }
 
 @font-face {
@@ -17,7 +17,7 @@
   font-style: normal;
   font-weight: 400;
 
-  src: url('#{$webfonts_path}/googlefonts/ubuntu/regular.ttf')
+  src: url('#{$webfonts_path}/@googlefonts/ubuntu/regular.ttf')
 }
 
 @font-face {
@@ -52,10 +52,10 @@
 
 // @fontawessome
 @if $fa_minify {
-  @import url('#{$webfonts_path}/fontawesome/css/all.min.css');
+  @import url('#{$webfonts_path}/@fontawesome/css/all.min.css');
 } 
 @else {
-  @import url('#{$webfonts_path}/fontawesome/css/all.css');
+  @import url('#{$webfonts_path}/@fontawesome/css/all.css');
 }
 
 // Typography
@@ -85,11 +85,26 @@
 @each $i, $values in $font-utility {
   @include create-new-variant-of(font, $i) {
     font-size: $i * $font-unit;
-
-    @if ( $i < 72) {
+    @if ( $i <= 6) {
+      font-size: default(fontSize, $i);
+    } @else if ( $i < 72) {
       font-size: clamp($i * .75px, 5vw, $i * 1px);
     } @else {
       font-size: clamp($i * .75px, 10vw, $i * 1.5px);
+    }
+  }
+}
+
+@include until($_breakpoint-xs) {
+  @each $i, $values in $font-utility {
+    @include create-new-variant-of(font, $i) {
+      font-size: $i * $font-unit;
+
+      @if ( $i < 72) {
+        font-size: clamp($i * .5px, 2.5vw, $i * 1px);
+      } @else {
+        font-size: clamp($i * .5px, 5vw, $i * 1.5px);
+      }
     }
   }
 }

@@ -110,7 +110,7 @@
 }
 
 // Slider
-@keyframes slideLeft {
+@keyframes slide-left {
   from {
     transform: translate3d(-100%, 0, 0);
     visibility: hidden
@@ -120,7 +120,7 @@
   }
 }
 
-@keyframes slideRight {
+@keyframes slide-right {
   from {
     transform: translate3d(100%, 0, 0);
     visibility: hidden
@@ -130,7 +130,7 @@
   }
 }
 
-@keyframes slideTop {
+@keyframes slide-top {
   from {
     transform: translate3d(100%, 0, 0);
     visibility: hidden
@@ -140,7 +140,7 @@
   }
 }
 
-@keyframes slideBottom {
+@keyframes slide-bottom {
   from {
     transform: translate3d(0, -100%, 0);
     visibility: hidden
@@ -299,116 +299,128 @@ $animate: (
     iteration-count: infinite
   ),
 
+  fade: (
+    name: fade,
+    duration: 1s,
+    timing-function: ease-in
+  ),
+
   fadeIn: (
     name: fadeIn,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  fadeIn-up: (
+  fadeIn-t: (
     name: fadeIn-top,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  fadeIn-right: (
+  fadeIn-r: (
     name: fadeIn-right,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  fadeIn-down: (
+  fadeIn-b: (
     name: fadeIn-bottom,
     duration: 1s,
     timing-function: ease-in
   ),
     
-  fadeIn-left: (
+  fadeIn-l: (
     name: fadeIn-left,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  fadeIn-Out: (
+  fadeOut: (
     name: fadeOut,
     duration: 1s,
     timing-function: ease-out
   ),
+
+  fadeOut-t: (
+    name: fadeOut-top,
+    duration: 1s,
+    timing-function: ease-out
+  ),
   
-  fadeOut-right: (
+  fadeOut-r: (
     name: fadeOut-right,
     duration: 1s,
     timing-function: ease-out
   ),
   
-  fadeOut-down: (
+  fadeOut-b: (
     name: fadeOut-bottom,
     duration: 1s,
     timing-function: ease-out
   ),
   
-  fadeOut-left: (
+  fadeOut-l: (
     name: fadeOut-left,
     duration: 1s,
     timing-function: ease-out
   ),
 
   slideIn: (
-    name: fadeIn,
+    name: slideIn,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  slideIn-up: (
-    name: fadeIn-top,
+  slideIn-t: (
+    name: slideIn-top,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  slideIn-right: (
-    name: fadeIn-right,
+  slideIn-r: (
+    name: slideIn-right,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  slideIn-down: (
-    name: fadeIn-bottom,
+  slideIn-b: (
+    name: slideIn-bottom,
     duration: 1s,
     timing-function: ease-in
   ),
     
-  slideIn-left: (
-    name: fadeIn-left,
+  slideIn-l: (
+    name: slideIn-left,
     duration: 1s,
     timing-function: ease-in
   ),
 
-  slideOut-Out: (
-    name: fadeOut,
+  slideOut: (
+    name: slideOut,
     duration: 1s,
     timing-function: ease-out
   ),
   
-  slideOut-up: (
-    name: fadeOut-top,
+  slideOut-t: (
+    name: slideOut-top,
     duration: 1s,
     timing-function: ease-out
   ),
   
-  slideOut-right: (
-    name: fadeOut-right,
+  slideOut-r: (
+    name: slideOut-right,
     duration: 1s,
     timing-function: ease-out
   ),
   
-  slideOut-down: (
-    name: fadeOut-bottom,
+  slideOut-b: (
+    name: slideOut-bottom,
     duration: 1s,
     timing-function: ease-out
   ),
   
-  slideOut-left: (
-    name: fadeOut-left,
+  slideOut-l: (
+    name: slideOut-left,
     duration: 1s,
     timing-function: ease-out
   ),
@@ -428,12 +440,36 @@ $animate: (
 
 // Animation
 @each $animation, $properties in $animate {
-  @include animation($prefix: 'animate-', $name: map.get($properties, 'name'),  $duration: map.get($properties, 'duration'), $iteration: map.get($properties, 'iteration-count'), $timing: map.get($properties, 'timing-function'))
+  @include animation($keyframe: 'animate-#{$animation}', $name: map.get($properties, 'name'),  $duration: map.get($properties, 'duration'), $iteration: map.get($properties, 'iteration-count'), $timing: map.get($properties, 'timing-function'))
 }
 
 .animate {
   // Animation delay
   &-delay {
+    &-100 {
+      animation: {
+        delay: .1s
+      }
+    }
+
+    &-200 {
+      animation: {
+        delay: .2s
+      }
+    }
+
+    &-300 {
+      animation: {
+        delay: .3s
+      }
+    }
+
+    &-400 {
+      animation: {
+        delay: .4s
+      }
+    }
+
     &-500 {
       animation: {
         delay: .5s
@@ -481,19 +517,67 @@ $animate: (
         delay: 4s
       }
     }
+
+    &-4500 {
+      animation: {
+        delay: 4.5s
+      }
+    }
+
+    &-5000 {
+      animation: {
+        delay: 5s
+      }
+    }
   }
 
   // Misc animation properties
   &d {
     &-slow {
       animation: {
-        duration: 2s
+        duration: 5s
+      }
+    }
+
+    &-slower {
+      animation: {
+        duration: 10s
       }
     }
 
     &-fast {
       animation: {
         duration: .5s
+      }
+    }
+
+    &-faster {
+      animation: {
+        duration: .1s
+      }
+    }
+
+    &-100 {
+      animation: {
+        duration: .1s
+      }
+    }
+
+    &-200 {
+      animation: {
+        duration: .2s
+      }
+    }
+
+    &-300 {
+      animation: {
+        duration: .3s
+      }
+    }
+
+    &-400 {
+      animation: {
+        duration: .4s
       }
     }
 
@@ -542,6 +626,18 @@ $animate: (
     &-4000 {
       animation: {
         duration: 4s
+      }
+    }
+
+    &-4500 {
+      animation: {
+        duration: 4.5s
+      }
+    }
+
+    &-5000 {
+      animation: {
+        duration: 5s
       }
     }
 

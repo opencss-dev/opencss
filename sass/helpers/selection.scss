@@ -1,10 +1,13 @@
-::selection {
-  color: $current;
-  background-color: $primary
+@use 'sass:map';
+
+::selection,
+::first-letter::selection {
+  color: map.get($selection, 'color');
+  background-color: map.get($selection, 'background');
 }
 
 ::before, ::after,
-::placeholder, ::first-letter {
+::placeholder {
   user-select: none
 }
 
@@ -17,11 +20,11 @@ select, .select {
 
   * {
     user-select: none
- }
+  }
 
   &.hoverable:hover &-content {
     display: block
- }
+  }
 
   &-content {
     @include border($width: default('borderWidth'), $style: default('borderStyle'), );

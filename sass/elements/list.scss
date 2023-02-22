@@ -28,19 +28,31 @@ $ul_style: (
 );
 
 ol {
-  @each $list, $marker in $ol_style {
+  @each $list, $type in $ol_style {
     &.#{$list} {
-      list-style-type: $marker
+      list-style-type: $type
     }
   }
 }
 
 ul {
-  @each $list, $marker in $ul_style {
+  @each $list, $type in $ul_style {
     &.list {
       &-#{$list} {
-        list-style-type: $marker
+        margin-left: 1em;
+        list-style-type: $type
       }
+    }
+  }
+}
+
+$list_style_type: $ul_style;
+
+ul .item,
+ol .item{
+  @each $style, $type in $list_style_type {
+  &-#{$style} {
+      list-style-type: $type
     }
   }
 }

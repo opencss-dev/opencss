@@ -28,9 +28,9 @@ $origin: (
 
 // Rotate 
 $axis-rotate: (
-  X: rotateX,
-  Y: rotateY,
-  Z: rotateZ,
+  x: rotateX,
+  y: rotateY,
+  z: rotateZ,
 );
 
 @each $rotation, $value in default('rotate') {
@@ -55,11 +55,11 @@ $axis-rotate: (
 
 @each $axis, $property in $axis-rotate {
   @each $rotation, $value in default('rotate') {
-    .rotate#{$axis + '-' + $rotation} {
+    .rotate-#{$axis + '-' + $rotation} {
       transform: $property + '(' + $value + ')'
     }
 
-    @include create-pseudo-variant-of(rotate#{$axis + '-' + $rotation}) {
+    @include create-pseudo-variant-of(rotate-#{$axis + '-' + $rotation}) {
       transform: $property + '(' + $value + ')'
     }
   }
@@ -67,9 +67,9 @@ $axis-rotate: (
 
 // scale
 $axis-scale: (
-  X: scaleX,
-  Y: scaleY,
-  Z: scaleZ,
+  x: scaleX,
+  y: scaleY,
+  z: scaleZ,
 );
 
 @each $scaling, $value in default('scales') {
@@ -84,11 +84,11 @@ $axis-scale: (
 
 @each $axis, $property in $axis-scale {
   @each $scaling, $value in default('scales') { 
-    .scale#{$axis + '-' + $scaling} {
+    .scale-#{$axis + '-' + $scaling} {
       transform: $property + '(' + $value + ')'
     }
 
-    @include create-pseudo-variant-of(scale#{$axis + '-' + $scaling}) {
+    @include create-pseudo-variant-of(scale-#{$axis + '-' + $scaling}) {
       transform: $property + '(' + $value + ')'
     }
   }
@@ -96,9 +96,9 @@ $axis-scale: (
 
 // shrink
 $axis-shrink: (
-  X: shrinkX,
-  Y: shrinkY,
-  Z: shrinkZ,
+  x: shrinkX,
+  y: shrinkY,
+  z: shrinkZ,
 );
 
 @each $shrink, $value in default('shrinks') {
@@ -113,11 +113,11 @@ $axis-shrink: (
 
 @each $axis, $property in $axis-scale {
   @each $shrink, $value in default('shrinks') {
-    .shrink#{$axis + '-' + $shrink} {
+    .shrink-#{$axis + '-' + $shrink} {
       transform: $property + '(' + $value + ')'
     }
 
-    @include create-pseudo-variant-of(shrink#{$axis + '-' + $shrink}) {
+    @include create-pseudo-variant-of(shrink-#{$axis + '-' + $shrink}) {
       transform: $property + '(' + $value + ')'
     }
   }
@@ -125,8 +125,8 @@ $axis-shrink: (
 
 // Skew
 $axis-skew: (
-  X: skewX,
-  Y: skewY,
+  x: skewX,
+  y: skewY,
 );
 
 @each $skewing, $value in default('skew') {
@@ -141,11 +141,11 @@ $axis-skew: (
 
 @each $axis, $property in $axis-skew {
   @each $skew, $value in default('skew') {
-    .skew#{$axis + '-' + $skew} {
+    .skew-#{$axis + '-' + $skew} {
       transform: $property + '(' + $value + ')'
     }
 
-    @include create-pseudo-variant-of(skew#{$axis + '-' + $skew}) {
+    @include create-pseudo-variant-of(skew-#{$axis + '-' + $skew}) {
       transform: $property + '(' + $value + ')'
     }
   }
@@ -215,19 +215,19 @@ $axis-skew: (
     }
   }
 
-  .translateX-#{$translation} {
+  .translate-x-#{$translation} {
     transform: translateX + '(' + $value + ')'
   }
 
-  @include create-pseudo-variant-of(translateX-#{$translation}) {
+  @include create-pseudo-variant-of(translate-x-#{$translation}) {
     transform: translateX + '(' + $value + ')'
   }
   
-  .translateY-#{$translation} {
+  .translate-y-#{$translation} {
     transform: translateY + '(' + $value + ')'
   }
 
-  @include create-pseudo-variant-of(translateY-#{$translation}) {
+  @include create-pseudo-variant-of(translate-y-#{$translation}) {
     transform: translateY + '(' + $value + ')'
   }
 }
