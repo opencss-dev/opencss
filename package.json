@@ -4,7 +4,7 @@
   "description": "Simple responsive HTML, CSS, JS framework",
   "main": "dist/open.css",
   "scripts": {
-    "test": "echo \"Successfully install openCSS v.1.0.0\" && exit 1",
+    "test": "echo \"Successfully install openCSS v.1.1.0\" && exit 1",
     "build": "sass sass/index.scss dist/open.css --no-source-map && sass sass/index.scss dist/open.min.css --style=compressed --no-source-map"
   },
   "repository": {
