@@ -1,0 +1,99 @@
+@use 'sass:color';
+@import '../config';
+
+// Colors
+@each $color, $value in $theme-colors {
+  .bc-#{$color},
+  .fg-#{$color},
+  .text-#{$color} {
+    color: $value;
+    @include shade-color(color, $value)
+  }
+
+  // 
+  @include create-pseudo-variant-of(bc-#{$color}) {
+    color: $color
+  }
+
+  @include create-pseudo-variant-of(fg-#{$color}) {
+    color: $value
+  }
+   
+  @include create-pseudo-variant-of(text-#{$color}) {
+    color: $value
+  }
+
+  // 
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(fg-#{$color}, $shade) {
+      @if ($weight < 500) {
+        color: darken($value, $weight)
+      } @else if ($weight > 500) {
+        color: tint-color($value, $weight)
+      } @else {
+        color: $value
+      }
+    }
+  }
+}
+
+// Fa-brands color
+@each $brand, $color in $brandcolors {
+  .bc-#{$brand} {
+    color: $color
+  }
+
+  @include create-pseudo-variant-of(bc-#{$brand}) {
+    color: $color
+  }
+}
+
+// Background
+// = Colors =================
+@include theme-colors(('.bg'), background-color, $merge: ('transparent': $transparent));
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(bg-#{$color}) {
+    @include background($color: $value)
+  }
+
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(bg-#{$color}, $shade) {
+      @include background($color: shade-color($value, $weight))
+    }
+  }
+}
+
+.bg-none {
+  background: $none
+}
+
+@include create-pseudo-variant-of(bg-none) {
+  background: none !important
+}
+
+@each $brand, $color in $brandcolors {
+  // Fa-brands
+  .bg-brands-#{$brand} {
+    background: $color
+  }
+
+  @include create-pseudo-variant-of(bg-brands-#{$brand}) {
+    background: $color
+  }
+}
+
+// Background color opacity (primary color only)
+@each $color, $value in $theme-colors {
+  @each $opacity, $alpha in default('opacity') { 
+    .bg-#{$color + '-alpha-' + $opacity} {
+      @include background($color: to-rgba($value, $alpha * 100%))
+    }
+  }
+}
+
+// Misc
+.currentColor {
+  color: currentColor
+}
+

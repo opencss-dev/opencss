@@ -1,0 +1,43 @@
+$list_style_types: (
+  decimal               : decimal,
+  decimal-leading-zero  : decimal-leading-zero,
+  
+  lower-alpha           : lower-alpha,
+  lower-greek           : lower-greek,
+  lower-latin           : lower-latin,
+  lower-roman           : lower-roman,
+  
+  upper-alpha           : upper-alpha,
+  upper-latin           : upper-latin,
+  upper-roman           : upper-roman,
+  
+  armenian              : armenian,
+  cjk-ideographic       : cjk-ideographic,
+  georgian              : georgian,
+  hebrew                : hebrew,
+  hiragana              : hiragana,
+  hiragana-iroha        : hiragana-iroha,
+  katakana              : katakana,
+  katakana-iroha        : katakana-iroha,
+  
+  circle                : circle,
+  disc                  : disc,
+  square                : square,
+);
+
+ol, ul {
+  @each $style, $type in $list_style_types {
+    &.#{$style} {
+      list-style-type: $type
+    }
+  }
+}
+
+ul .item,
+ol .item{
+  @each $style, $type in $list_style_types {
+  &-#{$style} {
+      list-style-type: $type
+    }
+  }
+}

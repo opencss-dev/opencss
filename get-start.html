@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- /**
+      * @package: openCSS - Simple responssive HTML, CSS, JS framework
+      * @link : https://github.com/opencss-dev/opencss.git
+      * @version: 1.1.0
+      * @license: CC BY 4.0, MIT
+      **/ -->
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Open CSS v1.1.0</title>
+  <link rel="shortcut icon" href="opencss-dev.png" type="image/x-icon">
+  <link rel="apple-touch-icon" href="opencss-dev.png">
+
+  <meta name="generator" content="opencss" />
+  <meta property="og:title" content="opencss" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="opencss" />
+
+  <link rel="stylesheet" href="dist/open.min.css">
+  <script src="dist/base.js" defer></script>
+
+</head>
+<body class="font:arial fit-screen">
+  <section class="absolute py-3 z-9 sm:hidden">
+    <header class="bg-none no-border flex justify-between px-2 text-white">
+      <a href="#" class=""></a>
+
+      <ul id="mobile_nav"
+        class="hidden fixed overlay bg-black bg-opacity-75 inline-flex flex-column g-1 justify-center backdrop-blur-10 font:32 capitalize animate-fadeIn-left animated-500 ease-in child-opacity:50">
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a href="https://www.npmjs.com/package/opencss"
+            class="">Get started</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="https://github.com/opencss-dev/opencss" class="">view on GitHub</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="showcase.html" class="">showcase</a></li>
+        <li class="hover:text-white solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1"><a
+            href="https://github.com/opencss-dev/opencss/issues" class="">Report Bug</a></li>
+        <li class="absolute top-0 left-0 p-3 hover:text-white hover:ease-in p-1"><a href="#support" class=""><i
+              class="fa-regular fa-question-circle"></i></a></li>
+      </ul>
+
+      <button class="bg-none p-0 size-32 z-9"
+        onclick="display('#mobile_nav'); classlist('#mobile_nav_icon', ['fa-bars', 'fa-xmark', 'fg-dark', 'fg-light']);"><i
+          id="mobile_nav_icon" class="fa-solid fa-bars fg-dark font:32"></i></button>
+    </header>
+  </section>
+
+  <footer class="absolute bottom-0 bg-none py-1">
+    <p class="px-3 text-center sm:text-right italic font:12 select-none">
+      <a href="https://github.com/opencss-dev/opencss/releases" class="text-light-100 d-none hover:d-none hover:fg-dark">opencss v.1.1.0</a>
+    </p>
+  </footer>
+
+  <script>
+    let cdn_copy = () => {
+
+      try {
+        // Copy opencss cdn to your clipboard
+        let cdn_check = DOM('#cdn_check')
+
+        let i = 1;
+        let timer = 100;
+        let saved = () => {
+          setTimeout(() => {
+            i++
+            classlist('#cdn_check', ['fa-link', 'fa-check', 'fg-green'])
+
+            if (i <= 2) {
+              if (i == 2) { timer = 1000 };
+              saved()
+            }
+          }, timer);
+        }
+        strcopy('https://cdn.jsdelivr.net/npm/opencss@1.1.0/dist/open.min.css')
+        saved()
+      } catch (error) {
+      }
+    }
+  </script>
+</body>
+</html>

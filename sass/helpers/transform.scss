@@ -1,0 +1,288 @@
+@use 'sass:map';
+
+// Transform
+// Origin
+$origin: (
+  top   : top,
+  right : right,
+  bottom: top,
+  left  : right,
+
+  top-right: ( top right),
+  top-left: ( top left),
+  bottom-right : ( bottom right),
+  bottom-left : ( bottom left),
+
+  center: center,
+);
+
+@each $origin, $position in $origin {
+  .origin-#{$origin} {
+    transform-origin: $position
+  }
+  
+  @include create-pseudo-variant-of(origin-#{$origin}) {
+    transform-origin: $position
+  }
+}
+
+// Rotate 
+$axis-rotate: (
+  x: rotateX,
+  y: rotateY,
+  z: rotateZ,
+);
+
+@each $rotation, $value in default('rotate') {
+  .rotate-#{$rotation} {
+    transform: rotate + '(' + $value + ')'
+  }
+  
+  @include create-pseudo-variant-of(rotate-#{$rotation}) {
+    transform: rotate + '(' + $value + ')'
+  }
+}
+
+@each $rotation-back, $value in default('rotate') {
+  .rotate-#{$rotation-back}-reverse {
+    transform: rotate + '(' + neg($value) + ')'
+  }
+
+  @include create-pseudo-variant-of(rotate-#{$rotation-back}-reverse) {
+    transform: rotate + '(' + neg($value) + ')'
+  }
+}
+
+@each $axis, $property in $axis-rotate {
+  @each $rotation, $value in default('rotate') {
+    .rotate-#{$axis + '-' + $rotation} {
+      transform: $property + '(' + $value + ')'
+    }
+
+    @include create-pseudo-variant-of(rotate-#{$axis + '-' + $rotation}) {
+      transform: $property + '(' + $value + ')'
+    }
+  }
+}
+
+// scale
+$axis-scale: (
+  x: scaleX,
+  y: scaleY,
+  z: scaleZ,
+);
+
+@each $scaling, $value in default('scales') {
+  .scale-#{$scaling} {
+    transform: scale + '(' + $value + ')'
+  }
+
+  @include create-pseudo-variant-of(scale-#{$scaling}) {
+    transform: scale + '(' + $value + ')'
+  }
+}
+
+@each $axis, $property in $axis-scale {
+  @each $scaling, $value in default('scales') { 
+    .scale-#{$axis + '-' + $scaling} {
+      transform: $property + '(' + $value + ')'
+    }
+
+    @include create-pseudo-variant-of(scale-#{$axis + '-' + $scaling}) {
+      transform: $property + '(' + $value + ')'
+    }
+  }
+}
+
+// shrink
+$axis-shrink: (
+  x: shrinkX,
+  y: shrinkY,
+  z: shrinkZ,
+);
+
+@each $shrink, $value in default('shrinks') {
+  .shrink-#{$shrink} {
+    transform: scale + '(' + $value + ')'
+  }
+
+  @include create-pseudo-variant-of(shrink-#{$shrink}) {
+    transform: scale + '(' + $value + ')' 
+  }
+}
+
+@each $axis, $property in $axis-scale {
+  @each $shrink, $value in default('shrinks') {
+    .shrink-#{$axis + '-' + $shrink} {
+      transform: $property + '(' + $value + ')'
+    }
+
+    @include create-pseudo-variant-of(shrink-#{$axis + '-' + $shrink}) {
+      transform: $property + '(' + $value + ')'
+    }
+  }
+}
+
+// Skew
+$axis-skew: (
+  x: skewX,
+  y: skewY,
+);
+
+@each $skewing, $value in default('skew') {
+  .skew-#{$skewing} {
+    transform: skew + '(' + $value + ')'
+  }
+
+  @include create-pseudo-variant-of(skew-#{$skewing}) {
+    transform: skew + '(' + $value + ')'
+  }
+}
+
+@each $axis, $property in $axis-skew {
+  @each $skew, $value in default('skew') {
+    .skew-#{$axis + '-' + $skew} {
+      transform: $property + '(' + $value + ')'
+    }
+
+    @include create-pseudo-variant-of(skew-#{$axis + '-' + $skew}) {
+      transform: $property + '(' + $value + ')'
+    }
+  }
+}
+
+
+// Translate
+.translate {
+  &-top {
+    @include box-shadow($bottom: -3px);
+
+    @include position($top: 0, $right: 50%);
+    transform: translate(50%, -100%)
+  }
+
+  // Right
+  &-right {
+    @include box-shadow($right: -3px);
+
+    @include position($top: 50%, $right: 0);
+    transform: translate(100%, -50%)
+  }
+
+  // Bottom
+  &-bottom {
+    @include box-shadow($bottom: -3px);
+
+    @include position($bottom: 0, $right: 50%) {
+      transform: translate(50%, 100%)
+    }
+  }
+
+  // Left
+  &-left {
+    @include box-shadow($right: 3px);
+
+    @include position($top: 50%, $left: 0);
+    transform: translate(-100%, -50%)
+  }
+
+  // Middle
+  &-middle {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+  }
+
+  &-middle-x {
+    left: 50%;
+    transform: translateX(-50%)
+  }
+
+  &-middle-y {
+    bottom: 50%;
+    transform: translateY(50%)
+  }
+}
+
+@each $translation, $value in default('translates') {
+  .translate-#{$translation} {
+    @if $translation == 50 {
+      transform: translate(50%, 50%)
+    } @else if $translation == -50 {
+      transform: translate(-50%, -50%)
+    } @else {
+      transform: translate + '(' + $value + ')'
+    }
+  }
+
+  .translate-x-#{$translation} {
+    transform: translateX + '(' + $value + ')'
+  }
+
+  @include create-pseudo-variant-of(translate-x-#{$translation}) {
+    transform: translateX + '(' + $value + ')'
+  }
+  
+  .translate-y-#{$translation} {
+    transform: translateY + '(' + $value + ')'
+  }
+
+  @include create-pseudo-variant-of(translate-y-#{$translation}) {
+    transform: translateY + '(' + $value + ')'
+  }
+}
+
+//
+// = Transition =============
+$transition: (
+    properties: (all background color height width transform none),
+    duration  : (
+      100: 100ms,
+      200: 200ms,
+      300: 300ms,
+      400: 400ms,
+      500: 500ms),
+    function  : (
+      ease-in     : ease-in,
+      ease-out    : ease-out,
+      ease-in-out : ease-in-out,
+      linear      : linear,
+      step-start  : step-start,
+      step-end    : step-end,
+    )
+);
+
+// Property
+@each $property in map.get($transition, properties) {
+  .transition-#{$property} {
+    transition-property: $property
+  }
+  
+  @include create-pseudo-variant-of(transition-#{$property}) {
+    transition-property: $property
+  }
+}
+
+// Duration
+@each $duration, $value in map.get($transition, duration) {
+  .transition-#{$duration} {
+    transition-duration: $value
+  }
+
+  @include create-pseudo-variant-of(transition-#{$duration}) {
+    transition-duration: $value
+  }
+}
+
+// Timing
+@each $timing-function, $function in map.get($transition, function) {
+  .#{$timing-function} {
+    transition-timing-function: $function;
+    transition-duration: 100ms
+  }
+  
+  @include create-pseudo-variant-of(#{$timing-function}) {
+    transition-timing-function: $function;
+    transition-duration: 100ms
+  }
+}

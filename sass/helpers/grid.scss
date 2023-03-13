@@ -1,0 +1,208 @@
+@use 'sass:map';
+
+$itemsPlace: (
+  start: start,
+  end: end,
+  center: center,
+  stretch: stretch,
+) !default;
+
+//** GRID COLUMNS */
+@include until(map.get($breakpoint, 'sm')) {
+  [class*=col-] {
+    width: 100%
+  }
+}
+
+// column-span start/end
+@each $i, $value in map.get($_default, gridSpans) {
+  @if number($i) {
+    .col-span {
+      &-#{$i} {
+        grid-column: $value
+      }
+    }
+
+    @include breakpoint-from('col-span', #{$i}) {
+      grid-column: $value
+    }
+  }
+}
+
+// columns
+@each $i, $value in map.get($_default, gridItems) {
+  @if number($i) {
+    .col-#{$i} {
+      width: $value
+    }
+
+    @include breakpoint-from(#{'col-' + $i}) {
+      width: $value
+    }
+
+    // column-start
+    .col-start {
+      &-#{$i} {
+        grid-column-start: $i
+      }
+    }
+
+    @include breakpoint-from('col-start', #{$i}) {
+      grid-column-start: $i
+    }
+
+    // column-end
+    .col-end {
+      &-#{$i} {
+        grid-column-end: $i
+      }
+    }
+
+    @include breakpoint-from('col-end', #{$i}) {
+      grid-column-end: $i
+    }
+  }
+}
+
+@include until($_breakpoint-sm) {
+  [class*="col-"] {
+    width: 100%
+  }
+}
+
+@each $i, $value in map.get($_default, gridItems) {
+  @if number($i) {
+    @include create-pseudo-variant-of(col-#{$i}) {
+      width: $value
+    }
+  }
+}
+
+//** GRID ROWS */
+
+// row-span start/end
+@each $i, $value in map.get($_default, gridSpans) {
+  @if number($i) {
+    @if $i <= 6 {
+      .row-span-#{$i} {
+        grid-row: $value
+      }
+
+      @include breakpoint-from(#{'row-span' + $i}) {
+        grid-row: $value
+      }
+    }
+  }
+}
+
+@each $i, $value in map.get($_default, gridItems) {
+  // row-start
+  @if number($i) {
+    @if $i <= 6 {
+      .row-start-#{$i} {
+        grid-row-start: $value
+      }
+
+      @include breakpoint-from('row-start', #{$i}) {
+        grid-row-start: $value
+      }
+    }
+  }
+
+  // column-end
+  @if number($i) {
+    @if $i <= 6 {
+      .row-end-#{$i} {
+        grid-row-end: $i
+      }
+
+      @include breakpoint-from('row-end', #{$i}) {
+        grid-row-end: $value
+      }
+    }
+  }
+}
+
+// = Grid items alignment ===
+.place {
+  @each $key, $value in $itemsPlace {
+    &-items-#{$key} {
+      place-items: $value
+    }
+  }
+
+  @each $key, $value in $itemsPlace {
+    &-self-#{$key} {
+      place-self: $value
+    }
+  }
+}
+
+.grid {
+  @include until($_breakpoint-sm) {
+    &[class*='grid-template-'] {
+      grid-template-columns: auto
+    }
+  }
+}
+
+// ...
+.grid-none {
+  grid-template: none
+}
+
+// = Grid Templates =======
+// Columns
+.grid-columns-none {
+  grid-template-columns: none
+}
+
+@each $i, $cols in map.get($_default, gridItems) {    
+  @if number($i) {
+    .grid-columns {
+      &-#{$i} {
+        grid-template-columns: repeat(auto, $i)
+      }
+    }
+  }
+}
+
+// Rows
+.grid-rows-none {
+  grid-template-rows: none
+}
+
+@each $i, $cols in map.get($_default, gridItems) {    
+  @if number($i) {
+    @if $i <= 6 {
+      @if $i != auto {
+        .grid-rows {
+          &-#{$i} {
+            grid-template-rows: repeat(auto, $i)
+          }
+        }
+
+        @include breakpoint-from(#{'grid-rows' + $i}) {
+          grid-template-rows: repeat(auto, $i)
+        }
+      }
+    }
+  }
+}
+
+//  Flow
+.grid-flow {
+  $auto-flow: (
+    column: column,
+    row   : row,
+    dense : dense,
+    row-dense : (row dense),
+    column-dense : (column dense),
+  );
+
+  @each $property, $value in $auto-flow {
+    &-#{$property} {
+      grid-auto-flow: $value
+    }
+  }
+}

@@ -1,0 +1,7 @@
+@each $effect in $filter-effects {
+  @include filter($effect)
+}
+
+@each $effect in $filter-effects {
+  @include backdrop($effect)
+}

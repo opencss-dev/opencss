@@ -1,0 +1,31 @@
+// Create utility classes for each shadow style and color combination
+@include shadow-utility ();
+
+.shadow {
+  @include box-shadow();
+
+  &-inset {
+    @include box-shadow($style: inset);
+  }
+}
+
+// 
+@include create-pseudo-variant-of(shadow) {
+  @include box-shadow()
+}
+
+// Text
+.text-shadow {
+  @include text-shadow()
+}
+
+@include create-pseudo-variant-of(text-shadow) {
+  @include text-shadow()
+}
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(text-shadow-#{$color}) {
+    @include text-shadow($color: $value)
+  }
+}
+

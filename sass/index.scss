@@ -1,0 +1,13 @@
+// @package: openCSS - Simple responssive HTML, CSS, JS framework
+// @link   : https://github.com/opencss-dev/opencss.git
+// @version: 2.0.0-beta
+// @license: CC BY 4.0, MIT
+
+// This is the main file of openCSS
+@import 'config';
+
+@import 'base/all';
+@import 'components/all';
+@import 'layouts/all';
+@import 'elements/all';
+@import 'helpers/all';

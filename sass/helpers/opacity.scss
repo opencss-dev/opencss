@@ -1,0 +1,36 @@
+@use 'sass:map';
+
+@each $key, $alpha in map.get($_default, 'opacity') {
+  //
+  [opacity='#{$key}']::before,
+  [opacity='#{$key}']::after {
+    opacity: $alpha
+  }
+
+  //
+  $_opacity: opacity\-#{$key};
+
+  @include children($_opacity) {
+    opacity: $alpha;
+  }
+}
+
+[class*='children:opacity-'] {
+  & > *:hover {
+    opacity: unset
+  }
+}
+
+.visibility {
+  &-hidden {
+    visibility: hidden
+  }
+
+  &-visible {
+    visibility: visible
+  }
+}
+
+:disabled, .disabled, .muted {
+  opacity: .5
+}

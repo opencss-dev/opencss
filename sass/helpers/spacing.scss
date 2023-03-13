@@ -1,0 +1,274 @@
+@use 'sass:map';
+@use 'sass:math';
+
+// Margin
+$margin: (
+  top: (
+    class: 'mt',
+    property: 'margin-top',
+  ),
+
+  right: (
+    class: 'mr',
+    property: 'margin-right',
+  ),
+
+  bottom: (
+    class: 'mb',
+    property: margin-bottom,
+  ),
+  
+  left: (
+    class: 'ml',
+    property: margin-left,
+  ),
+  
+  margin-x: (
+    class: 'mx',
+    property: (margin-left margin-right),
+  ),
+
+  margin-y: (
+    class: 'my',
+    property: (margin-top margin-bottom),
+  ),
+  
+  default: (
+    class: 'm',
+    property: margin,
+  ),
+);
+
+// Padding
+$padding: (
+  top: (
+    class: 'pt',
+    property: 'padding-top',
+  ),
+
+  right: (
+    class: 'pr',
+    property: 'padding-right',
+  ),
+
+  bottom: (
+    class: 'pb',
+    property: padding-bottom,
+  ),
+  
+  left: (
+    class: 'pl',
+    property: padding-left,
+  ),
+  
+  padding-x: (
+    class: 'px',
+    property: (padding-left padding-right),
+  ),
+
+  padding-y: (
+    class: 'py',
+    property: (padding-top padding-bottom),
+  ),
+  
+  default: (
+    class: 'p',
+    property: padding,
+  ),
+);
+
+// Margins
+@each $i, $_spacer in merge((0: 0), map.get($_default, spacing)) {
+  @include each($i) {
+    @each $key, $_margin in $margin {
+      .#{map.get($_margin, class)}-#{$i} {
+        @each $property in map.get($_margin, property) {
+          #{$property}: $_spacer
+        }
+      }
+
+      @include create-pseudo-variant-of(#{map.get($_margin, class)}-#{$i}) {
+        @each $property in map.get($_margin, property) {
+          #{$property}: $_spacer
+        }
+      }
+
+      @include breakpoint-from (#{map.get($_margin, class)+ '-auto'}) {
+        @each $property in map.get($_margin, property) {
+          #{$property}: auto
+        }
+      }
+
+      @include breakpoint-from (#{map.get($_margin, class)}-#{$i}) {
+        @each $property in map.get($_margin, property) {
+          #{$property}: $_spacer
+        }
+      }
+    }
+  }
+}
+
+@each $key in ('m','mx', 'my') {
+  @include breakpoint-from(#{$key+ '-auto'}) {
+    @if ($key == 'mx') {
+      margin: {
+        left: auto;
+        right: auto
+      }
+    } @else if ($key == 'my') {
+      margin: {
+        left: auto;
+        right: auto
+      }
+    } @else {
+      margin: auto
+    }    
+  }
+}
+
+// Padding
+@each $i, $_spacer in merge((0: 0), map.get($_default, spacing)) {
+  @include each($i) {
+    @each $key, $_padding in $padding {
+      .#{map.get($_padding, class)}-#{$i} {
+        @each $property in map.get($_padding, property) {
+          #{$property}: $_spacer
+        }
+      }
+
+      @include create-pseudo-variant-of(#{map.get($_padding, class)}-#{$i}) {
+        @each $property in map.get($_padding, property) {
+          #{$property}: $_spacer
+        }
+      }
+
+      @include breakpoint-from (#{map.get($_padding, class)+ '-auto'}) {
+        @each $property in map.get($_padding, property) {
+          #{$property}: auto
+        }
+      }
+
+      @include breakpoint-from (#{map.get($_padding, class)}-#{$i}) {
+        @each $property in map.get($_padding, property) {
+          #{$property}: $_spacer
+        }
+      }
+    }
+  }
+}
+
+@each $key in ('p','px', 'py') {
+  @include breakpoint-from(#{$key+ '-auto'}) {
+    @if ($key == 'px') {
+      padding: {
+        left: auto;
+        right: auto
+      }
+    } @else if ($key == 'py') {
+      padding: {
+        left: auto;
+        right: auto
+      }
+    } @else {
+      padding: auto
+    }    
+  }
+}
+
+// Spacer:
+.spacer {
+  min-height: default('spacing');
+
+  &:not([height]) {
+    height: 50px
+  }
+
+  @each $key, $height in map.get($_default, spacing) {
+    @include each($key) {
+      &[height='#{$key}'] {
+        height: $height
+      }
+    }
+  }
+}
+
+// Gap/Gutter:
+$gaps: (
+  gap: 'gap',
+  gap-x: 'row-gap',
+  gap-y: 'column-gap',
+);
+
+@each $i, $value in map.get($_default, gutter) {
+  @include each($i) {
+    .g-#{$i} {
+      gap: $value
+    }
+
+    @include create-pseudo-variant-of(g-#{$i}) {
+      gap: $value
+    }
+
+    @include breakpoint-from (g-#{$i}) {
+      gap: $value
+    }
+    
+    // 
+    .gx-#{$i} {
+      column-gap: $value
+    }
+
+    @include create-pseudo-variant-of(gx-#{$i}) {
+      column-gap: $value
+    }
+
+    @include breakpoint-from (gy-#{$i}) {
+      row-gap: $value
+    }
+
+    // 
+    .gy-#{$i} {
+      row-gap: $value
+    }
+
+    @include create-pseudo-variant-of(gx-#{$i}) {
+      gap: $value
+    }
+
+    @include breakpoint-from (gx-#{$i}) {
+      gap: $value
+    }
+  }
+}
+
+$gap-size: (
+  narrow: 2px,
+  small: math.div($grid-gutter-width, 2),
+
+  normal: $grid-gutter-width,
+  
+  large: math.div($grid-gutter-width, 1.5),
+  wide: math.div($grid-gutter-width, 2),
+);
+
+@each $key, $value in $gap-size {
+  @each $gap, $property in $gaps {
+    .#{$key} {
+      &-#{$gap} {
+        #{$property}: $value
+      }
+    }
+
+    @include breakpoint-from (#{$key + '-' + $gap}) {
+      #{$property}: $value
+    }
+  }
+}
+
+.no-gap {
+  gap: 0
+}
+
+@include breakpoint-from (no-gap) {
+  gap: 0
+}

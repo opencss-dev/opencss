@@ -1,0 +1,74 @@
+// Background
+// = Size ===================
+@each $bg_size in default('background', size) {
+  .bg-#{$bg_size} {
+    @if $bg_size == 'cover' {
+      @include background($size: $bg_size)
+    } @else {
+      @include background($size: $bg_size)
+    }
+  }
+
+  @include breakpoint-from(bg-#{$bg_size}) {
+    @if $bg_size == 'cover' {
+      @include background($size: $bg_size)
+    } @else {
+      @include background($size: $bg_size)
+    }
+  }
+  
+  @include create-pseudo-variant-of(bg-#{$bg_size}) {
+    @include background($size: $bg_size)
+  }
+}
+
+// = Repeat =================
+@each $bg_repeat in default('background', repeat) {
+  .bg-#{$bg_repeat} {
+    @include background($repeat: $bg_repeat)
+  }
+
+  @include breakpoint-from(bg-#{$bg_repeat}) {
+    @include background($repeat: $bg_repeat)
+  }
+}
+
+// = Attachment =============
+@each $bg_attach in default('background', attachment) {
+  .bg-#{$bg_attach} {
+    @include background($attach: $bg_attach)
+  }
+
+  @include breakpoint-from(bg-#{$bg_attach}) {
+    @include background($attach: $bg_attach)
+  }
+}
+
+// = Poaition ===================
+$bg-position: (
+  top     :top,
+  right   :right,
+  bottom  :bottom,
+  left    :left,
+  center  :center,
+
+  top-right: (top right),
+  top-left: (top right),
+
+  center-right: (center right),
+  center-left: (center right),
+
+  bottom-right: (bottom right),
+  bottom-left: (bottom right)
+);
+
+@each $position, $value in $bg-position {
+  .bg-#{$position} {
+    background-position: $value
+  }
+
+  @include breakpoint-from(bg-#{$position}) {
+    background-position: $value
+  }
+}
+

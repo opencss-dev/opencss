@@ -1,0 +1,92 @@
+@use 'sass:color';
+@use 'sass:math';
+@use 'sass:map';
+
+%make-block {
+  display: block;
+  &:not(:last-child) {
+    margin-bottom: $block-spacing
+  }
+}
+
+%make-inline {
+  display: inline
+}
+
+%make-inline-block {
+  display: inline-block;
+  &:not(:last-child) {
+    margin-bottom: $block-spacing
+  }
+}
+
+%make-flex {
+  display: flex
+}
+
+%make-inline-flex {
+  display: inline-flex
+}
+
+%make-flex__center {
+  display: flex;
+  align-items: center
+}
+
+%make-inline-flex__center {
+  display: inline-flex;
+  align-items: center
+}
+
+%make-container {
+  @each $property, $value in map.get($_default, containerPadding-x) {
+    #{$property}: $value
+  }
+}
+
+%transition-fade {
+  transform: map.get($_default, transition-fade)
+}
+
+%make-navigation {
+  color: $current;
+  
+  font: {
+    size: 100%;
+    weight: normal
+  }
+
+  vertical-align: baseline;
+
+  &.flex, &.inline-flex {
+    align-items: center;
+    gap: 1rem;
+
+    .nav {          
+      &-item, &-link {
+        margin: 0 {}
+      }
+    }
+  }
+  
+  &-item, &-link {
+    color: $current;
+    margin: 0 {
+      left: 1rem
+    };
+
+    text-decoration: none;
+    
+    .nav-link {
+      width: 100%
+    }
+
+    &:not([class]):not([href]) {
+      display: none
+    }
+
+    &:hover {
+      color: $primary
+    }
+  }
+}

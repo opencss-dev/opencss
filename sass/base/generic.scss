@@ -1,0 +1,571 @@
+@use 'sass:math';
+@use 'sass:map';
+
+*,
+::before,::after { 
+  align-items: baseline;
+  box-sizing: border-box;
+
+  @if $enable-outline {
+    outline: $outline-focus
+  } @else {
+    outline: 0
+  }
+  
+  scroll-behavior: smooth;
+}
+
+::before,::after {
+  background: {
+    color: $none
+  }
+}
+
+[hidden] {
+  display: none !important;
+}
+
+[onclick] {
+  cursor: pointer
+}
+
+a {
+  color: $primary;
+  display: inline-block;
+
+  text: {
+    decoration: none;
+    transform: inherit
+  }
+  
+  &:hover {
+    text-decoration: none
+  }
+
+  &:active {
+    color: shade-color($primary, 20%);
+    @include transition()
+  }
+
+  &:visited {
+    color: null
+  }
+
+  &:not([href]),
+  &:has([href='']),
+  &:has([href='#']) {
+    color: $current
+  }
+}
+
+article {
+  height: fit-content;
+  overflow: hidden;
+  position: relative
+}
+
+aside {
+  max-width: 100%
+}
+
+b,
+strong {
+  font-weight: bolder
+}
+
+blockquote {
+  border: {
+    left: $blockquote-style {}
+  }
+
+  font: {
+    size: 1.1em;
+    style: italic
+  }
+
+  margin: 1.5rem {
+    right: 1rem;
+    left: 3rem
+  }
+
+  padding: 1rem {};
+  @include --last-rule;
+}
+
+body {
+  font-family: default('fontFamily', body);
+  color: $color;
+  cursor: default;
+
+  font: {
+    size: default('fontSize');
+    size: clamp(default('fontSize')*.75, 3vw,default('fontSize')*1.25);
+    weight: default('fontWeight', DEFAULT)
+  }
+
+  height: auto;
+  line-height: default('lineHeight');
+  
+  margin: 0 {};
+  padding: 0 {};
+  position: relative;
+
+  *,
+  ::before, ::after {
+    font: {
+      family: inherit;
+      style: inherit;
+      weight: inherit
+    }
+  
+    line-height: inherit;
+  }
+}
+
+button {
+  @include button()
+}
+
+input,
+textarea {
+  @include border($width: default('borderWidth'), $style: default('borderStyle'));
+
+  display: block;
+  margin-bottom: $block-spacing;
+
+  &:last-child {
+    margin-bottom: 0
+  }
+
+  width: auto;
+
+  &:not([type=checkbox]),
+  &:not([type=radio]) {
+    max-width: 100%
+  }
+
+  &[type=checkbox],
+  &[type=radio] {
+    display: inline;
+    vertical-align: middle;
+    width: fit-content;
+    margin: 0
+  }
+
+  border: {
+    radius: default('borderRadius')
+  };
+
+  @each $property, $value in default('input') {
+    #{$property}: $value
+  }
+
+  @include until($_breakpoint-sm) {
+    width: 100%
+  }
+
+  &:hover {
+    border-color: shade-color($primary, 20%);
+    cursor: pointer
+  }
+  
+  &:focus {
+    border-color: $primary
+  }
+
+  &:active,
+  &:hover {
+    @include transition();
+  }
+
+  &:not([type=checkbox], [type=radio]) {
+    &:focus:hover {
+      cursor: text
+    }
+  }
+
+  &:required:not(:placeholder-shown):not(:valid) {
+    border-color: $warning
+  }
+
+  &::placeholder {
+    font: {
+      size: 100%;
+      style: italic
+    }
+  }
+
+  &:-webkit-autofill,
+  &:-webkit-autofill:hover, 
+  &:-webkit-autofill:focus {
+    -webkit-box-shadow: inset 0 0 0px 1000px default('inputColor', bg-color);
+            box-shadow: inset 0 0 0px 1000px default('inputColor', bg-color)
+  }
+
+  cursor: default
+}
+
+
+$input-types: (
+  text: (search, text, url),
+  user: (email, password ),
+  number: (number, tel ),
+  button: (button, reset, submit)
+  );
+
+input, select, textarea {
+  @each $types, $values in $input-types {
+    @if $types == text {
+      @each $value in $values {
+        &[type=#{$value}] {
+          color: default('inputColor')
+        }
+      }
+    } @else if $types == user {
+      @each $value in $values {
+        &[type=#{$value}] {
+          color: default('inputColor')
+        }
+      }
+    } @else if $types == number {
+      @each $value in $values {
+        &[type=#{$value}] {
+          color: default('inputColor')
+        }
+      }
+    }
+  }
+}
+
+code {
+  font-family: default('fontFamily', 'monospace')
+}
+
+details {
+  box-sizing: border-box;
+  cursor: pointer;
+  margin-top: 1rem;
+  text-align: justify;
+
+  width: 100%;
+    max-width: 100%
+}
+
+date {
+  color: inherit;
+  user-select: none
+}
+
+div {
+  text-align: inherit;
+  position: relative
+}
+
+em,
+i {
+  font-style: italic
+}
+
+fieldset,
+form {
+  cursor: default;
+  margin: 0
+}
+
+footer,
+header {
+  background-color: $white;
+  /* [if]display: flex | inline-flex */
+  align-items: center;
+
+  width: 100%;
+    max-width: 100%
+}
+
+footer {
+  border: {
+    top: default('borderWidth') {
+      color: $primary;
+      style: default('borderStyle')
+    }
+  };
+
+  /* [if]position: absolute | fixed | sticky; */
+  bottom: 0
+}
+
+form {
+  width: fit-content
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: $black;
+  // display: -webkit-box;
+  font-weight: default('fontWeight');
+  overflow: hidden;
+
+  margin: 0 {
+    bottom: .5em
+  }
+
+  &:only-child {
+    width: 100%;
+    margin: 0
+  }
+}
+
+@each $key, $size in map.get($_default, 'fontSize') {
+  @if type-of($key) == number {
+    h#{$key} {
+      font-size: $size
+    }
+  }
+}
+
+header {
+  border: 0 {
+      bottom: default('borderWidth') {
+          color: $primary;
+          style: default('borderStyle')
+      }
+  }
+  
+  /* [if]position: absolute | fixed | sticky; */
+  top: 0
+}
+
+hr {
+  background-color: $current;
+
+  border: 0 {};
+
+  &:not([height]) {
+    height: default('separatorHeight')
+  }
+  
+  margin: {
+    top: $separator-spacer;
+    bottom: $separator-spacer
+  }
+  
+  opacity: .75;
+}
+
+html {
+  background-color: $light;
+  font-family: 'verdana', sans-serif;
+  height: auto;
+    min-height: fit-content;
+  overflow: auto;
+  width: 100vw
+}
+
+iframe {
+  background-color: $light;
+  border: {
+    style: solid;
+    width: $frame-border;
+  }
+}
+
+img {
+  image-rendering: auto;
+  margin: 0;
+  max-width: 100%
+}
+
+kbd {
+  color: $current
+}
+
+label {
+  cursor: pointer;
+
+  &::first-letter {
+    text-transform: uppercase
+  }
+}
+
+label,
+legend {
+  color: $current
+}
+
+main {
+  color: $current
+}
+
+map {
+  color: $current
+}
+
+marquee {
+  background-color: $light;
+
+  border: {
+    style: solid;
+    width: default('borderWidth')
+  }
+
+  color: $current;
+  margin: 0 {};
+  padding: 0 {}
+}
+
+menu {
+  color: $current
+}
+
+nav {
+  color: $current;
+
+  align-items: stretch;
+  
+  a {
+    color: inherit;
+    margin: 0 {}
+    padding: 0 {};
+    
+    text-decoration: none;
+    
+    &:not([class]):not([href]) {
+      display: none
+    }
+  }
+}
+
+ol, ul {
+  margin: 0 {};
+  padding: 0 {}
+}
+
+ol {
+  list-style: decimal;
+
+  ul {
+    list-style: inherit
+  }
+}
+
+ul {
+  list-style: none;
+
+  ol {
+    list-style: inherit
+  }
+
+  ul {
+    display: none;
+  }
+}
+
+li {
+  color: inherit;
+  vertical-align: middle;
+  position: relative;
+
+  * {
+    color: inherit;
+  }
+  
+  a {
+    width: 100%;
+  }
+  
+  &:hover ul {
+    display: block
+  }
+}
+
+p {
+  margin: 0 {
+    bottom: 1rem
+  }
+
+  &::first-letter {
+    text-transform: uppercase
+  }
+
+  &:only-child {
+    width: 100%;
+    margin: 0
+  }
+
+  a {
+    text-decoration: underline dotted;
+    &:hover,
+    &:active {
+      color: shade-color($primary, 20%);
+      text-decoration: underline solid
+    }
+  }
+}
+
+q {
+  display: flex;
+}
+
+select {
+  text-decoration: none
+}
+
+section {
+  position: relative;
+  width: 100%
+}
+
+small {
+  font-size: smaller
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative
+}
+
+sub {
+  bottom: -0.25em
+}
+
+sup {
+  top: -0.5em
+}
+
+textarea {
+  border: {
+    style: solid;
+    width: default('borderWidth')
+  }
+
+  height: 100px;
+
+  width: 100%;
+    max-width: 100%
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+th,
+td {
+  padding: 0;
+  vertical-align: middle;
+}
+
+time {
+  user-select: none
+}
+
+video {
+  width: auto;
+    max-width: 100%
+}

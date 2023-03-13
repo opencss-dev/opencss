@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "outDir": "dist/",
+    "target": "ES2020",
+
+    "noEmitOnError": true,
+    "strict": true
+  },
+
+  "files": [
+    "tsfiles/index.ts"
+  ]
+}

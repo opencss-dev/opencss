@@ -1,0 +1,9 @@
+@use "sass:map";
+@use 'lib' as googleapis;
+
+@import '../sass/utilities/mixins';
+
+// Import the most popular Google Fonts
+@each $font, $value in googleapis.$fonts {
+  @include import-google-fonts($font);
+}

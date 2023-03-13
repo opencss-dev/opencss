@@ -1,0 +1,102 @@
+// Background
+// = Gradient ===============
+.bg {
+  @each $color, $value in $theme-colors {
+    &-gradient {
+      background: linear-gradient($none, $black);
+
+      &.from {
+        &-#{$color} {
+          background: linear-gradient($value, $none);
+
+          // from-to
+          @each $stop, $stop-color in $theme-colors {
+            &.to-#{$stop} {
+              background: linear-gradient($value, $stop-color)
+            }
+          }
+
+          // from-via
+          @each $via, $via-color in $theme-colors {
+            &.via-#{$via} {
+              background: linear-gradient($value, $via-color, $none)
+            }
+          }
+
+          // from-via-to
+          @each $via, $via-color in $theme-colors {
+            &.via-#{$via} {
+              @each $stop, $stop-color in $theme-colors {
+                &.to-#{$stop} {
+                  background: linear-gradient($value, $via-color, $stop-color)
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &.to {
+        &-#{$color} {
+          background: linear-gradient($none, $value);
+
+          // from-via
+          @each $via, $via-color in $theme-colors {
+            &.via-#{$via} {
+              background: linear-gradient($none, $via-color, $value)
+            }
+          }
+        }
+      }
+
+      @each $side, $side_value in default('borderSide') {
+        &-#{$side} {
+          background: linear-gradient($side, $none, $black);
+          &.from {
+            &-#{$color} {
+              background: linear-gradient(to $side_value, $value, $none);
+
+              // from-to
+              @each $stop, $stop-color in $theme-colors {
+                &.to-#{$stop} {
+                  background: linear-gradient(to $side_value, $value, $stop-color)
+                }
+              }
+
+              // from-via
+              @each $via, $via-color in $theme-colors {
+                &.via-#{$via} {
+                  background: linear-gradient(to $side_value, $value, $via-color, $none)
+                }
+              }
+
+              // from-via-to
+              @each $via, $via-color in $theme-colors {
+                &.via-#{$via} {
+                  @each $stop, $stop-color in $theme-colors {
+                    &.to-#{$stop} {
+                      background: linear-gradient(to $side_value, $value, $via-color, $stop-color)
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          &.to {
+            &-#{$color} {
+              background: linear-gradient(to $side_value, $none, $value);
+
+              // from-via
+              @each $via, $via-color in $theme-colors {
+                &.via-#{$via} {
+                  background: linear-gradient(to $side_value, $none, $via-color, $value)
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

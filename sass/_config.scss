@@ -1,0 +1,859 @@
+/**
+ * @package: openCSS - Simple responssive HTML, CSS, JS framework
+ * @link   : https://github.com/opencss-dev/opencss.git
+ * @version: 2.0.0-beta
+ * @license: CC BY 4.0, MIT
+ **/
+
+// This is the configuration file of openCSS
+// This file contains:
+// - Controls
+// - UI-Colors
+// - Typography & fonts
+// - Layouts & customizations
+// - Responssive divices
+// - Utilities
+@use 'sass:map';
+@use 'sass:color';
+@use 'sass:math';
+
+@import 'utilities/setup';
+
+// = Controls ===========================================
+$enable-outline     : false;
+$enable-round-border: false;
+$webkit-scrollbar   : true;
+$fa_minify          : true;
+
+$webfonts_path      : '../webfonts';
+
+// = UI Colors ==========================================
+$primary            : #03A9F4     !default;
+$secondary          : #333333     !default;
+
+$color              : #333333     !default;
+$current            : currentColor!default;
+
+$info               : #0DCAF0     !default;
+$success            : #28a745     !default;
+$danger             : #DC3545     !default;
+$warning            : #FFC107     !default;
+
+$red                : #F44336     !default;
+$green              : #4CAF50     !default;
+$blue               : #2196F3     !default;
+
+$dark               : #212529     !default;
+$light              : #f5f5f5     !default;
+
+$black              : #000000     !default;
+$white              : #ffffff     !default;
+
+$pink               : #E91E63     !default;
+$purple             : #9C27B0     !default;
+$indigo             : #3E51B5     !default;
+$cyan               : #00BCD4     !default;
+$teal               : #009688     !default;
+$lime               : #CDDC39     !default;
+$yellow             : #FFEB3B     !default;
+$amber              : #FFC107     !default;
+$orange             : #FF9800     !default;
+
+$light-blue         : #03A9F4     !default;
+$light-green        : #76FF03     !default;
+
+$deep-purple        : #9C27B0     !default;
+$deep-orange        : #DD6E0F     !default;
+
+$brown              : #964B00     !default;
+$grey               : #808080     !default;
+
+$none               : #0000       !default;
+$transparent        : $none         !default;
+
+// = Typography & fonts ==============================
+// Supported fonts
+$font_face: (
+  // Ms core
+  arial             : unquote("Arial, Helvetica, Geneva, Verdana, Thahoma, sans-serif"),
+
+  // Monosoace
+  calibri           : unquote("Calibri"),
+  monospace         : unquote("monospace, consolas"),
+
+  // Sans-serif (safe-fonts)
+  sans              : sans,
+  sans-serif        : unquote("sans-serif"),
+  verdana           : unquote("Verdana, 'Bitstream Vera Sans', 'DejaVu Sans', Tahoma, Geneva, Arial, Sans-serif"),
+  tahoma            : unquote("Tahoma, sans-serif"),
+  geneva            : unquote("Geneva, sans-serif"),
+  segoeui           : unquote("'Segoe UI', sans-serif"),
+
+  // Serif
+  timesnroman       : unquote("Times New Roman"),
+  times             : unquote("Times"),
+  serif             : unquote("serif"),
+
+  // Included
+  helvetica         : unquote("Helvetica, sans-serif"),
+  roboto            : unquote("Roboto, sans-serif"),
+  ubuntu            : unquote("Ubuntu, sans-serif"),
+
+  // Safe - universal
+  system-ui         : unquote("system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"),
+  safe-fonts        : unquote("system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif"),
+);
+
+// fonts - webfonts
+$font-family        : map.get($font_face, "verdana")  !default;
+$title-family       : map.get($font_face, "segeoui")  !default;
+
+$sans-serif         : map.get($font_face, "segeoui")  !default;
+$monospace          : map.get($font_face, "monospace")!default;
+
+// fonts size
+$font-size          : 1em !default;
+$font-unit          : 1px !default;
+$font-weight        : normal !default;
+$font-utility       : (
+  1 2 3 4 5 6
+  7 8 9 10 11 12 13 14 15 16
+  18 20 21 22 24 26 28 32
+  36 40 42 44 48
+  54 60 66 72
+  80 88 96
+) !default;
+
+// = Sections & blocs ===============================
+
+// Blockquote
+$blockquote-style   : 5px solid $primary !default;
+
+// Grid container 
+$grid-columns       : 12 !default;
+
+// default grid template
+$grid-templates: (
+  columns           : 3,
+  rows              : 6,
+) !default;
+
+// gutters/gap
+$grid-gutter-width  : 1rem !default;
+
+// Spacing & blocs spacer
+// blocs
+$block-spacing      : 1rem !default;
+
+// container
+$container-margin-x : 0 !default;
+$container-margin-y : 0 !default;
+
+$container-padding-x: 5vw !default;
+$container-padding-y: 0   !default;
+
+// frames
+$frame-border       : 0px !default;
+
+// section
+$section-margin-x   : 0em !default;
+$section-margin-y   : 0em !default;
+
+$section-padding-x  : $container-padding-x !default;
+$section-padding-y  : $container-padding-y !default; 
+
+$section-min-height : 400px !default;
+
+// spacer
+$spacer             : $grid-gutter-width !default;
+
+$spacer-margin-x    : 1.5em !default;
+$spacer-margin-y    :  .5em !default;
+
+$spacer-padding-x   : $spacer-margin-x !default;
+$spacer-padding-y   : $spacer-margin-y !default;
+
+$compact-padding    : $spacer-padding-x $spacer-padding-y !default;
+$compact-margin     : $spacer-margin-x $spacer-margin-y !default;
+
+// separator
+$separator-height   : 1px   !default;
+$separator-spacer   : .5rem !default;
+
+// selection
+$selection: (
+  color             : $light,
+  background        : $primary
+) !default;
+
+// borders
+$border-width       : 1px !default;
+$border-style       : solid !default;
+$border-color       : lighten($dark, 20%) !default;
+
+$border-radius      : .25rem !default;
+
+// outlines
+// Define the base outline properties
+$outline-width      : 1px       !default;
+$outline-style      : solid     !default;
+$outline-color      : $primary  !default;
+
+// shadow
+// Define the base box shadow styles
+$shadow-utility : (
+  sm                : 0 1px 2px,
+  md                : 0 2px 4px,
+  lg                : 0 4px 8px,
+  xl                : 0 8px 16px
+) !default;
+
+$shadow-color       : $black  !default;
+$shadow-opacity     : 10%     !default;
+// = misc ============================================
+// Icons
+$icon-size          : 1.5rem !default;
+
+// pop-up
+$popup-color        : $color !default;
+$popup-background   : $white !default;
+
+$popup-shadow       : true !default; // ***
+
+// Transition
+$transition-base  	: all .2s ease-in-out !default;
+$transition-fade		: opacity .2s ease-in !default;
+
+// Configurations
+$_default: (
+  // Theme color
+  colors: (
+    'primary'       : $primary,
+    'secondary'     : $secondary,
+
+    'success'       : $success,
+    'info'          : $info,
+    'warning'       : $warning,
+    'danger'        : $danger,
+
+    'light'         : $light,
+    'dark'          : $dark,
+
+    'red'           : $red,
+    'green'         : $green,
+    'blue'          : $blue,
+
+    'black'         : $black,
+    'white'         : $white,
+    
+    'pink'          : $pink,
+    'purple'        : $purple,
+    'indigo'        : $indigo,
+    'cyan'          : $cyan,
+    'teal'          : $teal,
+    'lime'          : $lime,
+    'yellow'        : $yellow,
+    'amber'         : $amber,
+    'orange'        : $orange,
+    
+    'light-blue'    : $light-blue,
+    'light-green'   : $light-green,
+    
+    'deep-purple'   : $deep-purple,
+    'deep-orange'   : $deep-orange,
+    
+    'brown'         : $brown,
+    'grey'          : $grey
+  ),
+
+  // Theme warning
+  warnings: (
+    'success'       : $success,
+    'info'          : $info,
+    'warning'       : $warning,
+    'danger'        : $danger,
+  ),
+
+  // Background
+  background: (
+    size: (cover contain),
+    repeat: (repeat repeat-x repeat-y no-repeat),
+    attachment: (scroll fixed local),
+  ),
+
+  // Fonts & properties
+  // font-family
+  fontFamily: (
+    body            : $font-family,
+    title           : $title-family,
+    monospace       : $monospace,
+    sans            : $sans-serif,
+  ),
+
+  // font-size
+  fontSize: (
+  //x               : clamp( min, vw, limit)
+    1               : clamp(32px, 5vw, 48px),
+    2               : clamp(28px, 4vw, 40px),
+    3               : clamp(24px, 3.5vw, 36px),
+    4               : clamp(20px, 3vw, 32px),
+    5               : clamp(18px, 2.5vw, 28px),
+    6               : clamp(16px, 2vw, 24px),
+
+    xx-small        : 'xx-small',
+     x-small        :  'x-small',
+       small        :    'small',
+    medium          :   'medium',
+       large        :    'large',
+     x-large        :  'x-large',
+    xx-large        : 'xx-large',
+
+    DEFAULT         : $font-size,
+  ),
+
+  // font-weight
+  fontWeight: (
+    100             : 100,
+    200             : 200,
+    300             : 300,
+    400             : 400,
+    500             : 500,
+    600             : 600,
+    700             : 700,
+    800             : 800,
+    900             : 900,
+
+    DEFAULT         : $font-weight,
+  ),
+
+  // font-style
+  fontStyle: (
+    oblic           : oblic,
+    italic          : italic,
+  ),
+
+  // Input
+  input: (
+    font-weight     : 500,
+    padding         : $spacer-padding-y $spacer-padding-x,
+  ),
+  
+  inputColor: (
+    color           : $current,
+    bg-color        : $white,
+
+    DEFAULT         : $current,
+  ),
+
+  inputWeight: (
+    DEFAULT         : 500,
+  ),
+
+  // line-height
+  lineHeight: (
+    1               : 1.25,
+    2               : 1.5,
+    3               : 2.75,
+    4               : 3,
+    5               : 3.25,
+    6               : 3.5,
+
+    DEFAULT         : 1.5,
+  ),
+
+  // border-width
+  borderWidth: (
+    0               : 0px,
+    1               : 1px,
+    2               : 2px,
+    3               : 3px,
+    4               : 4px,
+    5               : 5px,
+
+    DEFAULT         : $border-width,
+  ),
+
+  // border-style
+  borderStyle: (
+    solid-border    : 'solid',
+    dashed-border   : 'dashed',
+    dotted-border   : 'dotted',
+    double-border   : 'double',
+    hidden-border   : 'hidden',
+    inset-border    : 'inset',
+    groove-border   : 'groove',
+
+    DEFAULT         : $border-style,
+  ),
+
+  // border-color
+  borderColor       : $border-color,
+
+  // border-radius
+  borderRadius: (
+    none            : 0,
+    full            : 999px,
+    pill            : $border-radius * 3,
+
+    0               : 0,
+    2               : 2px,
+    5               : 5px,
+    10              : 10px,
+    16              : 16px,
+    32              : 32px,
+    50              : 50px,
+
+    DEFAULT         : $border-radius,
+  ),
+
+  borderSide: (
+    t: top,
+    l: left,
+    b: bottom,
+    r: right,
+
+    tl: (top left),
+    tr: (top right),
+
+    bl: (bottom left),
+    br: (bottom right),
+
+    x: (left right),
+    y: (top bottom),
+  ),
+
+  // gutters/gaps
+  gutter: (
+    0               : 0,
+    1               : $grid-gutter-width * .5,
+    2               : $grid-gutter-width * 1,
+    3               : $grid-gutter-width * 1.5,
+    4               : $grid-gutter-width * 2,
+    5               : $grid-gutter-width * 2.5,
+    6               : $grid-gutter-width * 3,
+
+    DEFAULT         : $grid-gutter-width,
+  ),
+
+  // spacing
+  spacing: (
+    0               : 0,
+    1               : $spacer * .5,
+    2               : $spacer * 1,
+    3               : $spacer * 1.5,
+    4               : $spacer * 2,
+    5               : $spacer * 2.5,
+    6               : $spacer * 3,
+
+    DEFAULT         : $spacer,
+  ),
+
+  // filter
+  filters: (
+    blur brightness contraste grayscale invert opacity saturate spia
+  ),
+
+  // opacity-filter
+  opacity: (
+    0               :  0,
+    10              : .1,
+    20              : .2,
+    25              : .25,
+    30              : .3,
+    35              : .35,
+    40              : .4,
+    45              : .45,
+    50              : .5,
+    55              : .55,
+    60              : .6,
+    65              : .65,
+    70              : .7,
+    75              : .75,
+    80              : .8,
+    85              : .85,
+    90              : .9,
+    95              : .95,
+    100             :  1,
+  ),
+
+  // blur-filter
+  blur: (
+    0               :   0em,
+    10              :.125em,
+    20              : .25em,
+    30              :  .5em,
+    40              :   1em,
+    50              : 1.5em,
+    60              :   2em,
+    70              : 2.5em,
+    80              :   3em,
+    90              :3.75em,
+    100             : 4.5em,
+  ),
+
+  // brightness-filter
+  brightness: (
+    0               :   0,
+    10              :  .1,
+    20              :  .2,
+    30              :  .3,
+    40              :  .4,
+    50              :  .5,
+    60              :  .6,
+    70              :  .7,
+    80              :  .8,
+    90              :  .9,
+    100             :   1,
+    210             : 1.1,
+    220             : 1.2,
+    230             : 1.3,
+    240             : 1.4,
+    250             : 1.5,
+    260             : 1.6,
+    270             : 1.7,
+    280             : 1.8,
+    290             : 1.9,
+    200             :   2,
+  ),
+
+  // contraste-filter
+  contraste: (
+    0               :  0%,
+    10              : 10%,
+    20              : 20%,
+    30              : 30%,
+    40              : 40%,
+    50              : 50%,
+    60              : 60%,
+    70              : 70%,
+    80              : 80%,
+    90              : 90%,
+    100             : 100%,
+  ),
+
+  // grayscale-filter
+  grayscale: (
+    0               :  0%,
+    10              : 10%,
+    20              : 20%,
+    30              : 30%,
+    40              : 40%,
+    50              : 50%,
+    60              : 60%,
+    70              : 70%,
+    80              : 80%,
+    90              : 90%,
+    100             : 100%,
+  ),
+
+  // invert-filter
+  invert: (
+    0               :  0%,
+    10              : 10%,
+    20              : 20%,
+    30              : 30%,
+    40              : 40%,
+    50              : 50%,
+    60              : 60%,
+    70              : 70%,
+    80              : 80%,
+    90              : 90%,
+    100             : 100%,
+  ),
+
+  // saturation-filter
+  saturate: (
+    0               :  0%,
+    10              : 10%,
+    20              : 20%,
+    30              : 30%,
+    40              : 40%,
+    50              : 50%,
+    60              : 60%,
+    70              : 70%,
+    80              : 80%,
+    90              : 90%,
+    100             : 100%,
+  ),
+
+  // spia-filter
+  spia: (
+    0               :  0%,
+    10              : 10%,
+    20              : 20%,
+    30              : 30%,
+    40              : 40%,
+    50              : 50%,
+    60              : 60%,
+    70              : 70%,
+    80              : 80%,
+    90              : 90%,
+    100             : 100%,
+  ),
+
+  // Dark levels
+  darken: (
+    100             : 10%,
+    200             : 20%,
+    300             : 30%,
+    400             : 40%,
+    500             : 50%,
+    600             : 60%,
+    700             : 70%,
+    800             : 80%,
+    900             : 90%,
+  ),
+
+  // base transition
+  transition        : $transition-base,
+  transition-fade   : $transition-fade,
+
+  // events
+  events: (
+    'active:'       : active,
+    'hover:'        : hover,
+    'focus:'        : focus,
+  ),
+
+  // Outline
+  // outline-width
+  outlineWidth: (
+    0               : 0px,
+    1               : 1px,
+    2               : 2px,
+    3               : 3px,
+    4               : 4px,
+    5               : 5px,
+
+    DEFAULT         : $outline-width,
+  ),
+
+  // outline-style
+  outlineStyle: (
+    solid           : 'solid',
+    dashed          : 'dashed',
+    dotted          : 'dotted',
+    double          : 'double',
+    hidden          : 'hidden',
+    inset           : 'inset',
+    groove          : 'groove',
+
+    DEFAULT         : $outline-style,
+  ),
+
+  outlineColor      : $outline-color,
+
+  // Scrollbar
+  webkit-scrollbar  : (
+    background-color: to-rgba($secondary, 75%),
+    height          : 0px,
+    width           : 5px,
+  ),
+
+  scrollbar-thumb   : (
+    active-color    : shade-color($primary, 10%),
+    hover-color     : shade-color($primary, 10%),
+  ),
+
+  // Button
+  button: (
+    font-weight     : 500,
+    font-size       : inherit,
+    padding         : .5em 1.5em,
+  ),
+  
+  // Flexbox
+  flexItems: (
+    0               :  0  0 0%,
+    1               :  1  1 0%,
+    2               :  2  2 0%,
+    3               :  3  3 0%,
+    4               :  4  4 0%,
+    5               :  5  5 0%,
+    6               :  6  6 0%,
+    7               :  7  7 0%,
+    8               :  8  8 0%,
+    9               :  9  9 0%,
+    10              : 10 10 0%,
+    11              : 11 11 0%,
+    12              : 12 12 0%,
+
+    auto            : 1 1 auto,
+    none            : none,
+
+    DEFAULT         : 0 1 auto,
+  ),
+
+  // grid
+  // grid-items
+  gridItems: (
+    1               :   8.33%,
+    2               :  16.66%,
+    3               :     25%,
+    4               :  33.33%,
+    5               :  41.66%,
+    6               :     50%,
+    7               :  58.33%,
+    8               :  66.66%,
+    9               :     75%,
+    10              :  83.33%,
+    11              :  91.66%,
+    12              :    100%,
+    
+    DEFAULT         : map.get($grid-templates, 'columns'),
+  ),
+
+  // grid-span
+  gridSpans: (
+    1               : 1 /span 1,
+    2               : 2 /span 2,
+    3               : 3 /span 3,
+    4               : 4 /span 4,
+    5               : 5 /span 5,
+    6               : 6 /span 6,
+    7               : 7 /span 7,
+    8               : 8 /span 8,
+    9               : 9 /span 9,
+    10              : 10 /span 10,
+    11              : 11 /span 11,
+    12              : 12 /span 12,
+
+    auto            : auto,
+    DEFAULT         : map.get($grid-templates, 'columns'),
+  ),
+
+  // container
+  containerPadding-x: (
+    padding-left    : $container-padding-x,
+    padding-right   : $container-padding-x,
+  ),
+
+  // Separator
+  separatorHeight: (
+    1               : 1px,
+    2               : 2px,
+    3               : 3px,
+    4               : 4px,
+    5               : 5px,
+
+    DEFAULT         : $separator-height,
+  ),
+
+  separatorSpacing  : $separator-spacer,
+
+  // Transform
+  scales: (
+    0               : 0,
+    5               : 1.05,
+    10              : 1.10,
+    15              : 1.15,
+    25              : 1.25,
+    50              : 1.50,
+    75              : 1.75,
+    100             : 2.00,
+  ),
+
+  shrinks: (
+    0               : 1,
+    5               : .95,
+    10              : .90,
+    15              : .85,
+    25              : .75,
+    50              : .50,
+    75              : .25,
+    100             : 0,
+  ),
+
+  skew: (
+    0               : 0deg,
+    1               : 1deg,
+    2               : 2deg,
+    3               : 3deg,
+    4               : 4deg,
+    5               : 5deg,
+    6               : 6deg,
+  ),
+
+  translates: (
+    0               : 0,
+    25              : 25%,
+    50              : 50%,
+    75              : 75%,
+    100             : 100%,
+    -100            : -100%,
+    -75             : -75%,
+    -50             : -50%,
+    -25             : -25%,
+  ),
+
+
+  rotate: (
+    0               : 0deg,
+    45              : 45deg,
+    90              : 90deg,
+    180             : 180deg,
+  ),
+
+
+  // Layouts
+  layoutSection: (
+    min             : $section-min-height,
+  ),
+
+  // popups
+  popup-color       : $popup-color,
+  popup-background  : $popup-background,
+
+  // Submenu
+  submenuColor      : $popup-color,
+  submenuBg         : $popup-background,
+
+  // Icons
+  iconSize: (
+    small           : 1rem,
+    medium          : 2rem,
+    large           : 3rem,
+
+    DEFAULT         : $icon-size, 
+  ),
+
+  size: (16 22 32 48 64 96 128 256 512 1024),
+
+);
+
+// = Breakpoints ===========================================
+
+$_breakpoint-xs     : 375px  !default;
+$_breakpoint-sm     : 544px  !default;
+$_breakpoint-md     : 768px  !default;
+$_breakpoint-lg     : 992px !default;
+$_breakpoint-xl     : 1200px !default;
+$_breakpoint-xxl    : 1440px !default;
+
+// viewport
+$breakpoint: (
+  xs                : $_breakpoint-xs,  // small screen
+  sm                : $_breakpoint-sm,  // Mobile
+  md                : $_breakpoint-md,  // Tablet
+  lg                : $_breakpoint-lg,  // desktop
+  xl                : $_breakpoint-xl,  // HD desktop
+  xxl               : $_breakpoint-xxl, // FullHD desktop
+);
+
+// ===================================================
+
+$theme-colors       : map.get($_default, colors);
+$filter-effects     : map.get($_default, filters);
+
+// ===================================================
+// utilities
+@import 'utilities/extends';
+@import 'utilities/functions';
+@import 'utilities/mixins';
+@import 'utilities/colors';
+
+// @import 'base/all';
+// @import 'components/all';
+// @import 'elements/all';
+// @import 'helpers/all';
+// @import 'layouts/all';

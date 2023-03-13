@@ -1,0 +1,18 @@
+// Text color
+@include theme-colors('.link');
+
+@each $color, $value in $theme-colors {
+  @include create-pseudo-variant-of(link-#{$color}) {
+    color: $value
+  }
+
+  @each $shade, $weight in default('darken') {
+    @include create-pseudo-variant-of(link-#{$color}, $shade) {
+      color: shade-color($value, $weight)
+    }
+  }
+}
+
+[href]:empty():before {
+  content: attr(href)
+}

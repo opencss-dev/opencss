@@ -1,0 +1,341 @@
+@use 'sass:map';
+
+// Height
+@for $i from 0 through 100 {
+  @if $i == 100 {
+    .h-full {
+      height: 100%
+    }
+
+    @include breakpoint-from(#{'h-full'}) {
+      height: 100%
+    }
+  }
+  @else {
+    .h-#{$i} {
+      height: $i * 1%
+    }
+
+    @include breakpoint-from(#{'h-' + $i}) {
+      height: $i * 1%
+    }
+  }
+}
+
+@for $i from 0 through 100 {
+  @if $i == 100 {
+    .min-h-full {
+      min-height: 100%
+    }
+
+    @include breakpoint-from(#{'min-h-full'}) {
+      min-height: 100%
+    }
+  }
+  @else {
+    .min-h-#{$i} {
+      min-height: $i * 1%
+    }
+
+    @include breakpoint-from(#{'min-h-' + $i}) {
+      min-height: $i * 1%
+    }
+  }
+}
+
+@for $i from 0 through 100 {
+  @if $i == 100 {
+    .max-h-full {
+      max-height: 100%; 
+    }
+
+    @include breakpoint-from(#{'max-h-full'}) {
+      max-height: 100%
+    }
+  }
+  @else {
+    .max-h-#{$i} {
+      max-height: $i * 1%
+    }
+
+    @include breakpoint-from(#{'max-h-' + $i}) {
+      max-height: $i * 1%
+    }
+  }
+}
+
+.vh {
+  @for $i from 0 through 100 {
+    @if $i == 100 {
+      &-full {
+        height: 100vh
+      }
+    } @else {
+      &-#{$i} {
+        height: $i * 1vh
+      }
+    }
+  }
+}
+
+.min-vh {
+  @for $i from 0 through 100 {
+    @if $i == 100 {
+      &-full {
+        min-height: 100vh
+      }
+    } @else {
+      &-#{$i} {
+        min-height: $i * 1vh
+      }
+    }
+  }
+}
+
+.max-vh {
+  @for $i from 0 through 100 {
+    @if $i == 100 {
+      &-full {
+        max-height: 100vh; 
+      }
+    } @else {
+      &-#{$i} {
+        max-height: $i * 1vh
+      }
+    }
+  }
+}
+
+// Width
+@for $i from 0 through 100 {
+  @if $i == 100 {
+    .w-full {
+      width: 100%
+    }
+
+    @include breakpoint-from(#{'w-full'}) {
+      width: 100%
+    }
+  }
+  @else {
+    .w-#{$i} {
+      width: $i * 1%;       
+    }
+
+    @include breakpoint-from(#{'w-' + $i}) {
+      width: $i * 1%
+    }
+  }
+}
+
+@for $i from 0 through 100 {
+  @if $i == 100 {
+    .min-w-full {
+      min-width: 100%
+    }
+
+    @include breakpoint-from(#{'min-w-full'}) {
+      min-width: 100%
+    }
+  }
+  @else {
+    .min-w-#{$i} {
+      min-width: $i * 1%
+    }
+
+    @include breakpoint-from(#{'min-w-' + $i}) {
+      min-width: $i * 1%
+    }
+  }
+}
+
+@for $i from 0 through 100 {
+  @if $i == 100 {
+    .max-w-full {
+      max-width: 100%
+    }
+
+    @include breakpoint-from(#{'max-w-full'}) {
+      max-width: 100%
+    }
+  }
+  @else {
+    .max-w-#{$i} {
+      max-width: $i * 1%
+    }
+
+    @include breakpoint-from(#{'max-w-' + $i}) {
+      max-width: $i * 1%
+    }
+  }
+}
+
+.vw {
+  @for $i from 0 through 100 {
+    @if $i == 100 {
+      &-full {
+        width: 100vh
+      }
+    } @else {
+      &-#{$i} {
+        width: $i * 1vh
+      }
+    }
+  }
+}
+
+.min-vw {
+  @for $i from 0 through 100 {
+    @if $i == 100 {
+      &-full {
+        min-width: 100vh
+      }
+    } @else {
+      &-#{$i} {
+        min-width: $i * 1vh
+      }
+    }
+  }
+}
+
+.max-vw {
+  @for $i from 0 through 100 {
+    @if $i == 100 {
+      &-full {
+        max-width: 100vh
+      }
+    } @else {
+      &-#{$i} {
+        max-width: $i * 1vh
+      }
+    }
+  }
+}
+
+// Fit: 
+.fit {
+  &-height {
+    height: fit-content
+  }
+
+  &-width {
+    width: fit-content
+  }
+
+  &-content {
+    height: fit-content;
+    width: fit-content
+  }
+
+  &-container, &-parrent {
+    height: 100%;
+    width: 100%
+  }
+
+  &-screen {
+    height: 100vh;
+    width: 100vw
+  }
+}
+
+// Max: 
+.max {
+  &-height {
+    height: max-content
+  }
+
+  &-width {
+    width: max-content
+  }
+
+  &-content {
+    height: max-content;
+    width: max-content
+  }
+}
+
+// Full:
+.full {
+  &-height {
+    height: 100%
+  }
+
+  &-width {
+    width: 100%
+  }
+
+  &-screen-height {
+    height: 100vh
+  }
+
+  &-screen-width {
+    width: 100vw
+  }
+
+  &screen {
+    height: 100vh;
+    width: 100vw
+  }
+}
+
+// Size with attribute heigh|width
+@for $h from 0 through 1600 {
+  .spacer-y-#{$h}, [height='#{$h}'] {
+    height: $h * 1px
+  }
+}
+
+@for $w from 0 through 3200 {
+  .spacer-x-#{$w}, [width='#{$w}'] {
+    width: $w * 1px
+  }
+}
+
+// Size: 
+.size {
+  @each $size in map.get($_default, size) {
+    &-#{$size} {
+      display: flex;
+        align-items: center;
+        justify-content: center;
+      height: px($size);
+      width: px($size)
+    }
+
+    &-y-#{$size} {
+      display: flex;
+        align-items: center;
+      height: px($size)
+    }
+
+    &-x-#{$size} {
+      display: flex;
+        justify-content: center;
+      width: px($size)
+    }
+  }
+}
+
+@include breakpoint-from(size) {
+  @each $size in map.get($_default, size) {
+    &-#{$size} {
+      display: flex;
+        align-items: center;
+        justify-content: center;
+      height: px($size);
+      width: px($size)
+    }
+
+    &-y-#{$size} {
+      display: flex;
+        align-items: center;
+      height: px($size)
+    }
+
+    &-x-#{$size} {
+      display: flex;
+        justify-content: center;
+      width: px($size)
+    }
+  }
+}

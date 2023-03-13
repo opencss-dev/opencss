@@ -1,0 +1,9 @@
+button {
+  &.bg-none {
+    color: $current
+  }
+}
+
+button:empty():before {
+  content: attr(type)
+}

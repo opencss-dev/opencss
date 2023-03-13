@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- /**
+      * @package: openCSS - Simple responssive HTML, CSS, JS framework
+      * @link : https://github.com/opencss-dev/opencss.git
+      * @version: 1.1.0
+      * @license: CC BY 4.0, MIT
+      **/ -->
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Open CSS v2.0.0</title>
+  <link rel="shortcut icon" href="favicon.png">
+  <link rel="apple-touch-icon" href="favicon.png">
+
+  <meta name="generator" content="opencss" />
+  <meta property="og:title" content="opencss" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:type" content="opencss" />
+
+  <meta name="description" content="openCSS Features Designed to be simple and minimalist so that you don't have to spend time overriding a lot of default styling. openCSS scales your websites and applications --- Rapidly build responsive websites and web applications.">
+
+  <link rel="stylesheet" href="dist/googlefont.css">
+  <link rel="stylesheet" href="dist/open.css">
+
+  <script src="dist/js/base.js" defer></script>
+
+</head>
+
+<body class="fit-screen">
+  <section class="absolute py-3 z-9 sm:hidden">
+    <header class="bg-none no-border flex justify-between px-2 text-black">
+      <a href="#" class=""></a>
+
+      <ul id="mobile_nav" class="hidden fixed overlay bg-black-alpha-75 inline-flex flex-column g-3 justify-center backdrop-blur-10 font:32 capitalize animate-fadeIn-left animated-500 ease-in">
+
+        <li class="active:animate-ping active:ease-in size-x-256">
+          <a href="https://www.npmjs.com/package/opencss" class="bg-white-alpha-75 p-1 text-center rounded-10 shadow-inset-md">Get started</a></li>
+
+        <li class="active:animate-ping active:ease-in size-x-256">
+          <a href="https://github.com/opencss-dev/opencss" class="bg-white-alpha-75 p-1 text-center rounded-10 shadow-inset-md">view on GitHub</a></li>
+
+        <li class="active:animate-ping active:ease-in size-x-256">
+          <a href="showcase.html" class="bg-white-alpha-75 p-1 text-center rounded-10 shadow-inset-md">documentation</a></li>
+
+        <li class="active:animate-ping active:ease-in size-x-256">
+          <a href="https://github.com/opencss-dev/opencss/issues" class="bg-white-alpha-75 p-1 text-center rounded-10 shadow-inset-md">Report Bug</a></li>
+
+        <li class="absolute top-0 left-0 p-3 text-white hover:ease-in p-1"><a href="#support" class="">
+          <i class="fa-regular fa-question-circle"></i></a></li>
+
+      </ul>
+
+      <button class="bg-none p-0 size-32 z-9"
+        onclick="display('#mobile_nav'); classlist('#mobile_nav_icon', ['fa-bars', 'fa-xmark', 'fg-dark', 'fg-light']);"><i
+          id="mobile_nav_icon" class="fa-solid fa-bars fg-dark font:32"></i></button>
+    </header>
+  </section>
+
+  <main class="bg-none">
+    <section class="fit-screen justify-center">
+      <div aria-label="gradient"
+        class="absolute bg-gradient from-primary left-0 flex items-center justify-center h-full w-full">
+        <div class="fit-container inline-flex items-end">
+          <div class="absolute flex flex-warp justify-around top-right size-x-96 g-1 right-5 top-2">
+            <span class="size-48 shadow mr-6 translate-x-25"></span><span class="size-64 shadow-md"></span>
+            <span class="size-48 shadow mr-6 translate-x-25"></span><span class="size-64 shadow-md"></span>
+            <span class="size-48 shadow mr-6 translate-x-25"></span><span class="size-64 shadow-md"></span>
+            <span class="size-48 shadow mr-6 translate-x-25"></span><span class="size-64 shadow-md"></span>
+            <span class="size-48 shadow mr-6 translate-x-25"></span><span class="size-64 shadow-md"></span>
+            <span class="size-48 shadow mr-6 translate-x-25"></span><span class="size-64 shadow-md"></span>
+            <span class="size-48 shadow mr-6 translate-x-25"></span>
+          </div>
+
+          <div class="absolute top-15 left-75 translate-x-25 size-256 fg-blue">
+            <span class="absolute fit-container hidden-border border-l-1 rounded-full shadow"></span>
+            <span
+              class="absolute flex items-top fit-container rounded-full solid border-0 border-l-1 overflow-visible animate-spin animated-slower">
+              <span class="bg-blue size-32 rounded-full m-3"></span>
+            </span>
+          </div>
+
+          <div class="absolute inline-flex h-50 animate-bounce animated-4000 animated-count-infinite">
+            <span class="animate-spin animated-4000 p-3 sm:p-6 border rounded-pill"></span>
+            <span class="animate-spin animated-4000 p-3 sm:p-6 border border-red rounded-full"></span>
+            <span class="animate-spin animated-4000 p-3 sm:p-6 border border-primary" hidden></span>
+          </div>
+        </div>
+      </div>
+      <div id="backdrop" class="absolute left-0 fit-screen flex center items-center justify-center backdrop-blur-10">
+        <div class="">
+          <h1 class="fg-dark flex items-center justify-center bold m-0 cursor-none text-shadow font:96 comfortaa"><span
+              class=""></span>open<img class="mx-2 w-25 md:size-128" src="logo.png" alt="logo">CSS</h1>
+
+          <p class="lh-2 m-0">Simple Responsive HTML, CSS & JS framework</p>
+          <span class="divider w-50" height="2"><i class=""></i></span>
+
+          <div class="sm:flex justify-around py-1 select-none">
+            <ul class="inline-flex capitalize children:opacity-50">
+              <li class="hover:text-dark-900 solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1">
+                <a href="https://www.npmjs.com/package/opencss" class="">Get started</a>
+              </li>
+              <li class="hover:text-dark-900 solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1">
+                <a href="https://github.com/opencss-dev/opencss" class="">view on GitHub</a>
+              </li>
+              <li class="hover:text-dark-900 solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1">
+                <a href="showcase.html" class="">documentation</a>
+              </li>
+              <li class="hover:text-dark-900 solid border-0 hover:border-b-2 border-primary hover:ease-in mx-1">
+                <a href="https://github.com/opencss-dev/opencss/issues" class="">Report Bug</a>
+              </li>
+              <li class="hover:text-dark-900 hover:ease-in p-1"><a href="#support" class="">
+                  <i class="fa-regular fa-question-circle"></i></a></li>
+            </ul>
+          </div>
+          <p><a id="href" href="https://cdn.jsdelivr.net/npm/opencss@2.0.0/dist/open.css"></a></p>
+        </div>
+      </div>
+
+      <div class="sm:absolute sm:bottom-10 sm:top-80 top-15 flex self-center z-1 bg-none rounded-pill p-0 g-1 size-y-48 overflow-visible">
+        <button onclick="$_('href', 'https\:\/\/github.com\/opencss-dev\/opencss.git')" class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="follow on github">
+          <i class="fa-brands fa-github bc-github-6"></i>
+        </button>
+
+        <button onclick="$_('href', 'https\:\/\/www.npmjs.com\/package\/opencss')" class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="follow on npm">
+          <i class="fa-brands fa-npm bc-npm"></i>
+        </button>
+
+        <button onclick="cdn_copy()" class="bg-dark rounded-full p-0 size-48 hover:mb-1 hover:scale-25 ease-in-out" title="start opencss cdn">
+          <i id="cdn_check" class="fa-solid fa-link"></i>
+        </button>
+      </div>
+    </section>
+
+    <!--  -->
+    <div class="p-3 text-center">
+      <div class="px-6">
+
+        <div class="row">
+          <div class="span-t12">
+            <span class="divider"><h2 class="font:comfortaa bold text-primary">openCSS Features</h2></span>
+
+            <p class="font:21 m-0 px-1 py-2">Designed to be flexibile. openCSS offer a range of utility classes, mixins, and variables that can be customized and combined to create unique designs.</p>
+          </div>
+        </div>
+
+        <div class="spacer-y-50"></div>
+
+        <div class="row g-3">
+
+          <div class="flex-4 p-2 px-3 rounded-10 hover:shadow-xl ease-in hover:shadow-xl ease-in">
+            <div class="fs-1 text-center"><i class="fa-brands fa-sass"></i></div>
+            <!-- <h3 class="text-center text-light-500">SASS</h3> -->
+            <p class="m-0">SCSS-based for easy extension, customization and maintenance, with optimized CSS compilation.</p>
+          </div>
+
+          <div class="flex-4 p-2 px-3 rounded-10 hover:shadow-xl ease-in">
+            <div class="fs-1 text-center"><i class="fa-solid fa-object-group"></i></div>
+            <!-- <h3 class="text-center text-light-500">Responsive Fluid Grid</h3> -->
+            <p class="m-0">Grid system is built on a familiar 12 column fluid grid, so you avoid the need to learn something entirely new.</p>
+          </div>
+
+          <div class="flex-4 p-2 px-3 rounded-10 hover:shadow-xl ease-in">
+            <div class="fs-1 text-center"><i class="fa-brands fa-creative-commons"></i> <i class="fa-brands fa-creative-commons-by"></i></div>
+            <!-- <h3 class="text-center text-light-500">Free &amp; Open-Source</h3> -->
+            <p class="m-0">openCSS is an open-source project and 100% free for both private and commercial use. </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--  -->
+    
+    <!--  -->
+  </main>
+
+  <footer class="bg-none py-1">
+    <p class="px-3 text-center sm:text-right italic font:12 select-none">
+      <a href="https://github.com/opencss-dev/opencss/releases"
+        class="text-light-100 d-none hover:d-none hover:fg-dark">opencss v.2.0.0</a>
+    </p>
+  </footer>
+
+  <script>
+    let cdn_copy = () => {
+
+      try {
+        // Copy opencss cdn to your clipboard
+        let cdn_check = DOM('#cdn_check')
+
+        let i = 1;
+        let timer = 100;
+        let saved = () => {
+          setTimeout(() => {
+            i++
+            classlist('#cdn_check', ['fa-link', 'fa-check', 'fg-green'])
+
+            if (i <= 2) {
+              if (i == 2) { timer = 1000 };
+              saved()
+            }
+          }, timer);
+        }
+        strcopy('https://cdn.jsdelivr.net/npm/opencss@1.1.0/dist/open.min.css')
+        saved()
+      } catch (error) {
+      }
+    }
+
+    // no options
+    // contextClick: prevent right click
+    // true  = enable right click
+    // false = desable right click
+    const contextClick = false;
+    window.oncontextmenu = (e) => {
+      if (contextClick == false) {
+        e.preventDefault();
+      }
+    }
+
+  </script>
+</body>
+
+</html>

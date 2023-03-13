@@ -1,0 +1,134 @@
+@use 'sass:map';
+@use 'sass:math';
+
+// @font-face & @google-fonts
+@use '../../webfonts/lib' as webfonts;
+$_webfonts: webfonts.$utility;
+
+@each $font_name, $font_family in map.merge($font_face, $_webfonts) {
+  .#{$font_name} {
+    font-family: $font_family
+  }
+}
+
+@each $font_name, $font_family in map.merge($font_face, $_webfonts) {
+  @include create-new-variant-of(font, $font_name) {
+    font-family: $font_family
+  }
+}
+
+// @fontawessome
+@if $fa_minify {
+  @import url('#{$webfonts_path}/@fontawesome/css/all.min.css');
+} 
+@else {
+  @import url('#{$webfonts_path}/@fontawesome/css/all.css');
+}
+
+// Typography
+@each $i, $size in merge(map.get($_default, fontSize), ('small': small, 'smaller': smaller, 'x-small': x-small, 'xx-small': xx-small, 'large': large, 'x-large': x-large, 'xx-large': xx-large, 'larger': larger, 'medium': medium)) {
+  @include each($i) {
+    @if type-of($i) == number {
+      .fs-#{$i} {
+        font-size: $size
+      }
+
+      @include create-pseudo-variant-of(fs-#{$i}) {
+        font-size: $size
+      }
+    } @else {
+      .#{$i} {
+        font-size: $size
+      }
+
+      @include create-pseudo-variant-of(#{$i}) {
+        font-size: $size
+      }
+    }
+  }
+}
+
+// 
+@each $i, $values in $font-utility {
+  @include create-new-variant-of(font, $i) {
+    font-size: $i * $font-unit;
+    @if ( $i <= 6) {
+      font-size: default(fontSize, $i);
+    } @else if ( $i < 72) {
+      font-size: clamp($i * .75px, 5vw, $i * 1px);
+    } @else {
+      font-size: clamp($i * .75px, 10vw, $i * 1.5px);
+    }
+  }
+}
+
+@include until($_breakpoint-xs) {
+  @each $i, $values in $font-utility {
+    @include create-new-variant-of(font, $i) {
+      font-size: $i * $font-unit;
+
+      @if ( $i < 72) {
+        font-size: clamp($i * .5px, 2.5vw, $i * 1px);
+      } @else {
+        font-size: clamp($i * .5px, 5vw, $i * 1.5px);
+      }
+    }
+  }
+}
+
+//
+@each $i, $size in merge(map.get($_default, fontSize), ('small': small, 'smaller': smaller, 'x-small': x-small, 'xx-small': xx-small, 'large': large, 'x-large': x-large, 'xx-large': xx-large, 'larger': larger, 'medium': medium)) {
+  @include each($i) {
+    @if type-of($i) == number {
+      q.qs-#{$i} {
+        &::before, &::after {
+          font-size: $size;
+          line-height: normal
+        }
+      }      
+    }
+  }
+}
+
+//
+$weight : (bold bolder normal lighter);
+@each $font_weight in $weight {
+  .#{$font_weight} {
+    font-weight: $font_weight
+  }
+}
+
+@each $i, $weight in map.get($_default, fontWeight) {
+  @include each($i) {
+    .fw-#{$i} {
+      font-weight: $weight
+    }
+    
+    @include create-pseudo-variant-of(fw-#{$i}) {
+      font-weight: $weight
+    }
+  }  
+}
+
+@each $key, $style in map.get($_default, fontStyle) {
+  .#{$key} {
+    font-style: $style
+  }
+    
+  @include create-pseudo-variant-of(#{$key}) {
+    font-style: $style
+  }
+}
+
+// Line height
+@each $lh, $value in map.get($_default, lineHeight) {
+  @include each($lh) {
+    .lh-#{$lh} {
+      line-height: $value
+    }
+    
+    @include breakpoint-from(lh-#{$lh}) {
+      line-height: $value
+    }
+  }
+}
